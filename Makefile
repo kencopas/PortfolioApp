@@ -6,7 +6,7 @@ REGISTRY=ghcr.io
 NAMESPACE=kencopas
 BACKEND_IMAGE=$(REGISTRY)/$(NAMESPACE)/portfolio-backend
 FRONTEND_IMAGE=$(REGISTRY)/$(NAMESPACE)/portfolio-frontend
-TAG:=$(shell git rev-parse --short HEAD)
+TAG ?= $(shell git rev-parse --short HEAD)
 
 COMPOSE_FILE=infra/docker-compose.yml
 
