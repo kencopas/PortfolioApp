@@ -68,7 +68,10 @@ deploy:
 	TAG=${DEPLOY_TAG} docker compose -f ${COMPOSE_FILE} pull
 
 	@echo "Reconciling containers..."
-	TAG=${DEPLOY_TAG} docker compose -f ${COMPOSE_FILE} up -d --remove-orphans --force-recreate nginx
+	TAG=${DEPLOY_TAG} docker compose -f ${COMPOSE_FILE} up -d --remove-orphans
+
+	@echo "Restarting reverse proxy..."
+	docker compose restart nginx
 
 # ===============================
 # Restart
