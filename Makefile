@@ -58,7 +58,7 @@ release:
 	git push origin main
 
 	@echo "Deploying to server..."
-	ssh home-server "cd ~/PortfolioApp && DEPLOY_TAG=$(TAG) make deploy"
+	ssh home-server "cd ~/PortfolioApp && git pull origin main && DEPLOY_TAG=$(TAG) make deploy"
 
 	@echo "Release complete."
 
@@ -67,8 +67,6 @@ release:
 # ===============================
 
 deploy:
-	@echo "Pulling latest infra config..."
-	git pull origin main
 
 	@echo "Pulling updated images..."
 	TAG=${DEPLOY_TAG} docker compose -f ${COMPOSE_FILE} pull
