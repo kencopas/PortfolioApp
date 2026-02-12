@@ -8,13 +8,23 @@ services:
     depends_on:
       - backend
       - frontend
+    networks:
+      - app_net
 
   backend:
     image: ghcr.io/kencopas/portfolio-backend:${TAG}
     expose:
       - "8000"
+    networks:
+      - app_net
 
   frontend:
     image: ghcr.io/kencopas/portfolio-frontend:${TAG}
     expose:
       - "80"
+    networks:
+      - app_net
+
+networks:
+  app_net:
+    driver: bridge
