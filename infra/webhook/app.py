@@ -8,7 +8,7 @@ from flask import Flask, request, abort
 app = Flask(__name__)
 
 WEBHOOK_SECRET = os.environ.get("WEBHOOK_SECRET", "").encode()
-DEPLOY_SCRIPT = os.environ.get("DEPLOY_SCRIPT", "/infra/scripts/deploy.sh")
+DEPLOY_SCRIPT = os.environ.get("DEPLOY_SCRIPT", "../scripts/deploy.sh")
 ALLOWED_REF = os.environ.get("ALLOWED_REF", "refs/heads/main")
 
 def verify_signature(raw_body: bytes, signature_header: str) -> bool:
