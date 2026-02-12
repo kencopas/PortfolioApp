@@ -21,6 +21,11 @@ build:
 		--platform linux/amd64 \
 		-t ${FRONTEND_IMAGE}:$(TAG) \
 		--push ./frontend
+	
+	docker buildx build \
+		--platform linux/amd64 \
+		-t ${NGINX_IMAGE}:$(TAG) \
+		--push ./infra/nginx
 
 # ===============================
 # Push
@@ -29,6 +34,7 @@ build:
 push:
 	docker push ${BACKEND_IMAGE}:$(TAG)
 	docker push ${FRONTEND_IMAGE}:$(TAG)
+	docker push ${NGINX_IMAGE}:${TAG}
 
 # ===============================
 # Pull (Server Side)
