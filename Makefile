@@ -61,10 +61,10 @@ deploy:
 	git pull origin main
 
 	@echo "Pulling updated images..."
-	docker compose -f $(COMPOSE_FILE) pull
+	TAG=$(TAG) docker compose -f $(COMPOSE_FILE) pull
 
 	@echo "Reconciling containers..."
-	docker compose -f $(COMPOSE_FILE) up -d --remove-orphans
+	TAG=$(TAG) docker compose -f $(COMPOSE_FILE) up -d --remove-orphans
 
 # ===============================
 # Restart
