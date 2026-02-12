@@ -2,12 +2,8 @@
 # Config
 # ===============================
 
-REGISTRY=ghcr.io
-NAMESPACE=kencopas
-BACKEND_IMAGE=$(REGISTRY)/$(NAMESPACE)/portfolio-backend
-FRONTEND_IMAGE=$(REGISTRY)/$(NAMESPACE)/portfolio-frontend
+include infra/.env
 TAG:=$(shell git rev-parse --short HEAD)
-
 COMPOSE_FILE=infra/docker-compose.yml
 
 # ===============================
@@ -17,12 +13,12 @@ COMPOSE_FILE=infra/docker-compose.yml
 build:
 	docker buildx build \
 		--platform linux/amd64 \
-		-t $(BACKEND_IMAGE):$(TAG) \
+		-t ${BACKEND_IMAGE}:$(TAG) \
 		--push ./backend
 
 	docker buildx build \
 		--platform linux/amd64 \
-		-t $(FRONTEND_IMAGE):$(TAG) \
+		-t ${FRONTEND_IMAGE}:$(TAG) \
 		--push ./frontend
 
 # ===============================
@@ -30,15 +26,15 @@ build:
 # ===============================
 
 push:
-	docker push $(BACKEND_IMAGE):$(TAG)
-	docker push $(FRONTEND_IMAGE):$(TAG)
+	docker push ${BACKEND_IMAGE}:$(TAG)
+	docker push ${FRONTEND_IMAGE}:$(TAG)
 
 # ===============================
 # Pull (Server Side)
 # ===============================
 
 pull:
-	docker compose -f $(COMPOSE_FILE) pull
+	docker compose -f ${COMPOSE_FILE} pull
 
 # ===============================
 # Release
@@ -68,18 +64,18 @@ deploy:
 	git pull origin main
 
 	@echo "Pulling updated images..."
-	TAG=${DEPLOY_TAG} docker compose -f $(COMPOSE_FILE) pull
+	TAG=${DEPLOY_TAG} docker compose -f ${COMPOSE_FILE} pull
 
 	@echo "Reconciling containers..."
-	TAG=${DEPLOY_TAG} docker compose -f $(COMPOSE_FILE) up -d --remove-orphans
+	TAG=${DEPLOY_TAG} docker compose -f ${COMPOSE_FILE} up -d --remove-orphans
 
 # ===============================
 # Restart
 # ===============================
 
 restart:
-	docker compose -f $(COMPOSE_FILE) down
-	docker compose -f $(COMPOSE_FILE) up -d
+	docker compose -f ${COMPOSE_FILE} down
+	docker compose -f ${COMPOSE_FILE} up -d
 
 # ===============================
 # Dev
