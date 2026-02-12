@@ -18,3 +18,15 @@ services:
     image: ghcr.io/kencopas/frontend:latest
     expose:
       - "80"
+  
+  webhook:
+    build: ./webhook
+    environment:
+      - WEBHOOK_SECRET=${WEBHOOK_SECRET}
+      - DEPLOY_SCRIPT=/infra/scripts/deploy.sh
+      - ALLOWED_REF=refs/heads/main
+    volumes:
+      - ./scripts:/infra/scripts:ro
+      - /var/run/docker.sock:/var/run/docker.sock
+    expose:
+      - "9001"

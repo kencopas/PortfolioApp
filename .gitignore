@@ -1,0 +1,81 @@
+############################
+# OS / Editor Noise
+############################
+.DS_Store
+Thumbs.db
+*.swp
+*.swo
+*.tmp
+*.bak
+
+############################
+# Python (Backend + Webhook)
+############################
+__pycache__/
+*.py[cod]
+*.pyo
+*.pyd
+*.so
+*.egg-info/
+.eggs/
+.env
+.env.*
+.venv/
+venv/
+pip-wheel-metadata/
+
+############################
+# Node (Frontend)
+############################
+node_modules/
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+pnpm-debug.log*
+.next/
+dist/
+build/
+
+############################
+# Docker
+############################
+*.log
+docker-compose.override.yml
+
+############################
+# Infra Secrets
+############################
+infra/.env
+infra/**/.env
+
+############################
+# Cloudflared Credentials
+############################
+infra/cloudflared/*.json
+*.pem
+
+############################
+# SSH Keys
+############################
+*.key
+*.pem
+*.pub
+
+############################
+# Testing / Coverage
+############################
+coverage/
+htmlcov/
+.pytest_cache/
+
+############################
+# IDE
+############################
+.vscode/
+.idea/
+
+############################
+# Misc
+############################
+*.sqlite3
+*.db
