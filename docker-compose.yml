@@ -24,20 +24,6 @@ services:
       - "80"
     networks:
       - app_net
-  
-  uptime-kuma:
-    image: louislam/uptime-kuma:1
-    container_name: uptime-kuma
-    restart: unless-stopped
-    volumes:
-      - uptime_kuma_data:/app/data
-    networks:
-      - app_net
-    ports:
-      - "127.0.0.1:3001:3001"
-
-volumes:
-  uptime_kuma_data:
 
 networks:
   app_net:
