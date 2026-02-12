@@ -14,17 +14,17 @@ jobs:
       - uses: actions/checkout@v4
 
       - name: Log in to GHCR
-        run: echo "${{ secrets.GHCR_TOKEN }}" | docker login ghcr.io -u USERNAME --password-stdin
+        run: echo "${{ secrets.GHCR_TOKEN }}" | docker login ghcr.io -u kencopas --password-stdin
 
       - name: Build and Push Backend
         run: |
-          docker build -t ghcr.io/USERNAME/backend:latest ./backend
-          docker push ghcr.io/USERNAME/backend:latest
+          docker build -t ghcr.io/kencopas/backend:latest ./backend
+          docker push ghcr.io/kencopas/backend:latest
 
       - name: Build and Push Frontend
         run: |
-          docker build -t ghcr.io/USERNAME/frontend:latest ./frontend
-          docker push ghcr.io/USERNAME/frontend:latest
+          docker build -t ghcr.io/kencopas/frontend:latest ./frontend
+          docker push ghcr.io/kencopas/frontend:latest
 
       - name: Deploy to VM
         uses: appleboy/ssh-action@v1.0.3
