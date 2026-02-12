@@ -6,6 +6,8 @@ REGISTRY=ghcr.io
 NAMESPACE=kencopas
 BACKEND_IMAGE=$(REGISTRY)/$(NAMESPACE)/portfolio-backend
 FRONTEND_IMAGE=$(REGISTRY)/$(NAMESPACE)/portfolio-frontend
+TAG:=$(shell git rev-parse --short HEAD)
+
 COMPOSE_FILE=infra/docker-compose.yml
 
 # ===============================
@@ -36,9 +38,6 @@ pull:
 # ===============================
 
 release:
-
-	RELEASE_TAG=$(shell git rev-parse --short HEAD)
-
 	@echo "Building images..."
 	make build
 
@@ -49,7 +48,7 @@ release:
 	git push origin main
 
 	@echo "Deploying to server..."
-	ssh home-server "cd ~/PortfolioApp && TAG=$(RELEASE_TAG) make deploy"
+	ssh home-server "cd ~/PortfolioApp && DEPLOY_TAG=$(TAG) make deploy"
 
 	@echo "Release complete."
 
@@ -62,10 +61,10 @@ deploy:
 	git pull origin main
 
 	@echo "Pulling updated images..."
-	TAG=$(TAG) docker compose -f $(COMPOSE_FILE) pull
+	TAG=$(DEPLOY_TAG) docker compose -f $(COMPOSE_FILE) pull
 
 	@echo "Reconciling containers..."
-	TAG=$(TAG) docker compose -f $(COMPOSE_FILE) up -d --remove-orphans
+	TAG=$(DEPLOY_TAG) docker compose -f $(COMPOSE_FILE) up -d --remove-orphans
 
 # ===============================
 # Restart
