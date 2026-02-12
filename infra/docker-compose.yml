@@ -12,14 +12,14 @@ services:
       - app_net
 
   backend:
-    image: ghcr.io/kencopas/${BACKEND_IMAGE}:${TAG}
+    image: ${BACKEND_IMAGE}:${TAG}
     expose:
       - "8000"
     networks:
       - app_net
 
   frontend:
-    image: ghcr.io/kencopas/${FRONTEND_IMAGE}:${TAG}
+    image: ${FRONTEND_IMAGE}:${TAG}
     expose:
       - "80"
     networks:
