@@ -3,6 +3,7 @@
 # ===============================
 
 include infra/.env
+export
 TAG:=$(shell git rev-parse --short HEAD)
 COMPOSE_FILE=infra/docker-compose.yml
 
