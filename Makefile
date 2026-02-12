@@ -2,10 +2,23 @@
 # Config
 # ===============================
 
-include infra/.env
+# Include environment variables
+include .env
 export
+
+# SSH / Server
+SSH_COMMAND="ssh home-server"
+SERVER_REPO_PATH="~/PortfolioApp"
+
+# Docker Compose
+PROD_COMPOSE_FILE=./docker-compose.yml
+DEV_COMPOSE_FILE=./docker-compose.dev.yml
+
+# Docker Images
+BACKEND_PATH=./backend
+FRONTEND_PATH=./frontend
+NGINX_PATH=./nginx
 TAG:=$(shell git rev-parse --short HEAD)
-COMPOSE_FILE=infra/docker-compose.yml
 
 # ===============================
 # Build
@@ -15,17 +28,17 @@ build:
 	docker buildx build \
 		--platform linux/amd64 \
 		-t ${BACKEND_IMAGE}:$(TAG) \
-		--push ./backend
+		--push $(BACKEND_PATH)
 
 	docker buildx build \
 		--platform linux/amd64 \
 		-t ${FRONTEND_IMAGE}:$(TAG) \
-		--push ./frontend
+		--push $(FRONTEND_PATH)
 	
 	docker buildx build \
 		--platform linux/amd64 \
 		-t ${NGINX_IMAGE}:$(TAG) \
-		--push ./infra/nginx
+		--push $(NGINX_PATH)
 
 # ===============================
 # Push
@@ -41,7 +54,7 @@ push:
 # ===============================
 
 pull:
-	docker compose -f ${COMPOSE_FILE} pull
+	docker compose -f ${PROD_COMPOSE_FILE} pull
 
 # ===============================
 # Release
@@ -54,11 +67,8 @@ release:
 	@echo "Pushing images to GHCR..."
 	make push
 
-	@echo "Pushing git to origin/main..."
-	git push origin main
-
 	@echo "Deploying to server..."
-	ssh home-server "cd ~/PortfolioApp && git pull origin main && DEPLOY_TAG=$(TAG) make deploy"
+	$(SSH_COMMAND) "cd $(SERVER_REPO_PATH) && git pull origin main && DEPLOY_TAG=$(TAG) make deploy"
 
 	@echo "Release complete."
 
@@ -69,25 +79,25 @@ release:
 deploy:
 
 	@echo "Pulling updated images..."
-	TAG=${DEPLOY_TAG} docker compose -f ${COMPOSE_FILE} pull
+	TAG=${DEPLOY_TAG} docker compose -f ${PROD_COMPOSE_FILE} pull
 
 	@echo "Reconciling containers..."
-	TAG=${DEPLOY_TAG} docker compose -f ${COMPOSE_FILE} up -d --remove-orphans
+	TAG=${DEPLOY_TAG} docker compose -f ${PROD_COMPOSE_FILE} up -d --remove-orphans
 
 # ===============================
 # Restart
 # ===============================
 
 restart:
-	docker compose -f ${COMPOSE_FILE} down
-	docker compose -f ${COMPOSE_FILE} up -d
+	docker compose -f ${PROD_COMPOSE_FILE} down
+	docker compose -f ${PROD_COMPOSE_FILE} up -d
 
 # ===============================
 # Dev
 # ===============================
 
 dev:
-	docker compose -f infra/docker-compose.dev.yml up --build
+	docker compose -f $(DEV_COMPOSE_FILE) up --build
 
 # ===============================
 # Cleanup
