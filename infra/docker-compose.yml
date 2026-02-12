@@ -10,11 +10,11 @@ services:
       - frontend
 
   backend:
-    image: ghcr.io/kencopas/backend:${TAG}
+    image: ghcr.io/kencopas/portfolio-backend:${TAG}
     expose:
       - "8000"
 
   frontend:
-    image: ghcr.io/kencopas/frontend:${TAG}
+    image: ghcr.io/kencopas/portfolio-frontend:${TAG}
     expose:
       - "80"
