@@ -15,8 +15,15 @@ COMPOSE_FILE=infra/docker-compose.yml
 # ===============================
 
 build:
-	docker build -t $(BACKEND_IMAGE):$(TAG) ./backend
-	docker build -t $(FRONTEND_IMAGE):$(TAG) ./frontend
+	docker buildx build \
+		--platform linux/amd64 \
+		-t $(BACKEND_IMAGE):$(TAG) \
+		--push ./backend
+
+	docker buildx build \
+		--platform linux/amd64 \
+		-t $(FRONTEND_IMAGE):$(TAG) \
+		--push ./frontend
 
 # ===============================
 # Push
