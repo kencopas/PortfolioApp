@@ -38,6 +38,8 @@ pull:
 # ===============================
 
 deploy:
+	git pull origin main
+	docker compose -f $(COMPOSE_FILE) pull
 	docker compose -f $(COMPOSE_FILE) up -d --remove-orphans
 
 # ===============================
