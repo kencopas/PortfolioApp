@@ -6,7 +6,7 @@ REGISTRY=ghcr.io
 NAMESPACE=kencopas
 BACKEND_IMAGE=$(REGISTRY)/$(NAMESPACE)/portfolio-backend
 FRONTEND_IMAGE=$(REGISTRY)/$(NAMESPACE)/portfolio-frontend
-TAG=latest
+TAG:=$(shell git rev-parse --short HEAD)
 
 COMPOSE_FILE=infra/docker-compose.yml
 
@@ -48,7 +48,7 @@ release:
 	git push origin main
 
 	@echo "Deploying to server..."
-	ssh home-server "cd ~/PortfolioApp && make deploy"
+	ssh home-server "cd ~/PortfolioApp && TAG=$(TAG) make deploy"
 
 	@echo "Release complete."
 
