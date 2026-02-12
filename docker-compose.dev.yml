@@ -1,3 +1,5 @@
+name: portfolioapp
+
 services:
   backend:
     build:

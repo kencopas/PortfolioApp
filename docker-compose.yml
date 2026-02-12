@@ -1,3 +1,5 @@
+name: portfolioapp
+
 services:
   nginx:
     image: ${NGINX_IMAGE}:${TAG}

@@ -7,8 +7,8 @@ include .env
 export
 
 # SSH / Server
-SSH_COMMAND="ssh home-server"
-SERVER_REPO_PATH="~/PortfolioApp"
+SSH_COMMAND=ssh home-server
+SERVER_REPO_PATH=~/PortfolioApp
 
 # Docker Compose
 PROD_COMPOSE_FILE=./docker-compose.yml
