@@ -3,6 +3,8 @@ services:
     image: nginx:stable
     ports:
       - "8080:80"
+    volumes:
+      - ./nginx/conf.d:/etc/nginx/conf.d
     depends_on:
       - backend
       - frontend
@@ -15,4 +17,4 @@ services:
   frontend:
     image: ghcr.io/kencopas/frontend:latest
     expose:
-      - "3000"
+      - "80"
