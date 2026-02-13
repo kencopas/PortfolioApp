@@ -9,6 +9,7 @@ export
 # SSH / Server
 SSH_COMMAND=ssh home-server
 SERVER_REPO_PATH=~/PortfolioApp
+SERVER_OS=linux/amd64
 
 # Docker Compose
 PROD_COMPOSE_FILE=./docker-compose.yml
@@ -26,17 +27,17 @@ TAG:=$(shell git rev-parse --short HEAD)
 
 build:
 	docker buildx build \
-		--platform linux/amd64 \
+		--platform $(SERVER_OS) \
 		-t ${BACKEND_IMAGE}:$(TAG) \
 		--push $(BACKEND_PATH)
 
 	docker buildx build \
-		--platform linux/amd64 \
+		--platform $(SERVER_OS) \
 		-t ${FRONTEND_IMAGE}:$(TAG) \
 		--push $(FRONTEND_PATH)
 	
 	docker buildx build \
-		--platform linux/amd64 \
+		--platform $(SERVER_OS) \
 		-t ${NGINX_IMAGE}:$(TAG) \
 		--push $(NGINX_PATH)
 
