@@ -2,10 +2,6 @@
 # Config
 # ===============================
 
-# Include environment variables
-include .env
-export
-
 # SSH / Server
 SSH_COMMAND=ssh home-server
 SERVER_REPO_PATH=~/PortfolioApp
@@ -22,10 +18,15 @@ SERVICES_DIR=./services
 
 BACKEND_PATH=$(SERVICES_DIR)/backend
 FRONTEND_PATH=$(SERVICES_DIR)/frontend
-
 NGINX_PATH=./infra/nginx
 
 TAG:=$(shell git rev-parse --short HEAD)
+
+# Environment variables
+ENV_PATH=./infra/env/.env
+
+include $(ENV_PATH)
+export
 
 # ===============================
 # Build
