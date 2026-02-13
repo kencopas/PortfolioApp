@@ -19,17 +19,28 @@ Copy the `.env.example` from the root and create a `.env` file. You should only 
 The following is the intended file structure:
 
 ```
-├── .env
+.
 ├── Makefile
-├── docker-compose.yml
-├── service1/
-│   ├── Dockerfile
-│   └── ...
-├── service2/
-│   ├── Dockerfile
-│   └── ...
-├── ...
-└── docs/
+├── infra
+│   ├── compose
+│   │   ├── docker-compose.dev.yml
+│   │   └── docker-compose.prod.yml
+│   ├── env
+│   │   ├── dev.env
+│   │   └── prod.env
+│   └── nginx
+│       ├── Dockerfile
+│       └── conf.d/
+└── services
+    ├── backend
+    │   ├── .env
+    │   ├── Dockerfile
+    │   └── ...
+    ├── frontend
+    │   ├── .env
+    │   ├── Dockerfile
+    │   └── ...
+    └── ...
 ```
 
 Each service is self-contained and containerized. The Makefile handles all things CI/CD as a substitute for GitHub Actions ([see CI/CD section for why](#cicd)).

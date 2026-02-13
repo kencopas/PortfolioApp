@@ -12,13 +12,19 @@ SERVER_REPO_PATH=~/PortfolioApp
 SERVER_OS=linux/amd64
 
 # Docker Compose
-PROD_COMPOSE_FILE=./docker-compose.yml
-DEV_COMPOSE_FILE=./docker-compose.dev.yml
+COMPOSE_DIR=./infra/compose
+
+PROD_COMPOSE_FILE=$(COMPOSE_DIR)/docker-compose.yml
+DEV_COMPOSE_FILE=$(COMPOSE_DIR)/docker-compose.dev.yml
 
 # Docker Images
-BACKEND_PATH=./backend
-FRONTEND_PATH=./frontend
-NGINX_PATH=./nginx
+SERVICES_DIR=./services
+
+BACKEND_PATH=$(SERVICES_DIR)/backend
+FRONTEND_PATH=$(SERVICES_DIR)/frontend
+
+NGINX_PATH=./infra/nginx
+
 TAG:=$(shell git rev-parse --short HEAD)
 
 # ===============================
