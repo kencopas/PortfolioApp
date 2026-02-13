@@ -19,8 +19,7 @@ __pycache__/
 *.so
 *.egg-info/
 .eggs/
-.env
-.env.*
+*.env
 .venv/
 venv/
 pip-wheel-metadata/
