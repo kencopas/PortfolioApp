@@ -36,15 +36,15 @@ export
 
 build-local:
 	docker build \
-		-t ${BACKEND_IMAGE}-$(ENV):$(TAG) \
+		-t ${BACKEND_IMAGE}:$(TAG) \
 		$(BACKEND_PATH)
 
 	docker build \
-		-t ${FRONTEND_IMAGE}-$(ENV):$(TAG) \
+		-t ${FRONTEND_IMAGE}:$(TAG) \
 		$(FRONTEND_PATH)
 
 	docker build \
-		-t ${NGINX_IMAGE}-$(ENV):$(TAG) \
+		-t ${NGINX_IMAGE}:$(TAG) \
 		$(NGINX_PATH)
 
 test-local:
@@ -61,17 +61,17 @@ test-local:
 build:
 	docker buildx build \
 		--platform $(SERVER_OS) \
-		-t ${BACKEND_IMAGE}-$(ENV):$(TAG) \
+		-t ${BACKEND_IMAGE}:$(TAG) \
 		--push $(BACKEND_PATH)
 
 	docker buildx build \
 		--platform $(SERVER_OS) \
-		-t ${FRONTEND_IMAGE}-$(ENV):$(TAG) \
+		-t ${FRONTEND_IMAGE}:$(TAG) \
 		--push $(FRONTEND_PATH)
 
 	docker buildx build \
 		--platform $(SERVER_OS) \
-		-t ${NGINX_IMAGE}-$(ENV):$(TAG) \
+		-t ${NGINX_IMAGE}:$(TAG) \
 		--push $(NGINX_PATH)
 
 # ========================================
@@ -84,7 +84,7 @@ deploy:
 	TAG=$(DEPLOY_TAG) docker compose -f $(COMPOSE_FILE) up -d --remove-orphans
 
 deploy-stage:
-	ENV=stage make build
+	make build
 	$(SSH_COMMAND) "cd $(SERVER_REPO_PATH) && git pull origin main && ENV=stage DEPLOY_TAG=$(TAG) make deploy"
 
 deploy-prod:
