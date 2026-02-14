@@ -2,7 +2,7 @@ name: portfolioapp-prod
 
 services:
   nginx:
-    image: ${NGINX_IMAGE}:${TAG}
+    image: ${NGINX_IMAGE}-prod:${TAG}
     container_name: nginx-prod
     ports:
       - "8080:80"
@@ -13,7 +13,7 @@ services:
       - app_net_prod
 
   backend:
-    image: ${BACKEND_IMAGE}:${TAG}
+    image: ${BACKEND_IMAGE}-prod:${TAG}
     container_name: backend-prod
     expose:
       - "8000"
@@ -21,7 +21,7 @@ services:
       - app_net_prod
   
   frontend:
-    image: ${FRONTEND_IMAGE}:${TAG}
+    image: ${FRONTEND_IMAGE}-prod:${TAG}
     container_name: frontend-prod
     restart: unless-stopped
     expose:

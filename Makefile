@@ -36,15 +36,15 @@ export
 
 build-local:
 	docker build \
-		-t ${BACKEND_IMAGE}:$(TAG) \
+		-t ${BACKEND_IMAGE}-$(ENV):$(TAG) \
 		$(BACKEND_PATH)
 
 	docker build \
-		-t ${FRONTEND_IMAGE}:$(TAG) \
+		-t ${FRONTEND_IMAGE}-$(ENV):$(TAG) \
 		$(FRONTEND_PATH)
 
 	docker build \
-		-t ${NGINX_IMAGE}:$(TAG) \
+		-t ${NGINX_IMAGE}-$(ENV):$(TAG) \
 		$(NGINX_PATH)
 
 test-local:
@@ -61,17 +61,17 @@ test-local:
 build:
 	docker buildx build \
 		--platform $(SERVER_OS) \
-		-t ${BACKEND_IMAGE}:$(TAG) \
+		-t ${BACKEND_IMAGE}-$(ENV):$(TAG) \
 		--push $(BACKEND_PATH)
 
 	docker buildx build \
 		--platform $(SERVER_OS) \
-		-t ${FRONTEND_IMAGE}:$(TAG) \
+		-t ${FRONTEND_IMAGE}-$(ENV):$(TAG) \
 		--push $(FRONTEND_PATH)
 
 	docker buildx build \
 		--platform $(SERVER_OS) \
-		-t ${NGINX_IMAGE}:$(TAG) \
+		-t ${NGINX_IMAGE}-$(ENV):$(TAG) \
 		--push $(NGINX_PATH)
 
 # ========================================
@@ -83,9 +83,9 @@ deploy:
 	TAG=$(DEPLOY_TAG) docker compose -f $(COMPOSE_FILE) pull
 	TAG=$(DEPLOY_TAG) docker compose -f $(COMPOSE_FILE) up -d --remove-orphans
 
-deploy-staging:
-	make build
-	$(SSH_COMMAND) "cd $(SERVER_REPO_PATH) && git pull origin main && ENV=staging DEPLOY_TAG=$(TAG) make deploy"
+deploy-stage:
+	ENV=stage make build
+	$(SSH_COMMAND) "cd $(SERVER_REPO_PATH) && git pull origin main && ENV=stage DEPLOY_TAG=$(TAG) make deploy"
 
 deploy-prod:
-	$(SSH_COMMAND) "cd $(SERVER_REPO_PATH) && git pull origin main && ENV=production DEPLOY_TAG=$(TAG) make deploy"
+	$(SSH_COMMAND) "cd $(SERVER_REPO_PATH) && git pull origin main && ENV=prod DEPLOY_TAG=$(TAG) make deploy"
