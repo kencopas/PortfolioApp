@@ -1,0 +1,29 @@
+# Environment / secrets
+.env
+.env.*
+!.env.example
+
+# Local Python environment
+.venv
+.python-version
+
+# Cache / bytecode
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+
+# Git
+.git
+.gitignore
+
+# OS / editor junk
+.DS_Store
+.vscode
+.idea
+
+# Tests
+tests/
+
+# Docs
+README.md

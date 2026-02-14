@@ -1,7 +1,6 @@
 from fastapi import FastAPI
+from api.routes import router
+
 
 app = FastAPI()
-
-@app.get("/")
-def read_root():
-    return {"message": "Backend is running and changed!"}
+app.include_router(router)
