@@ -2,7 +2,7 @@ name: portfolioapp-stage
 
 services:
   nginx:
-    image: ${NGINX_IMAGE}:${TAG}
+    image: ${NGINX_IMAGE}-stage:${TAG}
     container_name: nginx-stage
     ports:
       - "8081:80"   # Accessible via Tailscale only
@@ -14,7 +14,7 @@ services:
     restart: unless-stopped
 
   backend:
-    image: ${BACKEND_IMAGE}:${TAG}
+    image: ${BACKEND_IMAGE}-stage:${TAG}
     container_name: backend-stage
     expose:
       - "8000"
@@ -23,7 +23,7 @@ services:
     restart: unless-stopped
 
   frontend:
-    image: ${FRONTEND_IMAGE}:${TAG}
+    image: ${FRONTEND_IMAGE}-stage:${TAG}
     container_name: frontend-stage
     expose:
       - "3000"
