@@ -34,7 +34,7 @@ export
 # Local Testing
 # ========================================
 
-build-local:
+build:
 	docker build \
 		-t ${BACKEND_IMAGE}:$(TAG) \
 		$(BACKEND_PATH)
@@ -47,7 +47,7 @@ build-local:
 		-t ${NGINX_IMAGE}:$(TAG) \
 		$(NGINX_PATH)
 
-test-local:
+test:
 	@echo "Running local test with tag $(TAG)..."
 	TAG=$(TAG) docker compose -f $(COMPOSE_FILE) up --remove-orphans
 
@@ -58,7 +58,7 @@ test-local:
 # Build + Push
 # ========================================
 
-build:
+build-push:
 	docker buildx build \
 		--platform $(SERVER_OS) \
 		-t ${BACKEND_IMAGE}:$(TAG) \
@@ -84,7 +84,7 @@ deploy:
 	TAG=$(DEPLOY_TAG) docker compose --progress=plain -f $(COMPOSE_FILE) up -d --remove-orphans
 
 deploy-stage:
-	make build
+	make build-push
 	$(SSH_COMMAND) "cd $(SERVER_REPO_PATH) && git pull origin main && ENV=stage DEPLOY_TAG=$(TAG) make deploy"
 
 deploy-prod:

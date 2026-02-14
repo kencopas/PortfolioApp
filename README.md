@@ -54,7 +54,7 @@ Each service is self-contained and containerized. Services should rarely expose 
 GitHub Actions is awesome, but nothing is free, secure AND convenient. In my setup, my server is only exposed to inbound SSH traffic from TailScale, a mesh vpn. GitHub runners would be unable to connect and self-hosted runners charge by the minute as of March 2026. So I used a Makefile with the following workflow:
 
 ```
-Developer -> git push origin main && make release
+Developer -> git push origin main && make deploy-prod
 
 Makefile -> Build images and push to GHCR
 Makefile -> SSH from local machine into server (TailScale)
@@ -64,4 +64,4 @@ Makefile -> git pull origin main && Pull images from GHCR
 Makefile -> docker compose up
 ```
 
-Once the changes are in main, you just run make release and the rest happens for you. Your images are built and pushed to GHCR, the makefile connects to the server, pulls the repo and images, and redeploys.
+Once the changes are in main, you just run make deploy-prod and the rest happens for you. Your images are built and pushed to GHCR, the makefile connects to the server, pulls the repo and images, and redeploys.

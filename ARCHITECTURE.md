@@ -191,7 +191,7 @@ Firewall rules:
 ## 5.1 Build Phase
 
 1. Developer pushes to `main`
-2. Developer runs `make release` which does the following:
+2. Developer runs `make deploy-prod` which does the following:
     - Builds images
     - Tags and pushes to GHCR
     - SSH into server
