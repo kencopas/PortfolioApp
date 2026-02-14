@@ -1,0 +1,36 @@
+name: portfolioapp-stage
+
+services:
+  nginx:
+    image: ${NGINX_IMAGE}:${TAG}
+    container_name: nginx-stage
+    ports:
+      - "8081:80"   # Accessible via Tailscale only
+    depends_on:
+      - backend
+      - frontend
+    networks:
+      - app_net_stage
+    restart: unless-stopped
+
+  backend:
+    image: ${BACKEND_IMAGE}:${TAG}
+    container_name: backend-stage
+    expose:
+      - "8000"
+    networks:
+      - app_net_stage
+    restart: unless-stopped
+
+  frontend:
+    image: ${FRONTEND_IMAGE}:${TAG}
+    container_name: frontend-stage
+    expose:
+      - "3000"
+    networks:
+      - app_net_stage
+    restart: unless-stopped
+
+networks:
+  app_net_stage:
+    driver: bridge
