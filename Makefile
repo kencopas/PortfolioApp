@@ -80,8 +80,8 @@ build:
 
 deploy:
 	@echo "Deploying $(ENV) with tag $(DEPLOY_TAG)..."
-	TAG=$(DEPLOY_TAG) docker compose -f $(COMPOSE_FILE) pull
-	TAG=$(DEPLOY_TAG) docker compose -f $(COMPOSE_FILE) up -d --remove-orphans
+	TAG=$(DEPLOY_TAG) docker compose --progress=plain -f $(COMPOSE_FILE) pull
+	TAG=$(DEPLOY_TAG) docker compose --progress=plain -f $(COMPOSE_FILE) up -d --remove-orphans
 
 deploy-stage:
 	make build
@@ -89,3 +89,10 @@ deploy-stage:
 
 deploy-prod:
 	$(SSH_COMMAND) "cd $(SERVER_REPO_PATH) && git pull origin main && ENV=prod DEPLOY_TAG=$(TAG) make deploy"
+
+# ========================================
+# Maintenance
+# ========================================
+
+stage-down:
+	$(SSH_COMMAND) "cd $(SERVER_REPO_PATH) && docker compose -f $(COMPOSE_DIR)/docker-compose.stage.yml down"
