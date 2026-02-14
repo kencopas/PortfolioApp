@@ -19,10 +19,12 @@ __pycache__/
 *.so
 *.egg-info/
 .eggs/
-*.env
+.env*
 .venv/
 venv/
 pip-wheel-metadata/
+
+!*.env*.example
 
 ############################
 # Node (Frontend)
