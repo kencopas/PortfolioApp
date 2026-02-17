@@ -17,6 +17,8 @@ export default function Home() {
     description:
       "How to structure compose files and image tagging for reproducible infrastructure.",
     year: 2026,
+    read_time_minutes: 9,
+    category: "Infrastructure",
   };
 
   return (
@@ -61,8 +63,15 @@ export default function Home() {
         </div>
       </ProjectCard>
 
-      {/* Blog Entry */}
-      <BlogEntry blogEntryData={blogEntryData} />
+      {/* Blog Entries */}
+      <div className="flex flex-col h-90 gap-4">
+        <BlogEntry blogEntryData={blogEntryData} className="flex-1" />
+        <BlogEntry blogEntryData={blogEntryData} className="flex-1" />
+        <BlogEntry blogEntryData={blogEntryData} className="flex-1" />
+      </div>
+
+      {/* Whitespace */}
+      <div className="h-100"></div>
     </div>
   );
 }

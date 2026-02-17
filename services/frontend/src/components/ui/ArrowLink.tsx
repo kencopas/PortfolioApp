@@ -4,18 +4,20 @@ interface ArrowLinkProps {
   href: string;
   children: ReactNode;
   className?: string;
+  newTabOnClick?: boolean;
 }
 
 export default function ArrowLink({
   href,
   children,
   className = "",
+  newTabOnClick = true,
 }: ArrowLinkProps) {
   return (
     <a
       href={href}
-      target="_blank"
-      rel="noopener noreferrer"
+      target={newTabOnClick ? "_blank" : ""}
+      rel={newTabOnClick ? "noopener noreferrer" : ""}
       className={`hover:underline text-sm ${className}`}
     >{`${children} →`}</a>
   );

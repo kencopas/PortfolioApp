@@ -20,20 +20,28 @@ export default function BlogEntry({
 }: BlogEntryProps) {
   const { title, category, description, read_time_minutes, year } =
     blogEntryData;
-  const shouldRenderInfoBar = read_time_minutes || category || year;
 
-  console.log(`shouldRenderInfoBar: ${shouldRenderInfoBar}`);
+  const ftime = read_time_minutes && `${read_time_minutes} min read`;
+  const infoBar = [ftime, category, year].filter(Boolean);
+
+  console.log(`infoBar: ${infoBar}`);
 
   return (
     <div
-      className={`flex flex-col gap-2 border-t border-border my-8 py-2 ${className}`}
+      className={`flex flex-col justify-between gap-2 border-t border-border py-3 ${className}`}
     >
-      <div className="flex justify-between items-center">
-        <h6 className="text-text-primary">{title}</h6>
-        <ArrowLink href="/read-blog">Read</ArrowLink>
+      <div className="flex flex-col gap-0.5">
+        <div className="flex justify-between items-center">
+          <h6 className="text-text-primary font-semibold text-lg">{title}</h6>
+          <ArrowLink href="/read-blog">Read</ArrowLink>
+        </div>
+        {description && <p className="text-text-muted">{description}</p>}
       </div>
-      {description && <p className="text-text-muted">{description}</p>}
-      {shouldRenderInfoBar && <span>{}</span>}
+      {infoBar.length > 0 && (
+        <span className="text-text-muted text-xs font-medium">
+          {infoBar.join(" • ")}
+        </span>
+      )}
     </div>
   );
 }
