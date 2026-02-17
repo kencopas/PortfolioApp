@@ -4,6 +4,7 @@ import TechStack from "@/components/projects/TechStack";
 import { SurfaceHeading, SurfaceSubtext } from "../ui/Typography";
 
 export interface Project {
+  id: string;
   title: string;
   description: ReactNode;
   stack?: string[];

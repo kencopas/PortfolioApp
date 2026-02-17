@@ -25,8 +25,6 @@ export default function BlogEntry({
   const ftime = read_time_minutes && `${read_time_minutes} min read`;
   const infoBar = [ftime, category, year].filter(Boolean);
 
-  console.log(`infoBar: ${infoBar}`);
-
   return (
     <div
       className={`flex flex-col justify-between gap-2 border-t border-border py-3 ${className}`}

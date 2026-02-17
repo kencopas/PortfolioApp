@@ -3,14 +3,22 @@ import Button from "@/components/ui/Button";
 import ProjectCard, { Project } from "@/components/projects/ProjectCard";
 import ArrowLink from "@/components/ui/ArrowLink";
 import BlogEntry, { BlogEntryData } from "@/components/blog/BlogEntry";
+import Section from "@/components/home/Section";
 
 export default function Home() {
   const projectData: Project = {
+    id: "portfolio_app",
     title: "Portfolio App",
     description:
       "Portfolio Application with self-hosted infrastructure, containerized services, and automated secure deployment",
     stack: ["FastAPI", "Next.js", "Docker Compose"],
   };
+  const projects: Project[] = [
+    projectData,
+    projectData,
+    projectData,
+    projectData,
+  ];
 
   const blogEntryData: BlogEntryData = {
     title: "Designing Environment-Aware Docker Deployments",
@@ -52,31 +60,34 @@ export default function Home() {
       </Surface>
 
       {/* Featured Projects Section */}
-
-      {/* Project Card */}
-      <ProjectCard
-        project={projectData}
-        stackMode="horizontal"
-        className="w-full"
-      >
-        <div className="flex gap-4 pt-4">
-          <ArrowLink href="/case-study">View Case Study</ArrowLink>
-          <ArrowLink href="/architecture">View Architecture</ArrowLink>
+      <Section title="Featured Projects">
+        {/* Project Card Grid */}
+        <div className="grid grid-cols-2 gap-6">
+          {projects.map((project, i) => (
+            <ProjectCard key={`${i}-${project.id}`} project={project} />
+          ))}
         </div>
-      </ProjectCard>
+        {/* <ProjectCard
+          project={projectData}
+          stackMode="vertical"
+          className="w-full"
+        >
+          <div className="flex gap-4 pt-4">
+            <ArrowLink href="/case-study">View Case Study</ArrowLink>
+            <ArrowLink href="/architecture">View Architecture</ArrowLink>
+          </div>
+        </ProjectCard> */}
+      </Section>
 
       {/* Technical Writing Section */}
-      <div className="flex flex-col gap-10">
-        <h1 className="text-text-primary text-5xl font-bold text-center">
-          Technical Writing
-        </h1>
+      <Section title="Technical Writing">
         {/* Blog Entries */}
         <Surface className="flex flex-col gap-4">
           <BlogEntry blogEntryData={blogEntryData} className="flex-1" />
           <BlogEntry blogEntryData={blogEntryData} className="flex-1" />
           <BlogEntry blogEntryData={blogEntryData} className="flex-1" />
         </Surface>
-      </div>
+      </Section>
 
       {/* Whitespace */}
       <div className="h-100"></div>

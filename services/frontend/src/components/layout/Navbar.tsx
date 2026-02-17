@@ -1,23 +1,9 @@
 import React, { ReactNode } from "react";
 import Link from "next/link";
 
-interface NavLinkProps {
-  href: string;
-  children: string;
-  className?: string;
-}
-
 interface NavbarProps {
   children: ReactNode;
   title?: string;
-}
-
-export function NavLink({ href, children, className = "" }: NavLinkProps) {
-  return (
-    <Link href={href} className={`hover:opacity-70 transition ${className}`}>
-      {children}
-    </Link>
-  );
 }
 
 export default function Navbar({ children, title = "" }: NavbarProps) {
