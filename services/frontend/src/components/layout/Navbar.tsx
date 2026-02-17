@@ -20,7 +20,7 @@ export function NavLink({ href, children, className = "" }: NavLinkProps) {
   );
 }
 
-export function Navbar({ children, title = "" }: NavbarProps) {
+export default function Navbar({ children, title = "" }: NavbarProps) {
   return (
     <nav className="w-full py-6">
       <div className="relative mx-auto max-w-6xl px-6">

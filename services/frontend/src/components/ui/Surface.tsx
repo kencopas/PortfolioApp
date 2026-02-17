@@ -9,8 +9,8 @@ export default function Surface({ children, className = "" }: SurfaceProps) {
   return (
     <div
       className={`
-        rounded-2xl
-        shadow-md
+        rounded-3xl
+        shadow-lg
         ${className}
       `}
     >
