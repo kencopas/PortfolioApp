@@ -1,5 +1,6 @@
 import React from "react";
 import ArrowLink from "@/components/ui/ArrowLink";
+import { SurfaceHeading, SurfaceSubtext } from "../ui/Typography";
 
 export interface BlogEntryData {
   title: string;
@@ -32,10 +33,10 @@ export default function BlogEntry({
     >
       <div className="flex flex-col gap-0.5">
         <div className="flex justify-between items-center">
-          <h6 className="text-text-primary font-semibold text-lg">{title}</h6>
+          <SurfaceHeading className="text-lg">{title}</SurfaceHeading>
           <ArrowLink href="/read-blog">Read</ArrowLink>
         </div>
-        {description && <p className="text-text-muted">{description}</p>}
+        {description && <SurfaceSubtext>{description}</SurfaceSubtext>}
       </div>
       {infoBar.length > 0 && (
         <span className="text-text-muted text-xs font-medium">

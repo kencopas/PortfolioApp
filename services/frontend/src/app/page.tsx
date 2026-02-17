@@ -24,7 +24,7 @@ export default function Home() {
   return (
     <div className="flex flex-col gap-20">
       {/* Hero */}
-      <Surface className="mx-auto px-8 py-40 text-text-primary bg-background-secondary">
+      <Surface className="mx-auto py-40 text-text-primary">
         <div className="flex flex-col gap-10">
           {/* Hero Title */}
           <h1 className="text-6xl text-center font-semibold">
@@ -51,6 +51,8 @@ export default function Home() {
         </div>
       </Surface>
 
+      {/* Featured Projects Section */}
+
       {/* Project Card */}
       <ProjectCard
         project={projectData}
@@ -63,11 +65,17 @@ export default function Home() {
         </div>
       </ProjectCard>
 
-      {/* Blog Entries */}
-      <div className="flex flex-col h-90 gap-4">
-        <BlogEntry blogEntryData={blogEntryData} className="flex-1" />
-        <BlogEntry blogEntryData={blogEntryData} className="flex-1" />
-        <BlogEntry blogEntryData={blogEntryData} className="flex-1" />
+      {/* Technical Writing Section */}
+      <div className="flex flex-col gap-10">
+        <h1 className="text-text-primary text-5xl font-bold text-center">
+          Technical Writing
+        </h1>
+        {/* Blog Entries */}
+        <Surface className="flex flex-col gap-4">
+          <BlogEntry blogEntryData={blogEntryData} className="flex-1" />
+          <BlogEntry blogEntryData={blogEntryData} className="flex-1" />
+          <BlogEntry blogEntryData={blogEntryData} className="flex-1" />
+        </Surface>
       </div>
 
       {/* Whitespace */}

@@ -1,6 +1,7 @@
 import React, { ReactNode } from "react";
 import Surface from "@/components/ui/Surface";
 import TechStack from "@/components/projects/TechStack";
+import { SurfaceHeading, SurfaceSubtext } from "../ui/Typography";
 
 export interface Project {
   title: string;
@@ -22,14 +23,14 @@ export default function ProjectCard({
   stackMode = "vertical",
 }: ProjectCardProps) {
   return (
-    <Surface
-      className={`mx-auto p-8 text-text-primary bg-background-secondary ${className}`}
-    >
+    <Surface className={`mx-auto text-text-primary ${className}`}>
       <div className="flex flex-col gap-2">
         {/* Project Title */}
-        <h3 className="text-2xl font-semibold">{project.title}</h3>
+        <SurfaceHeading>{project.title}</SurfaceHeading>
+
         {/* Project Description */}
-        <p className="text-text-muted">{project.description}</p>
+        <SurfaceSubtext>{project.description}</SurfaceSubtext>
+
         {/* Project Stack */}
         {project.stack && (
           <TechStack
@@ -38,6 +39,8 @@ export default function ProjectCard({
             className="text-text-secondary py-2"
           />
         )}
+
+        {/* Optional: Buttons / Other */}
         {children}
       </div>
     </Surface>

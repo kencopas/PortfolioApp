@@ -11,6 +11,8 @@ export default function Surface({ children, className = "" }: SurfaceProps) {
       className={`
         rounded-3xl
         shadow-lg
+        bg-background-secondary
+        p-8
         ${className}
       `}
     >
