@@ -1,0 +1,28 @@
+import React, { ReactNode } from "react";
+
+interface TypographyProps {
+  children: ReactNode;
+  className?: string;
+}
+
+export function SectionHeading({ children, className = "" }: TypographyProps) {
+  return (
+    <h1
+      className={`text-text-primary text-5xl font-bold text-center ${className}`}
+    >
+      {children}
+    </h1>
+  );
+}
+
+export function SurfaceHeading({ children, className = "" }: TypographyProps) {
+  return (
+    <h3 className={`text-text-primary text-2xl font-semibold ${className}`}>
+      {children}
+    </h3>
+  );
+}
+
+export function SurfaceSubtext({ children, className = "" }: TypographyProps) {
+  return <p className={`text-text-muted ${className}`}>{children}</p>;
+}

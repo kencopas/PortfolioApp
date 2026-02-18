@@ -1,5 +1,9 @@
 This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
 
+## Links
+
+- [Figma UI Wireframes](https://www.figma.com/site/3gbOmU80SXgYwKtCW5o1gJ/PortfolioApp?node-id=0-1&t=4gnzh8GfBnZy52Y7-1)
+
 ## Getting Started
 
 First, run the development server:
