@@ -1,4 +1,4 @@
-# PortfolioApp — Product Requirements Document (PRD)
+# PortfolioApp — Product Requirements Document
 
 ## 1. Product Overview
 

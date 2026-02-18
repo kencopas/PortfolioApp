@@ -1,7 +1,6 @@
 import Surface from "@/components/ui/Surface";
 import Button from "@/components/ui/Button";
 import ProjectCard, { Project } from "@/components/projects/ProjectCard";
-import ArrowLink from "@/components/ui/ArrowLink";
 import BlogEntry, { BlogEntryData } from "@/components/blog/BlogEntry";
 import Section from "@/components/home/Section";
 
@@ -31,14 +30,13 @@ export default function Home() {
 
   return (
     <div className="flex flex-col gap-20">
-      {/* Hero */}
-      <Surface className="mx-auto py-40 text-text-primary">
-        <div className="flex flex-col gap-10">
+      {/* Hero Section */}
+      <Section>
+        <Surface className="flex flex-col gap-10 mx-auto py-40 text-text-primary">
           {/* Hero Title */}
           <h1 className="text-6xl text-center font-semibold">
             I build secure, production-grade systems from the ground up.
           </h1>
-
           {/* Hero Description */}
           <p className="text-text-muted text-center font-medium text-lg">
             Containerized services. Reverse proxies. Edge routing.
@@ -46,42 +44,25 @@ export default function Home() {
             Every system is built to be reproducible, secure, and
             understandable.
           </p>
-
           {/* Hero Buttons */}
           <div className="flex gap-4 justify-center">
-            <Button className="bg-accent-primary text-white">
-              View Projects
-            </Button>
-            <Button className="border-accent-primary border-2 text-accent-primary">
-              Explore Architecture
-            </Button>
+            <Button style="primary">View Projects</Button>
+            <Button style="secondary">Explore Architecture</Button>
           </div>
-        </div>
-      </Surface>
+        </Surface>
+      </Section>
 
       {/* Featured Projects Section */}
       <Section title="Featured Projects">
-        {/* Project Card Grid */}
         <div className="grid grid-cols-2 gap-6">
           {projects.map((project, i) => (
             <ProjectCard key={`${i}-${project.id}`} project={project} />
           ))}
         </div>
-        {/* <ProjectCard
-          project={projectData}
-          stackMode="vertical"
-          className="w-full"
-        >
-          <div className="flex gap-4 pt-4">
-            <ArrowLink href="/case-study">View Case Study</ArrowLink>
-            <ArrowLink href="/architecture">View Architecture</ArrowLink>
-          </div>
-        </ProjectCard> */}
       </Section>
 
       {/* Technical Writing Section */}
       <Section title="Technical Writing">
-        {/* Blog Entries */}
         <Surface className="flex flex-col gap-4">
           <BlogEntry blogEntryData={blogEntryData} className="flex-1" />
           <BlogEntry blogEntryData={blogEntryData} className="flex-1" />
