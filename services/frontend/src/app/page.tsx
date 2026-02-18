@@ -3,6 +3,7 @@ import Button from "@/components/ui/Button";
 import ProjectCard, { Project } from "@/components/projects/ProjectCard";
 import BlogEntry, { BlogEntryData } from "@/components/blog/BlogEntry";
 import Section from "@/components/home/Section";
+import SlideFade from "@/components/motion/SlideFade";
 
 export default function Home() {
   const projectData: Project = {
@@ -31,43 +32,55 @@ export default function Home() {
   return (
     <div className="flex flex-col gap-20">
       {/* Hero Section */}
-      <Section>
-        <Surface className="flex flex-col gap-10 mx-auto py-40 text-text-primary">
-          {/* Hero Title */}
-          <h1 className="text-6xl text-center font-semibold">
-            I build secure, production-grade systems from the ground up.
+      <Section className="py-45">
+        {/* <Surface className="flex flex-col gap-10 mx-auto py-40 text-text-primary"> */}
+        {/* Hero Title */}
+        <SlideFade>
+          <h1 className="pb-10 text-9xl leading-30 text-center font-semibold text-text-primary">
+            Secure, Scalable Systems.
           </h1>
-          {/* Hero Description */}
+        </SlideFade>
+        {/* Hero Description */}
+        <SlideFade delay={0.4}>
           <p className="text-text-muted text-center font-medium text-lg">
             Containerized services. Reverse proxies. Edge routing.
             <br />
             Every system is built to be reproducible, secure, and
             understandable.
           </p>
-          {/* Hero Buttons */}
-          <div className="flex gap-4 justify-center">
+        </SlideFade>
+        {/* Hero Buttons */}
+        <div className="flex gap-4 justify-center">
+          <SlideFade delay={0.6}>
             <Button style="primary">View Projects</Button>
+          </SlideFade>
+          <SlideFade delay={0.8}>
             <Button style="secondary">Explore Architecture</Button>
-          </div>
-        </Surface>
+          </SlideFade>
+        </div>
+        {/* </Surface> */}
       </Section>
 
       {/* Featured Projects Section */}
       <Section title="Featured Projects">
         <div className="grid grid-cols-2 gap-6">
           {projects.map((project, i) => (
-            <ProjectCard key={`${i}-${project.id}`} project={project} />
+            <SlideFade key={i}>
+              <ProjectCard key={`${i}-${project.id}`} project={project} />
+            </SlideFade>
           ))}
         </div>
       </Section>
 
       {/* Technical Writing Section */}
       <Section title="Technical Writing">
-        <Surface className="flex flex-col gap-4">
-          <BlogEntry blogEntryData={blogEntryData} className="flex-1" />
-          <BlogEntry blogEntryData={blogEntryData} className="flex-1" />
-          <BlogEntry blogEntryData={blogEntryData} className="flex-1" />
-        </Surface>
+        <SlideFade>
+          <Surface className="flex flex-col gap-4">
+            <BlogEntry blogEntryData={blogEntryData} className="flex-1" />
+            <BlogEntry blogEntryData={blogEntryData} className="flex-1" />
+            <BlogEntry blogEntryData={blogEntryData} className="flex-1" />
+          </Surface>
+        </SlideFade>
       </Section>
 
       {/* Whitespace */}

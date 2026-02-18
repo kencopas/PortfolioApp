@@ -1,4 +1,3 @@
-import React from "react";
 import Section from "@/components/home/Section";
 import Surface from "@/components/ui/Surface";
 import Button from "@/components/ui/Button";

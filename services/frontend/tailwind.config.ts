@@ -1,45 +1,46 @@
-import type { Config } from "tailwindcss"
+import type { Config } from "tailwindcss";
 
 const config: Config = {
   darkMode: "class",
-  content: [
-    "./src/**/*.{js,ts,jsx,tsx}",
-  ],
+  content: ["./src/**/*.{js,ts,jsx,tsx}"],
   theme: {
     extend: {
       colors: {
         background: {
-          primary: "#F3D9B9",   // BG 1
-          secondary: "#FAF2E8", // BG 2
+          primary: "#0B0F14", // Main app background (near-black blue)
+          secondary: "#111827", // Slightly lifted section background
         },
 
         surface: {
-          DEFAULT: "#E8C8A8",   // Surface
+          DEFAULT: "#161E2A", // Card / panel surface
+          elevated: "#1C2533", // Hovered / layered surface
         },
 
         border: {
-          DEFAULT: "#C8A98D",
+          DEFAULT: "#243041", // Subtle container border
+          subtle: "#1B2430", // Divider lines
         },
 
         text: {
-          primary: "#3A3128",   // Text 1
-          secondary: "#6E5C4E", // Text 2
-          muted: "#9A8575",
-          dark: "#4A3F35",      // Dark Neutral
+          primary: "#E6EDF3", // Main readable text
+          secondary: "#9FB3C8", // Subtext / metadata
+          muted: "#6B7C93", // Muted labels
+          inverted: "#0B0F14", // For bright buttons
         },
 
         accent: {
-          primary: "#2F3E46",   // Accent 1
-          secondary: "#C47A5A", // Accent 2
+          primary: "#00BFFF", // Neon blue (controlled use)
+          hover: "#1AC8FF", // Slightly brighter hover
+          glow: "#0094FF", // For subtle glow/shadow usage
         },
 
         highlight: {
-          DEFAULT: "#8FA9B3",
+          DEFAULT: "#132238", // Selection or background emphasis
         },
       },
     },
   },
   plugins: [],
-}
+};
 
-export default config
+export default config;
