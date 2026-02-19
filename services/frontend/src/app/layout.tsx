@@ -1,12 +1,12 @@
 import "./globals.css";
 
+import { FaXTwitter } from "react-icons/fa6";
 import type { Metadata, Viewport } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
+import { FaFacebook, FaInstagram, FaGithub, FaYoutube } from "react-icons/fa";
+
 import Navbar from "@/components/layout/Navbar";
 import NavLink from "@/components/layout/NavLink";
-import { FaXTwitter } from "react-icons/fa6";
-import { FaFacebook, FaInstagram, FaGithub, FaYoutube } from "react-icons/fa";
-import { IconContext } from "react-icons";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -34,9 +34,9 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en">
+    <html lang="en" className="bg-background-primary">
       <body
-        className={`${geistSans.variable} ${geistMono.variable} antialiased bg-background-primary`}
+        className={`${geistSans.variable} ${geistMono.variable} antialiased bg-linear-to-tl from-background-primary to-background-secondary`}
       >
         <div className="flex flex-col gap-4 mx-auto w-full max-w-6xl px-6">
           {/* Navbar */}
@@ -50,8 +50,8 @@ export default function RootLayout({
           {children}
 
           {/* Footer */}
-          <footer className="text-text-secondary text-sm flex flex-col gap-10 footer sm:footer-horizontal bg-neutral text-neutral-content pb-30 pt-50">
-            <nav className="flex gap-15 justify-center">
+          <footer className="text-text-secondary text-sm flex flex-col gap-10 items-center footer sm:footer-horizontal bg-neutral text-neutral-content pb-30 pt-50">
+            <nav className="grid grid-cols-3 md:grid-cols-6 justify-items-center w-full md:w-2/3">
               <a className="link link-hover py-3">About</a>
               <a className="link link-hover py-3">Blog</a>
               <a className="link link-hover py-3">Jobs</a>

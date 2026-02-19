@@ -17,17 +17,17 @@ export default function WritingSection({
 }: WritingSectionProps) {
   return (
     <Section title={title} className={className}>
-      <SlideFade>
-        <Surface className="flex flex-col gap-4">
-          {blogEntries.map((blogEntryData) => (
+      <div className="flex flex-col gap-6">
+        {blogEntries.map((blogEntryData, i) => (
+          <SlideFade key={`${i}-${blogEntryData.id}`} y={20}>
             <BlogEntry
-              key={blogEntryData.id}
+              key={`${i}-${blogEntryData.id}`}
               blogEntryData={blogEntryData}
               className="flex-1"
             />
-          ))}
-        </Surface>
-      </SlideFade>
+          </SlideFade>
+        ))}
+      </div>
     </Section>
   );
 }

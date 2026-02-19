@@ -37,7 +37,7 @@ export default function ProjectCard({
           <TechStack
             stack={project.stack || []}
             stackMode={stackMode}
-            className="text-text-secondary py-2"
+            className="text-text-secondary text-xs md:text-base pt-2"
           />
         )}
 

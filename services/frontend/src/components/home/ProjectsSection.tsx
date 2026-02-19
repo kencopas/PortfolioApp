@@ -16,9 +16,9 @@ export default function ProjectsSection({
 }: ProjectsSectionProps) {
   return (
     <Section title={title} className={className}>
-      <div className="grid grid-cols-2 gap-6">
+      <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
         {projects.map((project, i) => (
-          <SlideFade key={i}>
+          <SlideFade y={20} key={i}>
             <ProjectCard key={`${i}-${project.id}`} project={project} />
           </SlideFade>
         ))}
