@@ -13,6 +13,8 @@ export default function Surface({ children, className = "" }: SurfaceProps) {
         shadow-lg
         bg-background-secondary
         p-8
+        border
+        border-border
         ${className}
       `}
     >
