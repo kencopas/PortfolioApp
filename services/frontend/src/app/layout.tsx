@@ -4,6 +4,9 @@ import type { Metadata } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
 import Navbar from "@/components/layout/Navbar";
 import NavLink from "@/components/layout/NavLink";
+import { FaXTwitter } from "react-icons/fa6";
+import { FaFacebook, FaInstagram, FaGithub, FaYoutube } from "react-icons/fa";
+import { IconContext } from "react-icons";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -31,13 +34,37 @@ export default function RootLayout({
         className={`${geistSans.variable} ${geistMono.variable} antialiased bg-background-primary`}
       >
         <div className="flex flex-col gap-4 mx-auto w-full max-w-6xl px-6">
+          {/* Navbar */}
           <Navbar title="Ken Copas">
             <NavLink href="/about">About</NavLink>
             <NavLink href="/blog">Blog</NavLink>
             <NavLink href="/projects">Projects</NavLink>
             <NavLink href="/architecture">Architecture</NavLink>
           </Navbar>
+
           {children}
+
+          {/* Footer */}
+          <footer className="text-text-secondary text-sm flex flex-col gap-10 footer sm:footer-horizontal bg-neutral text-neutral-content pb-30 pt-50">
+            <nav className="flex gap-15 justify-center">
+              <a className="link link-hover py-3">About</a>
+              <a className="link link-hover py-3">Blog</a>
+              <a className="link link-hover py-3">Jobs</a>
+              <a className="link link-hover py-3">Press</a>
+              <a className="link link-hover py-3">Accessibility</a>
+              <a className="link link-hover py-3">Partners</a>
+            </nav>
+            <nav className="flex gap-15 justify-center">
+              <FaFacebook size="20" />
+              <FaInstagram size="20" />
+              <FaXTwitter size="20" />
+              <FaGithub size="20" />
+              <FaYoutube size="20" />
+            </nav>
+            <p className="text-center">
+              © 2026 Kenneth Copas. All rights reserved.
+            </p>
+          </footer>
         </div>
       </body>
     </html>

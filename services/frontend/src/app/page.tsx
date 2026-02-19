@@ -82,9 +82,6 @@ export default function Home() {
           </Surface>
         </SlideFade>
       </Section>
-
-      {/* Whitespace */}
-      <div className="h-100"></div>
     </div>
   );
 }
