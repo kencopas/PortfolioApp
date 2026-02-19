@@ -1,10 +1,10 @@
 import React from "react";
-import BlogEntry, { BlogEntryData } from "@/components/blog/BlogEntry";
-import Section from "@/components/home/Section";
-import Surface from "@/components/ui/Surface";
+import { BlogEntryData } from "@/components/blog/BlogEntry";
+import WritingSection from "@/components/home/WritingSection";
 
 export default function Blog() {
   const blogEntryData: BlogEntryData = {
+    id: "0001",
     title: "Designing Environment-Aware Docker Deployments",
     description:
       "How to structure compose files and image tagging for reproducible infrastructure.",
@@ -12,14 +12,11 @@ export default function Blog() {
     read_time_minutes: 9,
     category: "Infrastructure",
   };
+  const blogEntries: BlogEntryData[] = [
+    blogEntryData,
+    blogEntryData,
+    blogEntryData,
+  ];
 
-  return (
-    <Section title="Technical Writing">
-      <Surface className="flex flex-col gap-4">
-        <BlogEntry blogEntryData={blogEntryData} className="flex-1" />
-        <BlogEntry blogEntryData={blogEntryData} className="flex-1" />
-        <BlogEntry blogEntryData={blogEntryData} className="flex-1" />
-      </Surface>
-    </Section>
-  );
+  return <WritingSection title="Technical Writing" blogEntries={blogEntries} />;
 }

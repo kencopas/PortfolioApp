@@ -1,6 +1,6 @@
 import React from "react";
-import Section from "@/components/home/Section";
-import ProjectCard, { Project } from "@/components/projects/ProjectCard";
+import { Project } from "@/components/projects/ProjectCard";
+import ProjectsSection from "@/components/home/ProjectsSection";
 
 export default function Projects() {
   const projectData: Project = {
@@ -17,13 +17,5 @@ export default function Projects() {
     projectData,
   ];
 
-  return (
-    <Section title="Featured Projects">
-      <div className="grid grid-cols-2 gap-6">
-        {projects.map((project, i) => (
-          <ProjectCard key={`${i}-${project.id}`} project={project} />
-        ))}
-      </div>
-    </Section>
-  );
+  return <ProjectsSection title="Featured Projects" projects={projects} />;
 }

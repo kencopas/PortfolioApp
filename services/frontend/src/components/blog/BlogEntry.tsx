@@ -3,6 +3,7 @@ import ArrowLink from "@/components/ui/ArrowLink";
 import { SurfaceHeading, SurfaceSubtext } from "../ui/Typography";
 
 export interface BlogEntryData {
+  id: string;
   title: string;
   category?: string;
   description?: string;
