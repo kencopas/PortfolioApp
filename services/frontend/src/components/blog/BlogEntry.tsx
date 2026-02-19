@@ -1,6 +1,8 @@
 import React from "react";
+
 import ArrowLink from "@/components/ui/ArrowLink";
-import { SurfaceHeading, SurfaceSubtext } from "../ui/Typography";
+import { SurfaceHeading, SurfaceSubtext } from "@/components/ui/Typography";
+import Surface from "@/components/ui/Surface";
 
 export interface BlogEntryData {
   id: string;
@@ -27,21 +29,25 @@ export default function BlogEntry({
   const infoBar = [ftime, category, year].filter(Boolean);
 
   return (
-    <div
-      className={`flex flex-col justify-between gap-2 border-t border-border py-3 ${className}`}
-    >
-      <div className="flex flex-col gap-0.5">
-        <div className="flex justify-between items-center">
-          <SurfaceHeading className="text-lg">{title}</SurfaceHeading>
-          <ArrowLink href="/read-blog">Read</ArrowLink>
+    <Surface className={className}>
+      <div className="flex justify-between items-start border-t border-border py-3">
+        <div className={`flex flex-col justify-between gap-2 flex-5`}>
+          <div className="flex flex-col gap-0.5">
+            <SurfaceHeading className="text-lg leading-tight">
+              {title}
+            </SurfaceHeading>
+            {description && <SurfaceSubtext>{description}</SurfaceSubtext>}
+          </div>
+          {infoBar.length > 0 && (
+            <span className="text-text-muted text-xs font-medium">
+              {infoBar.join(" • ")}
+            </span>
+          )}
         </div>
-        {description && <SurfaceSubtext>{description}</SurfaceSubtext>}
+        <ArrowLink href="/read-blog" className="flex-1 text-right">
+          Read
+        </ArrowLink>
       </div>
-      {infoBar.length > 0 && (
-        <span className="text-text-muted text-xs font-medium">
-          {infoBar.join(" • ")}
-        </span>
-      )}
-    </div>
+    </Surface>
   );
 }

@@ -50,8 +50,8 @@ export default function RootLayout({
           {children}
 
           {/* Footer */}
-          <footer className="text-text-secondary text-sm flex flex-col gap-10 footer sm:footer-horizontal bg-neutral text-neutral-content pb-30 pt-50">
-            <nav className="flex gap-15 justify-center">
+          <footer className="text-text-secondary text-sm flex flex-col gap-10 items-center footer sm:footer-horizontal bg-neutral text-neutral-content pb-30 pt-50">
+            <nav className="grid grid-cols-3 md:grid-cols-6 justify-items-center w-full md:w-2/3">
               <a className="link link-hover py-3">About</a>
               <a className="link link-hover py-3">Blog</a>
               <a className="link link-hover py-3">Jobs</a>
