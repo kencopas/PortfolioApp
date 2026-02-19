@@ -35,11 +35,7 @@ export default function Navbar({
         ))}
       </ul>
 
-      <NavbarExpandable>
-        {React.Children.map(children, (child) => (
-          <li>{child}</li>
-        ))}
-      </NavbarExpandable>
+      <NavbarExpandable>{children}</NavbarExpandable>
     </nav>
   );
 }

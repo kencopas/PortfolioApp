@@ -2,6 +2,7 @@
 
 import React, { ReactNode, useState } from "react";
 import { SlMenu } from "react-icons/sl";
+import SlideFade from "@/components/motion/SlideFade";
 
 interface NavbarExpandableProps {
   children: ReactNode;
@@ -15,9 +16,9 @@ export default function NavbarExpandable({
   const [open, setOpen] = useState(false);
 
   return (
-    <div className={className}>
+    <div className={`relative ${className}`}>
       {/* Toggle Button */}
-      <div className="absolute right-6 mt-1 top-1/2 -translate-y-1/2 md:hidden">
+      <div className="absolute right-0 mt-1 top-1/2 -translate-y-1/2 md:hidden">
         <button
           onClick={() => setOpen(!open)}
           className="text-2xl text-text-primary font-semibold"
@@ -29,13 +30,15 @@ export default function NavbarExpandable({
 
       {/* Nav Dropdown */}
       {open && (
-        <div className="absolute justify-self-end md:hidden mt-5 px-4 bg-background-secondary rounded-2xl p-3">
-          <ul className="flex flex-col gap-4 text-m font-medium tracking-wide">
-            {React.Children.map(children, (child) => (
-              <li onClick={() => setOpen(false)}>{child}</li>
-            ))}
-          </ul>
-        </div>
+        <SlideFade y={5} duration={0.4}>
+          <div className="absolute right-0 md:hidden mt-5 px-4 bg-background-secondary rounded-2xl p-3">
+            <ul className="flex flex-col gap-4 text-m font-medium tracking-wide">
+              {React.Children.map(children, (child) => (
+                <li onClick={() => setOpen(false)}>{child}</li>
+              ))}
+            </ul>
+          </div>
+        </SlideFade>
       )}
     </div>
   );

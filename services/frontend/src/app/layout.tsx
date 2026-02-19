@@ -34,9 +34,9 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en">
+    <html lang="en" className="bg-background-primary">
       <body
-        className={`${geistSans.variable} ${geistMono.variable} antialiased bg-linear-to-tr from-background-primary to-background-secondary`}
+        className={`${geistSans.variable} ${geistMono.variable} antialiased bg-linear-to-tl from-background-primary to-background-secondary`}
       >
         <div className="flex flex-col gap-4 mx-auto w-full max-w-6xl px-6">
           {/* Navbar */}

@@ -17,7 +17,7 @@ export default function WritingSection({
 }: WritingSectionProps) {
   return (
     <Section title={title} className={className}>
-      <SlideFade>
+      <SlideFade y={20}>
         <Surface className="flex flex-col gap-4">
           {blogEntries.map((blogEntryData, i) => (
             <BlogEntry
