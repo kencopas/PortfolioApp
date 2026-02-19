@@ -1,12 +1,12 @@
 import "./globals.css";
 
+import { FaXTwitter } from "react-icons/fa6";
 import type { Metadata, Viewport } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
+import { FaFacebook, FaInstagram, FaGithub, FaYoutube } from "react-icons/fa";
+
 import Navbar from "@/components/layout/Navbar";
 import NavLink from "@/components/layout/NavLink";
-import { FaXTwitter } from "react-icons/fa6";
-import { FaFacebook, FaInstagram, FaGithub, FaYoutube } from "react-icons/fa";
-import { IconContext } from "react-icons";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
