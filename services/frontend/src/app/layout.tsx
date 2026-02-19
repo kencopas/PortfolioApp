@@ -36,7 +36,7 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body
-        className={`${geistSans.variable} ${geistMono.variable} antialiased bg-background-primary`}
+        className={`${geistSans.variable} ${geistMono.variable} antialiased bg-linear-to-tr from-background-primary to-background-secondary`}
       >
         <div className="flex flex-col gap-4 mx-auto w-full max-w-6xl px-6">
           {/* Navbar */}

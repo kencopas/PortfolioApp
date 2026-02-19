@@ -35,8 +35,8 @@ export default function Home() {
   ];
 
   return (
-    <div className="flex flex-col gap-20">
-      <HeroSection className="py-45" />
+    <div className="flex flex-col gap-40">
+      <HeroSection className="pt-45 pb-25 md:pb-0" />
       <ProjectsSection title="Featured Projects" projects={projects} />
       <WritingSection title="Technical Writing" blogEntries={blogEntries} />
     </div>

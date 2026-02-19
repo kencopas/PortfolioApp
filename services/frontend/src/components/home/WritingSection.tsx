@@ -19,9 +19,9 @@ export default function WritingSection({
     <Section title={title} className={className}>
       <SlideFade>
         <Surface className="flex flex-col gap-4">
-          {blogEntries.map((blogEntryData) => (
+          {blogEntries.map((blogEntryData, i) => (
             <BlogEntry
-              key={blogEntryData.id}
+              key={`${i}-${blogEntryData.id}`}
               blogEntryData={blogEntryData}
               className="flex-1"
             />
