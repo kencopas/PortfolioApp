@@ -1,4 +1,4 @@
-import React, { ReactNode } from "react";
+import { ReactNode } from "react";
 import { SectionHeading } from "@/components/ui/Typography";
 
 interface SectionProps {

@@ -1,5 +1,3 @@
-import React from "react";
-
 import ArrowLink from "@/components/ui/ArrowLink";
 import { SurfaceHeading, SurfaceSubtext } from "@/components/ui/Typography";
 import Surface from "@/components/ui/Surface";

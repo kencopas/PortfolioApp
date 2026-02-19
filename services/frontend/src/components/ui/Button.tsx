@@ -1,4 +1,4 @@
-import React, { ReactNode } from "react";
+import { ReactNode } from "react";
 
 type ButtonStyle = "primary" | "secondary";
 const baseButtonStyle = "px-4 py-2 rounded-xl border-2";

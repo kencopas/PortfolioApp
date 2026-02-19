@@ -1,4 +1,3 @@
-import React from "react";
 import { Project } from "@/components/projects/ProjectCard";
 import ProjectsSection from "@/components/home/ProjectsSection";
 
