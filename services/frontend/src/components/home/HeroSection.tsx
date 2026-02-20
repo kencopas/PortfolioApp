@@ -31,10 +31,14 @@ export default function HeroSection({ className = "" }: HeroSectionProps) {
       {/* Hero Buttons */}
       <div className="flex gap-4 justify-center">
         <SlideFade y={20} delay={0.6}>
-          <Button style="primary">View Projects</Button>
+          <Button href="/projects" style="primary">
+            View Projects
+          </Button>
         </SlideFade>
         <SlideFade y={20} delay={0.8}>
-          <Button style="secondary">Explore Architecture</Button>
+          <Button href="/architecture" style="secondary">
+            Explore Architecture
+          </Button>
         </SlideFade>
       </div>
     </Section>
