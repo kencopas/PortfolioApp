@@ -1,6 +1,8 @@
 import Section from "@/components/home/Section";
 import SlideFade from "@/components/motion/SlideFade";
 import Button from "@/components/ui/Button";
+import { SuperBigText } from "@/components/ui/Typography";
+import { SurfaceSubtext } from "@/components/ui/Typography";
 
 interface HeroSectionProps {
   className?: string;
@@ -11,18 +13,18 @@ export default function HeroSection({ className = "" }: HeroSectionProps) {
     <Section className={className}>
       {/* Hero Title */}
       <SlideFade y={20}>
-        <h1 className="pb-5 md:pb-10 text-5xl md:text-8xl lg:text-9xl leading-tight text-center font-semibold text-text-primary">
+        <SuperBigText className="pb-5 md:pb-10 text-center">
           Secure, Scalable Systems.
-        </h1>
+        </SuperBigText>
       </SlideFade>
 
       {/* Hero Description */}
       <SlideFade y={20} delay={0.4}>
-        <p className="text-text-muted text-center font-medium text-sm md:text-base lg:text-lg">
+        <SurfaceSubtext className="text-center font-medium lg:text-lg">
           Containerized services. Reverse proxies. Edge routing.
           <br />
           Every system is built to be reproducible, secure, and understandable.
-        </p>
+        </SurfaceSubtext>
       </SlideFade>
 
       {/* Hero Buttons */}

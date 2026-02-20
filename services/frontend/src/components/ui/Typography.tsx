@@ -32,3 +32,13 @@ export function SurfaceSubtext({ children, className = "" }: TypographyProps) {
     </p>
   );
 }
+
+export function SuperBigText({ children, className = "" }: TypographyProps) {
+  return (
+    <h1
+      className={`text-5xl md:text-8xl lg:text-9xl leading-tight font-semibold text-text-primary ${className}`}
+    >
+      {children}
+    </h1>
+  );
+}
