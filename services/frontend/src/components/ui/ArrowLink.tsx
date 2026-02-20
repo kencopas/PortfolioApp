@@ -11,7 +11,7 @@ export default function ArrowLink({
   href,
   children,
   className = "",
-  newTabOnClick = true,
+  newTabOnClick = false,
 }: ArrowLinkProps) {
   return (
     <a

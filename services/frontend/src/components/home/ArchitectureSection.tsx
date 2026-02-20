@@ -15,9 +15,9 @@ export default function ArchitectureSection() {
         a more detailed breakdown, see the full architecture on the Architecture
         page.
       </SurfaceSubtext>
-      <SlideFade y={20} visibilityTrigger={0.5}>
+      <SlideFade y={20} visibilityTrigger={0.3}>
         <Surface className="flex flex-col justify-between">
-          <SlideFade y={10} delay={0.5} visibilityTrigger={0.5}>
+          <SlideFade y={10} delay={0.4} visibilityTrigger={0.3}>
             <Image
               src="/architecture-snapshot.drawio.svg"
               alt="Snapshot of PortfolioApp system architecture"
@@ -26,11 +26,7 @@ export default function ArchitectureSection() {
               className="w-full h-auto"
             />
           </SlideFade>
-          <ArrowLink
-            href="/architecture"
-            className="pt-4"
-            newTabOnClick={false}
-          >
+          <ArrowLink href="/architecture" className="pt-4">
             View Full Architecture
           </ArrowLink>
         </Surface>
