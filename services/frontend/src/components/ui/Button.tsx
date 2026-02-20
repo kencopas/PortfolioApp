@@ -1,15 +1,18 @@
-import React, { ReactNode } from "react";
+import Link from "next/link";
+import { ReactNode } from "react";
 
 type ButtonStyle = "primary" | "secondary";
-const baseButtonStyle = "px-4 py-2 rounded-xl border-2";
+const baseButtonStyle =
+  "inline-block px-4 leading-10 rounded-xl border-2 transition-all duration-300 ease-in-out transform hover:scale-105 active:scale-95  hover:shadow-lg hover:shadow-blue-500/40";
 
-const styleMap: Record<ButtonStyle, string> = {
+export const styleMap: Record<ButtonStyle, string> = {
   primary: `${baseButtonStyle} border-transparent bg-accent-primary text-white font-medium`,
   secondary: `${baseButtonStyle} border-accent-primary text-accent-primary`,
 };
 
 interface ButtonProps {
   children: ReactNode;
+  href: string;
   style: ButtonStyle;
   className?: string;
 }
@@ -17,9 +20,12 @@ interface ButtonProps {
 export default function Button({
   children,
   style,
+  href,
   className = "",
 }: ButtonProps) {
   return (
-    <button className={`${styleMap[style]} ${className}`}>{children}</button>
+    <Link href={href} className={`${styleMap[style]} ${className}`}>
+      {children}
+    </Link>
   );
 }

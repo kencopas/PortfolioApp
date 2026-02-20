@@ -1,5 +1,3 @@
-import React from "react";
-
 interface TechStackProps {
   stack: string[];
   className?: string;
@@ -13,23 +11,21 @@ export default function TechStack({
   stackMode = "vertical",
   title = "Stack",
 }: TechStackProps) {
-  if (stackMode == "vertical") {
-    return (
-      <div className={`${className}`}>
-        <b>{title}:</b>
+  return (
+    <div className={`${className}`}>
+      <b>{title}: </b>
+
+      {/* Vertical Stack List */}
+      {stackMode === "vertical" && (
         <ul className="list-disc list-inside">
-          {stack.map((item) => (
-            <li key={item}>{item}</li>
+          {stack.map((item, i) => (
+            <li key={`${i}-${item}`}>{item}</li>
           ))}
         </ul>
-      </div>
-    );
-  } else {
-    return (
-      <span className={`${className}`}>
-        <b>{title}: </b>
-        {stack.join(" • ")}
-      </span>
-    );
-  }
+      )}
+
+      {/* Horizontal Stack List */}
+      {stackMode === "horizontal" && stack.join(" • ")}
+    </div>
+  );
 }

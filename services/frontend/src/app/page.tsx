@@ -1,8 +1,9 @@
+import HeroSection from "@/components/home/HeroSection";
 import { Project } from "@/components/projects/ProjectCard";
 import { BlogEntryData } from "@/components/blog/BlogEntry";
-import HeroSection from "@/components/home/HeroSection";
-import ProjectsSection from "@/components/home/ProjectsSection";
 import WritingSection from "@/components/home/WritingSection";
+import ProjectsSection from "@/components/home/ProjectsSection";
+import ArchitectureSection from "@/components/home/ArchitectureSection";
 
 export default function Home() {
   const projectData: Project = {
@@ -12,12 +13,7 @@ export default function Home() {
       "Portfolio Application with self-hosted infrastructure, containerized services, and automated secure deployment",
     stack: ["FastAPI", "Next.js", "Docker Compose"],
   };
-  const projects: Project[] = [
-    projectData,
-    projectData,
-    projectData,
-    projectData,
-  ];
+  const projects: Project[] = [projectData, projectData];
 
   const blogEntryData: BlogEntryData = {
     id: "0001",
@@ -36,8 +32,9 @@ export default function Home() {
 
   return (
     <div className="flex flex-col gap-40">
-      <HeroSection className="pt-45 pb-25 md:pb-0" />
+      <HeroSection className="pt-50 md:pt-45 pb-50 md:pb-30 lg:pb-0" />
       <ProjectsSection title="Featured Projects" projects={projects} />
+      <ArchitectureSection />
       <WritingSection title="Technical Writing" blogEntries={blogEntries} />
     </div>
   );

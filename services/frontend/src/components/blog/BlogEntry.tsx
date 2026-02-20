@@ -1,8 +1,6 @@
-import React from "react";
-
+import Surface from "@/components/ui/Surface";
 import ArrowLink from "@/components/ui/ArrowLink";
 import { SurfaceHeading, SurfaceSubtext } from "@/components/ui/Typography";
-import Surface from "@/components/ui/Surface";
 
 export interface BlogEntryData {
   id: string;

@@ -1,4 +1,4 @@
-import React, { ReactNode } from "react";
+import { ReactNode } from "react";
 
 interface TypographyProps {
   children: ReactNode;
@@ -27,8 +27,18 @@ export function SurfaceHeading({ children, className = "" }: TypographyProps) {
 
 export function SurfaceSubtext({ children, className = "" }: TypographyProps) {
   return (
-    <p className={`text-text-muted text-xs md:text-base ${className}`}>
+    <p className={`text-text-muted text-sm md:text-base ${className}`}>
       {children}
     </p>
+  );
+}
+
+export function SuperBigText({ children, className = "" }: TypographyProps) {
+  return (
+    <h1
+      className={`text-5xl md:text-8xl lg:text-9xl leading-tight font-semibold text-text-primary ${className}`}
+    >
+      {children}
+    </h1>
   );
 }

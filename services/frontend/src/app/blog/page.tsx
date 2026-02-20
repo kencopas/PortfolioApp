@@ -1,4 +1,3 @@
-import React from "react";
 import { BlogEntryData } from "@/components/blog/BlogEntry";
 import WritingSection from "@/components/home/WritingSection";
 

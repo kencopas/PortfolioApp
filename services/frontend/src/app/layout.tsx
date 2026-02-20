@@ -1,12 +1,13 @@
 import "./globals.css";
 
-import { FaXTwitter } from "react-icons/fa6";
+import Link from "next/link";
 import type { Metadata, Viewport } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
-import { FaFacebook, FaInstagram, FaGithub, FaYoutube } from "react-icons/fa";
+import { FaLinkedin, FaGithub, FaYoutube } from "react-icons/fa";
 
 import Navbar from "@/components/layout/Navbar";
 import NavLink from "@/components/layout/NavLink";
+import InfoBar from "@/components/ui/InfoBar";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -45,27 +46,49 @@ export default function RootLayout({
             <NavLink href="/blog">Blog</NavLink>
             <NavLink href="/projects">Projects</NavLink>
             <NavLink href="/architecture">Architecture</NavLink>
+            <NavLink href="/contact">Contact</NavLink>
           </Navbar>
+          <InfoBar className="self-center">
+            This application is still in development.
+          </InfoBar>
 
           {children}
 
           {/* Footer */}
           <footer className="text-text-secondary text-sm flex flex-col gap-10 items-center footer sm:footer-horizontal bg-neutral text-neutral-content pb-30 pt-50">
-            <nav className="grid grid-cols-3 md:grid-cols-6 justify-items-center w-full md:w-2/3">
-              <a className="link link-hover py-3">About</a>
-              <a className="link link-hover py-3">Blog</a>
-              <a className="link link-hover py-3">Jobs</a>
-              <a className="link link-hover py-3">Press</a>
-              <a className="link link-hover py-3">Accessibility</a>
-              <a className="link link-hover py-3">Partners</a>
+            {/* Footer Links */}
+            <nav className="grid grid-cols-3 md:grid-cols-5 justify-items-center w-full md:w-2/3">
+              <Link href="/about" className="link link-hover py-3">
+                About
+              </Link>
+              <Link href="/projects" className="link link-hover py-3">
+                Projects
+              </Link>
+              <Link href="/architecture" className="link link-hover py-3">
+                Architecture
+              </Link>
+              <Link href="/blog" className="link link-hover py-3">
+                Blog
+              </Link>
+              <Link href="/contact" className="link link-hover py-3">
+                Contact
+              </Link>
             </nav>
+
+            {/* Footer Icon Links */}
             <nav className="flex gap-15 justify-center">
-              <FaFacebook size="20" />
-              <FaInstagram size="20" />
-              <FaXTwitter size="20" />
-              <FaGithub size="20" />
-              <FaYoutube size="20" />
+              <a target="_blank" href="https://www.github.com/kencopas">
+                <FaGithub size={25} />
+              </a>
+              <a target="_blank" href="https://www.youtube.com">
+                <FaYoutube size={25} />
+              </a>
+              <a target="_blank" href="https://www.linkedin.com/in/kennycopas">
+                <FaLinkedin size={25} />
+              </a>
             </nav>
+
+            {/* Footer Copyright Statement */}
             <p className="text-center">
               © 2026 Kenneth Copas. All rights reserved.
             </p>

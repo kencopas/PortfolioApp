@@ -1,4 +1,4 @@
-import React, { ReactNode } from "react";
+import { ReactNode } from "react";
 
 interface ArrowLinkProps {
   href: string;
@@ -11,14 +11,14 @@ export default function ArrowLink({
   href,
   children,
   className = "",
-  newTabOnClick = true,
+  newTabOnClick = false,
 }: ArrowLinkProps) {
   return (
     <a
       href={href}
       target={newTabOnClick ? "_blank" : ""}
       rel={newTabOnClick ? "noopener noreferrer" : ""}
-      className={`text-text-secondary hover:underline text-sm ${className}`}
+      className={`text-text-secondary hover:underline text-sm w-fit h-fit ${className}`}
     >{`${children} →`}</a>
   );
 }

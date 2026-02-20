@@ -1,7 +1,9 @@
-import React, { ReactNode } from "react";
+import { ReactNode } from "react";
+
 import Surface from "@/components/ui/Surface";
-import TechStack from "@/components/projects/TechStack";
-import { SurfaceHeading, SurfaceSubtext } from "../ui/Typography";
+import { SurfaceHeading, SurfaceSubtext } from "@/components/ui/Typography";
+
+import TechStack from "./TechStack";
 
 export interface Project {
   id: string;
