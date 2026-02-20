@@ -7,6 +7,7 @@ import { FaLinkedin, FaGithub, FaYoutube } from "react-icons/fa";
 
 import Navbar from "@/components/layout/Navbar";
 import NavLink from "@/components/layout/NavLink";
+import InfoBar from "@/components/ui/InfoBar";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -47,6 +48,9 @@ export default function RootLayout({
             <NavLink href="/architecture">Architecture</NavLink>
             <NavLink href="/contact">Contact</NavLink>
           </Navbar>
+          <InfoBar className="self-center">
+            This application is still in development.
+          </InfoBar>
 
           {children}
 
