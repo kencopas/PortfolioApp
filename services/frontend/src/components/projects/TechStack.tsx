@@ -14,7 +14,7 @@ export default function TechStack({
   title = "Stack",
 }: TechStackProps) {
   return (
-    <SurfaceSubtext className={`${className}`}>
+    <div className={`${className}`}>
       <b>{title}:</b>
 
       {/* Vertical Stack List */}
@@ -28,6 +28,6 @@ export default function TechStack({
 
       {/* Horizontal Stack List */}
       {stackMode === "horizontal" && stack.join(" • ")}
-    </SurfaceSubtext>
+    </div>
   );
 }

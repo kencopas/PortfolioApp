@@ -3,6 +3,7 @@ import { Project } from "@/components/projects/ProjectCard";
 import { BlogEntryData } from "@/components/blog/BlogEntry";
 import WritingSection from "@/components/home/WritingSection";
 import ProjectsSection from "@/components/home/ProjectsSection";
+import ArchitectureSection from "@/components/home/ArchitectureSection";
 
 export default function Home() {
   const projectData: Project = {
@@ -38,6 +39,7 @@ export default function Home() {
     <div className="flex flex-col gap-40">
       <HeroSection className="pt-45 pb-25 md:pb-0" />
       <ProjectsSection title="Featured Projects" projects={projects} />
+      <ArchitectureSection />
       <WritingSection title="Technical Writing" blogEntries={blogEntries} />
     </div>
   );

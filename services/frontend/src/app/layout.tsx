@@ -41,6 +41,7 @@ export default function RootLayout({
         <div className="flex flex-col gap-4 mx-auto w-full max-w-6xl px-6">
           {/* Navbar */}
           <Navbar title="Ken Copas">
+            <NavLink href="/">Home</NavLink>
             <NavLink href="/about">About</NavLink>
             <NavLink href="/blog">Blog</NavLink>
             <NavLink href="/projects">Projects</NavLink>

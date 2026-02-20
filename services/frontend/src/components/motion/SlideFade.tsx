@@ -7,6 +7,7 @@ interface SlideFadeProps {
   duration?: number;
   x?: number;
   y?: number;
+  visibilityTrigger?: number;
 }
 
 export default function SlideFade({
@@ -15,6 +16,7 @@ export default function SlideFade({
   duration = 1,
   x = 0,
   y = 0,
+  visibilityTrigger = 1,
 }: SlideFadeProps) {
   return (
     <motion.div
@@ -22,8 +24,8 @@ export default function SlideFade({
       //   animate={{ opacity: 1, y: 0 }}
       exit={{ opacity: 1 }}
       transition={{ duration: duration, delay: delay }}
-      whileInView={{ opacity: 1, y: 0, x: 0 }} // Animate to visible when in view
-      viewport={{ once: true, amount: 1 }} // Play once, trigger when 50% visible
+      whileInView={{ opacity: 1, y: 0, x: 0 }}
+      viewport={{ once: true, amount: visibilityTrigger }}
     >
       {children}
     </motion.div>

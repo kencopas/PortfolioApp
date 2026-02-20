@@ -66,7 +66,7 @@ Each section should surface high-signal content from deeper pages.
 
 ### Section 1 — Featured Project
 
-- 1–2 flagship projects only
+- 2-4 flagship projects only
 - Clear problem → architecture → tradeoffs summary
 - Link to full breakdown
 
