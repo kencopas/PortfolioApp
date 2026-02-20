@@ -10,7 +10,7 @@ import Section from "./Section";
 export default function ArchitectureSection() {
   return (
     <Section title="Architecture Snapshot" className="items-center">
-      <SurfaceSubtext className="text-center w-2/3">
+      <SurfaceSubtext className="text-center md:w-2/3">
         This is a snapshot of the current architecture for this application. For
         a more detailed breakdown, see the full architecture on the Architecture
         page.

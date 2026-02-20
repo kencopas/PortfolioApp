@@ -13,12 +13,7 @@ export default function Home() {
       "Portfolio Application with self-hosted infrastructure, containerized services, and automated secure deployment",
     stack: ["FastAPI", "Next.js", "Docker Compose"],
   };
-  const projects: Project[] = [
-    projectData,
-    projectData,
-    projectData,
-    projectData,
-  ];
+  const projects: Project[] = [projectData, projectData];
 
   const blogEntryData: BlogEntryData = {
     id: "0001",
@@ -37,7 +32,7 @@ export default function Home() {
 
   return (
     <div className="flex flex-col gap-40">
-      <HeroSection className="pt-45 pb-25 md:pb-0" />
+      <HeroSection className="pt-50 md:pt-45 pb-50 md:pb-30 lg:pb-0" />
       <ProjectsSection title="Featured Projects" projects={projects} />
       <ArchitectureSection />
       <WritingSection title="Technical Writing" blogEntries={blogEntries} />

@@ -27,7 +27,7 @@ export function SurfaceHeading({ children, className = "" }: TypographyProps) {
 
 export function SurfaceSubtext({ children, className = "" }: TypographyProps) {
   return (
-    <p className={`text-text-muted text-xs md:text-base ${className}`}>
+    <p className={`text-text-muted text-sm md:text-base ${className}`}>
       {children}
     </p>
   );

@@ -1,5 +1,3 @@
-import { SurfaceSubtext } from "@/components/ui/Typography";
-
 interface TechStackProps {
   stack: string[];
   className?: string;
@@ -15,7 +13,7 @@ export default function TechStack({
 }: TechStackProps) {
   return (
     <div className={`${className}`}>
-      <b>{title}:</b>
+      <b>{title}: </b>
 
       {/* Vertical Stack List */}
       {stackMode === "vertical" && (

@@ -9,12 +9,7 @@ export default function Projects() {
       "Portfolio Application with self-hosted infrastructure, containerized services, and automated secure deployment",
     stack: ["FastAPI", "Next.js", "Docker Compose"],
   };
-  const projects: Project[] = [
-    projectData,
-    projectData,
-    projectData,
-    projectData,
-  ];
+  const projects: Project[] = [projectData, projectData];
 
   return <ProjectsSection title="Featured Projects" projects={projects} />;
 }

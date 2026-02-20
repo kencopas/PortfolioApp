@@ -5,7 +5,7 @@ type ButtonStyle = "primary" | "secondary";
 const baseButtonStyle =
   "inline-block px-4 leading-10 rounded-xl border-2 transition-all duration-300 ease-in-out transform hover:scale-105 active:scale-95  hover:shadow-lg hover:shadow-blue-500/40";
 
-const styleMap: Record<ButtonStyle, string> = {
+export const styleMap: Record<ButtonStyle, string> = {
   primary: `${baseButtonStyle} border-transparent bg-accent-primary text-white font-medium`,
   secondary: `${baseButtonStyle} border-accent-primary text-accent-primary`,
 };
