@@ -75,7 +75,7 @@ build-push:
 		--push $(NGINX_PATH)
 
 # ========================================
-# Deploy (server side)
+# Deploy
 # ========================================
 
 deploy:
@@ -84,7 +84,6 @@ deploy:
 	TAG=$(DEPLOY_TAG) docker compose --progress=plain -f $(COMPOSE_FILE) up -d --remove-orphans
 
 deploy-stage:
-	make build-push
 	$(SSH_COMMAND) "cd $(SERVER_REPO_PATH) && git pull origin main && ENV=stage DEPLOY_TAG=$(TAG) make deploy"
 
 deploy-prod:

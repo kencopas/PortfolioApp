@@ -8,6 +8,7 @@ Thumbs.db
 *.tmp
 *.bak
 *.bkp
+.$*
 
 ############################
 # Python (Backend + Webhook)
