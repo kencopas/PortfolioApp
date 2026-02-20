@@ -1,10 +1,11 @@
 import Image from "next/image";
 
 import Surface from "@/components/ui/Surface";
-import SlideFade from "../motion/SlideFade";
+import ArrowLink from "@/components/ui/ArrowLink";
+import { SurfaceSubtext } from "@/components/ui/Typography";
+import SlideFade from "@/components/motion/SlideFade";
+
 import Section from "./Section";
-import { SurfaceSubtext } from "../ui/Typography";
-import ArrowLink from "../ui/ArrowLink";
 
 export default function ArchitectureSection() {
   return (

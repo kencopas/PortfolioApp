@@ -1,7 +1,7 @@
 import Button from "@/components/ui/Button";
-import SlideFade from "@/components/motion/SlideFade";
 import { SuperBigText } from "@/components/ui/Typography";
 import { SurfaceSubtext } from "@/components/ui/Typography";
+import SlideFade from "@/components/motion/SlideFade";
 
 import Section from "./Section";
 
