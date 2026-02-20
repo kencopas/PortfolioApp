@@ -1,8 +1,9 @@
-import Section from "@/components/home/Section";
-import SlideFade from "@/components/motion/SlideFade";
 import Button from "@/components/ui/Button";
+import SlideFade from "@/components/motion/SlideFade";
 import { SuperBigText } from "@/components/ui/Typography";
 import { SurfaceSubtext } from "@/components/ui/Typography";
+
+import Section from "./Section";
 
 interface HeroSectionProps {
   className?: string;

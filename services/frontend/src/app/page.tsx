@@ -1,8 +1,8 @@
+import HeroSection from "@/components/home/HeroSection";
 import { Project } from "@/components/projects/ProjectCard";
 import { BlogEntryData } from "@/components/blog/BlogEntry";
-import HeroSection from "@/components/home/HeroSection";
-import ProjectsSection from "@/components/home/ProjectsSection";
 import WritingSection from "@/components/home/WritingSection";
+import ProjectsSection from "@/components/home/ProjectsSection";
 
 export default function Home() {
   const projectData: Project = {

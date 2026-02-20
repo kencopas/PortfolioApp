@@ -1,7 +1,7 @@
-import React, { ReactNode } from "react";
 import Link from "next/link";
+import React, { ReactNode } from "react";
 
-import NavbarExpandable from "@/components/layout/NavbarExpandable";
+import NavbarExpandable from "./NavbarExpandable";
 
 interface NavbarProps {
   children: ReactNode;

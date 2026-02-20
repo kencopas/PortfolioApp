@@ -1,7 +1,8 @@
 "use client";
 
-import React, { ReactNode, useState } from "react";
 import { SlMenu } from "react-icons/sl";
+import React, { ReactNode, useState } from "react";
+
 import SlideFade from "@/components/motion/SlideFade";
 
 interface NavbarExpandableProps {

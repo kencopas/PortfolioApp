@@ -1,6 +1,7 @@
-import BlogEntry, { BlogEntryData } from "@/components/blog/BlogEntry";
-import Section from "@/components/home/Section";
 import SlideFade from "@/components/motion/SlideFade";
+import BlogEntry, { BlogEntryData } from "@/components/blog/BlogEntry";
+
+import Section from "./Section";
 
 interface WritingSectionProps {
   blogEntries: BlogEntryData[];

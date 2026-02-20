@@ -1,6 +1,7 @@
-import Section from "@/components/home/Section";
 import SlideFade from "@/components/motion/SlideFade";
 import ProjectCard, { Project } from "@/components/projects/ProjectCard";
+
+import Section from "./Section";
 
 interface ProjectsSectionProps {
   projects: Project[];
