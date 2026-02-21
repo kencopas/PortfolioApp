@@ -1,6 +1,7 @@
 from typing import Dict
 
-from fastapi import APIRouter
+from fastapi import APIRouter, HTTPException
+from pydantic_core import ValidationError
 
 from services.event_service import handle_event, search_events
 from .schemas import EventSearchResult, EventPublishResult
@@ -21,5 +22,5 @@ def publish_event(event_data: Dict) -> EventPublishResult:
     try:
         handle_event(event_data)
         return EventPublishResult(status="successful")
-    except Exception as e:
-        return EventPublishResult(status="failed", reason=str(e))
+    except ValidationError as e:
+        raise HTTPException(status_code=422, detail=e.errors())

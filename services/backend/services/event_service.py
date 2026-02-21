@@ -1,44 +1,25 @@
-from __future__ import annotations
+"""This service handles the processing of incoming events.
 
-from typing import Annotated, Union, List, Dict
+Events received via the Events API are processed here, where rules and policies
+are applied to make inferences about operational lifecycle and system state.
+"""
 
-from pydantic import Field, TypeAdapter
+from typing import List, Dict
 
 from models.base_event import BaseEvent
-from models.deployment_events import (
-    DeploymentFailed,
-    DeploymentFinished,
-    DeploymentStarted,
-)
-from models.service_events import ServiceFailure, ServiceStarted, ServiceStopped
-
-
-Event = Annotated[
-    Union[
-        DeploymentFailed,
-        DeploymentFinished,
-        DeploymentStarted,
-        ServiceFailure,
-        ServiceStarted,
-        ServiceStopped,
-    ],
-    Field(discriminator="type"),
-]
-event_adapter = TypeAdapter(Event)
-
-
-_events: List[BaseEvent] = []
+from .event_adapter import event_adapter
+from db.data_client import load_events, persist_event
 
 
 def handle_event(event_data: Dict) -> None:
     try:
         event = event_adapter.validate_python(event_data)
     except Exception as e:
-        print(f"Error validating event data: {e}")
-        raise ValueError() from e
+        print(f"Exception occurred while validating event data: {str(e)}")
+        raise e
 
-    _events.append(event)
+    persist_event(event)
 
 
 def search_events() -> List[BaseEvent]:
-    return _events
+    return load_events()
