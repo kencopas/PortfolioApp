@@ -1,5 +1,6 @@
 from fastapi import FastAPI
 
+import app.models
 from app.api.routes import router
 
 
