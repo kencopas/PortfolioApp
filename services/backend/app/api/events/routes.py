@@ -3,7 +3,8 @@ from typing import Dict
 from fastapi import APIRouter, HTTPException
 from pydantic_core import ValidationError
 
-from services.event_service import handle_event, search_events
+from app.services.event_service import handle_event, search_events
+
 from .schemas import EventSearchResult, EventPublishResult
 
 

@@ -6,9 +6,10 @@ are applied to make inferences about operational lifecycle and system state.
 
 from typing import List, Dict
 
-from models.base_event import BaseEvent
+from app.models.base_event import BaseEvent
+from app.db.data_client import load_events, persist_event
+
 from .event_adapter import event_adapter
-from db.data_client import load_events, persist_event
 
 
 def handle_event(event_data: Dict) -> None:

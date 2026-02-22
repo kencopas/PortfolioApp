@@ -1,0 +1,74 @@
+name: portfolioapp-dev
+
+services:
+  postgres:
+    image: postgres:16-alpine
+    container_name: platform-postgres-dev
+    restart: unless-stopped
+
+    env_file:
+      - ../env/.env.dev
+
+    volumes:
+      - postgres_data_dev:/var/lib/postgresql/data
+
+    networks:
+      - app_net_dev
+
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U $${POSTGRES_USER} -d $${POSTGRES_DB}"]
+      interval: 5s
+      timeout: 5s
+      retries: 5
+
+  backend:
+    build:
+      context: ../../services/backend
+      dockerfile: Dockerfile
+    image: backend:dev
+    container_name: backend-dev
+
+    depends_on:
+      postgres:
+        condition: service_healthy
+
+    env_file:
+      - ../../services/backend/.env
+
+    volumes:
+      - ../../services/backend:/app 
+    ports:
+      - "8000:8000"
+
+    networks:
+      - app_net_dev
+
+    command: >
+      sh -c "
+      alembic upgrade head &&
+      uvicorn app.main:app --host 0.0.0.0 --port 8000 --reload
+      "
+
+  frontend:
+    build:
+      context: ../../services/frontend
+      dockerfile: Dockerfile
+    image: frontend:dev
+    container_name: frontend-dev
+
+    volumes:
+      - ../../services/frontend:/app
+    ports:
+      - "3000:3000"
+
+    networks:
+      - app_net_dev
+
+    command: npm run dev
+
+volumes:
+  postgres_data_dev:
+
+networks:
+  app_net_dev:
+    driver: bridge

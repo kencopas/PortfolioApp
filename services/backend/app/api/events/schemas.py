@@ -1,6 +1,8 @@
 from typing import List, Literal
+
 from pydantic import BaseModel
-from models.base_event import BaseEvent
+
+from app.models.base_event import BaseEvent
 
 
 class EventSearchResult(BaseModel):

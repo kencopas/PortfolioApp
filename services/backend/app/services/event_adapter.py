@@ -4,12 +4,12 @@ from typing import Annotated, Union
 
 from pydantic import Field, TypeAdapter
 
-from models.deployment_events import (
+from app.models.deployment_events import (
     DeploymentFailed,
     DeploymentFinished,
     DeploymentStarted,
 )
-from models.service_events import ServiceFailure, ServiceStarted, ServiceStopped
+from app.models.service_events import ServiceFailure, ServiceStarted, ServiceStopped
 
 
 Event = Annotated[

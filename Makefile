@@ -54,6 +54,10 @@ test:
 	@echo "Stopping local testing containers..."
 	TAG=$(TAG) docker compose -f $(COMPOSE_FILE) down
 
+dev:
+	docker compose -f $(COMPOSE_DIR)/docker-compose.dev.yml up --build
+	docker compose -f $(COMPOSE_DIR)/docker-compose.dev.yml down
+
 # ========================================
 # Build + Push
 # ========================================

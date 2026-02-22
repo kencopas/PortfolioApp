@@ -1,5 +1,6 @@
-from .base_event import BaseEvent
 from typing import Literal, Optional, Dict
+
+from .base_event import BaseEvent
 
 
 class DeploymentEvent(BaseEvent):

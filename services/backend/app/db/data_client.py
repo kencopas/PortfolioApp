@@ -3,8 +3,8 @@
 import json
 from typing import List
 
-from models.base_event import BaseEvent
-from services.event_adapter import event_adapter
+from app.models.base_event import BaseEvent
+from app.services.event_adapter import event_adapter
 
 
 DB_FILE_URL = "./db/database.jsonl"
