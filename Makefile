@@ -2,15 +2,16 @@
 # Config
 # ========================================
 
-# Environment (default: prod)
-ENV ?= prod
+# Environment (default: dev)
+ENV ?= dev
 
 # SSH / Server
-SSH_COMMAND=ssh home-server
+REMOTE_HOST=home-server
 SERVER_REPO_PATH=~/PortfolioApp
 SERVER_OS=linux/amd64
 
 # Directories
+ENV_DIR=./infra/env
 COMPOSE_DIR=./infra/compose
 SERVICES_DIR=./services
 
@@ -40,13 +41,6 @@ test:
 
 delete-volumes:
 	docker compose -f $(COMPOSE_FILE) down -v
-
-dev:
-	ENV=dev make test
-
-dev-delete-volumes:
-	ENV=dev make delete-volumes
-
 
 # ========================================
 # Build + Push
@@ -78,14 +72,24 @@ deploy:
 	TAG=$(DEPLOY_TAG) docker compose --progress=plain -f $(COMPOSE_FILE) up -d --remove-orphans
 
 deploy-stage:
-	$(SSH_COMMAND) "cd $(SERVER_REPO_PATH) && git pull origin main && ENV=stage DEPLOY_TAG=$(TAG) make deploy"
+	ssh $(REMOTE_HOST) "cd $(SERVER_REPO_PATH) && git pull origin main && ENV=stage DEPLOY_TAG=$(TAG) make deploy"
 
 deploy-prod:
-	$(SSH_COMMAND) "cd $(SERVER_REPO_PATH) && git pull origin main && ENV=prod DEPLOY_TAG=$(TAG) make deploy"
+	ssh $(REMOTE_HOST) "cd $(SERVER_REPO_PATH) && git pull origin main && ENV=prod DEPLOY_TAG=$(TAG) make deploy"
+
+deploy-env-vars:
+	@echo "Removing previous backup and creating new infra/env-backup on server..."
+	ssh $(REMOTE_HOST) "cd $(SERVER_REPO_PATH) && rm -rf infra/env-backup && mv infra/env infra/env-backup"
+
+	@echo "Copying local environment files to infra/env on server..."
+	scp -r $(ENV_DIR) $(REMOTE_HOST):$(SERVER_REPO_PATH)/infra/
 
 # ========================================
 # Maintenance
 # ========================================
 
+down:
+	docker compose -f $(COMPOSE_FILE) down
+
 stage-down:
-	$(SSH_COMMAND) "cd $(SERVER_REPO_PATH) && docker compose -f $(COMPOSE_DIR)/docker-compose.stage.yml down"
+	ssh $(REMOTE_HOST) "cd $(SERVER_REPO_PATH) && ENV=stage make down"

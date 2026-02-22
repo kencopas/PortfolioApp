@@ -31,6 +31,39 @@ services:
       - app_net_stage
     restart: unless-stopped
 
+  postgres:
+    image: postgres:16-alpine
+    container_name: platform-postgres-stage
+    restart: unless-stopped
+
+    env_file:
+      - ../env/.env.stage
+
+    volumes:
+      - postgres_data_stage:/var/lib/postgresql/data
+
+    networks:
+      - app_net_stage
+
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U $${POSTGRES_USER} -d $${POSTGRES_DB}"]
+      interval: 5s
+      timeout: 5s
+      retries: 5
+  
+  migrate:
+    image: ${BACKEND_IMAGE}:${TAG}
+    command: uv run alembic upgrade head
+    env_file:
+      ../env/.env.stage
+    networks:
+      - app_net_stage
+    depends_on:
+      - postgres
+
+volumes:
+  postgres_data_stage:
+
 networks:
   app_net_stage:
     driver: bridge
