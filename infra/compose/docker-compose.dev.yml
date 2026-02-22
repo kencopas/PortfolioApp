@@ -3,7 +3,7 @@ name: portfolioapp-dev
 services:
   postgres:
     image: postgres:16-alpine
-    container_name: platform-postgres-dev
+    container_name: postgres-dev
     restart: unless-stopped
 
     env_file:
@@ -61,8 +61,9 @@ services:
     command: npm run dev
   
   migrate:
-    image: ${BACKEND_IMAGE}:${TAG}
+    image: backend:dev
     command: uv run alembic upgrade head
+    container_name: migrate-dev
     env_file:
       ../env/.env.dev
     networks:

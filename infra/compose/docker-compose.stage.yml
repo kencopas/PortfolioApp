@@ -33,7 +33,7 @@ services:
 
   postgres:
     image: postgres:16-alpine
-    container_name: platform-postgres-stage
+    container_name: postgres-stage
     restart: unless-stopped
 
     env_file:
@@ -54,6 +54,7 @@ services:
   migrate:
     image: ${BACKEND_IMAGE}:${TAG}
     command: uv run alembic upgrade head
+    container_name: migrate-stage
     env_file:
       ../env/.env.stage
     networks:

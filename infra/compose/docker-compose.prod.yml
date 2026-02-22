@@ -52,6 +52,7 @@ services:
   migrate:
     image: ${BACKEND_IMAGE}:${TAG}
     command: uv run alembic upgrade head
+    container_name: migrate-prod
     env_file:
       ../env/.env.prod
     networks:
