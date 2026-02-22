@@ -34,29 +34,19 @@ export
 # Local Testing
 # ========================================
 
-build:
-	docker build \
-		-t ${BACKEND_IMAGE}:$(TAG) \
-		$(BACKEND_PATH)
-
-	docker build \
-		-t ${FRONTEND_IMAGE}:$(TAG) \
-		$(FRONTEND_PATH)
-
-	docker build \
-		-t ${NGINX_IMAGE}:$(TAG) \
-		$(NGINX_PATH)
-
 test:
-	@echo "Running local test with tag $(TAG)..."
-	TAG=$(TAG) docker compose -f $(COMPOSE_FILE) up --remove-orphans
+	docker compose -f $(COMPOSE_FILE) up --build
+	docker compose -f $(COMPOSE_FILE) down
 
-	@echo "Stopping local testing containers..."
-	TAG=$(TAG) docker compose -f $(COMPOSE_FILE) down
+delete-volumes:
+	docker compose -f $(COMPOSE_FILE) down -v
 
 dev:
-	docker compose -f $(COMPOSE_DIR)/docker-compose.dev.yml up --build
-	docker compose -f $(COMPOSE_DIR)/docker-compose.dev.yml down
+	ENV=dev make test
+
+dev-delete-volumes:
+	ENV=dev make delete-volumes
+
 
 # ========================================
 # Build + Push

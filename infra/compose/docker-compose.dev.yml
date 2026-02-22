@@ -34,7 +34,6 @@ services:
 
     env_file:
       - ../env/.env.dev
-      - ../../services/backend/.env
 
     volumes:
       - ../../services/backend:/app 
