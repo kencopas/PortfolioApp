@@ -11,9 +11,11 @@ import app.models
 
 config = context.config
 
-database_url = os.getenv("DATABASE_URL")
+database_url = os.getenv("ALEMBIC_DATABASE_URL")
 if not database_url:
-    raise RuntimeError("DATABASE_URL is not set (required for Alembic migrations).")
+    raise RuntimeError(
+        "ALEMBIC_DATABASE_URL is not set (required for Alembic migrations)."
+    )
 
 config.set_main_option("sqlalchemy.url", database_url)
 
