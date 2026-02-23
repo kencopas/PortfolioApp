@@ -1,25 +1,30 @@
 # Backend Service
 
-## API
-
-As of right now, this backend is pretty basic. Here's the file structure:
+## File Structure
 
 ```
 .
-├── main.py
 ├── Dockerfile
-└── api
-    ├── routes.py  # Root endpoints
-    ├── schemas.py
-    ├── prefix1
-    │   ├── routes.py
-    │   └── schemas.py
-    └── prefix2
-        ├── routes.py
-        └── schemas.py
+├── alembic/                # Database Migrations
+│   ├── README.md
+│   ├── env.py              # Alembic Configurations
+│   └── versions/           # Alembic Revisions
+├── app/
+│   ├── main.py
+│   ├── api/
+│   │   ├── router.py       # Consolidates API Routers
+│   │   └── v1/
+│   │       └── events.py   # `/events` routes
+│   ├── core/               # Frequently Used Application Components
+│   │   ├── config.py
+│   │   └── logger.py
+│   ├── db/                 # Database Interaction Components
+│   │   └── data_client.py
+│   ├── models/             # SQLAlchemy ORM Models
+│   ├── schemas/            # FastAPI Pydantic models
+│   └── services/           # Application Logic
+└── docs/
 ```
-
-Any root endpoints reside in `api/routes.py` and any prefixes with multiple endpoints reside in their respective `api/prefix/routes.py` file, along with their local `schemas.py`.
 
 ## Docker
 

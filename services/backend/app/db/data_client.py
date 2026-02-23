@@ -3,7 +3,7 @@
 import json
 from typing import List
 
-from app.models.base_event import BaseEvent
+from app.schemas.base_event import BaseEvent
 from app.services.event_adapter import event_adapter
 
 

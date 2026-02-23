@@ -2,7 +2,7 @@ from typing import List, Literal
 
 from pydantic import BaseModel
 
-from app.models.base_event import BaseEvent
+from app.schemas.base_event import BaseEvent
 
 
 class EventSearchResult(BaseModel):

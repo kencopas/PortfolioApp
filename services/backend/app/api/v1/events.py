@@ -5,7 +5,7 @@ from pydantic_core import ValidationError
 
 from app.services.event_service import handle_event, search_events
 
-from .schemas import EventSearchResult, EventPublishResult
+from app.schemas.events_api_models import EventSearchResult, EventPublishResult
 
 
 router = APIRouter(prefix="/events")
