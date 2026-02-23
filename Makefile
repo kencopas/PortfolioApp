@@ -42,8 +42,15 @@ test:
 delete-volumes:
 	docker compose -f $(COMPOSE_FILE) down -v
 
+# ========================================
+# Database Administration
+# ========================================
+
 psql:
 	docker exec -it postgres-$(ENV) psql -U ${POSTGRES_USER} -d ${POSTGRES_DB}
+
+backend-exec:
+	docker compose -f $(COMPOSE_FILE) exec backend /bin/bash
 
 # ========================================
 # Build + Push
