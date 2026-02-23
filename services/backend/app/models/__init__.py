@@ -1,1 +1,1 @@
-from .event import Event  # noqa: F401
+from .events import Event  # noqa: F401

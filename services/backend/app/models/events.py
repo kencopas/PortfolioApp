@@ -1,4 +1,3 @@
-from enum import Enum
 from typing import Any
 from datetime import datetime
 
@@ -8,12 +7,7 @@ from sqlalchemy.orm import Mapped, mapped_column
 from sqlalchemy.dialects.postgresql import JSONB
 
 from app.db.base import Base
-
-
-class DeploymentStatus(str, Enum):
-    STARTED = "started"
-    SUCCESS = "success"
-    FAILED = "failed"
+from app.schemas.events import DeploymentStatus
 
 
 class Event(Base):
@@ -25,7 +19,7 @@ class Event(Base):
     deployment_id: Mapped[int] = mapped_column(
         ForeignKey("deployments.id"), nullable=False
     )
-    occured_at: Mapped["datetime"] = mapped_column(
+    occurred_at: Mapped["datetime"] = mapped_column(
         DateTime(timezone=True), server_default=func.now(), nullable=False
     )
     event_data: Mapped[dict[str, Any] | None] = mapped_column(JSONB, nullable=True)

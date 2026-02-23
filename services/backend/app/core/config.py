@@ -1,5 +1,7 @@
 from pathlib import Path
+from typing import Annotated
 
+from pydantic import SecretStr, PostgresDsn, Field
 from pydantic_settings import BaseSettings, SettingsConfigDict
 
 
@@ -12,5 +14,11 @@ class Settings(BaseSettings):
 
     log_level: str = "INFO"
 
+    postgres_db: str
+    postgres_pts_user: str
+    postgres_pts_password: SecretStr
+    pts_database_url: Annotated[PostgresDsn, Field(repr=False)]
+
 
 settings = Settings()
+print(settings)
