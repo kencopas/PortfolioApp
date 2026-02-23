@@ -4,23 +4,6 @@ from typing import Annotated, Union
 
 from pydantic import Field, TypeAdapter
 
-from app.schemas.deployment_events import (
-    DeploymentFailed,
-    DeploymentFinished,
-    DeploymentStarted,
-)
-from app.schemas.service_events import ServiceFailure, ServiceStarted, ServiceStopped
+from app.schemas.events import EventUnion
 
-
-Event = Annotated[
-    Union[
-        DeploymentFailed,
-        DeploymentFinished,
-        DeploymentStarted,
-        ServiceFailure,
-        ServiceStarted,
-        ServiceStopped,
-    ],
-    Field(discriminator="type"),
-]
-event_adapter = TypeAdapter(Event)
+event_adapter = TypeAdapter(EventUnion)

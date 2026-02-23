@@ -3,22 +3,19 @@ from typing import Literal, Optional, Dict
 from .base_event import BaseEvent
 
 
-class ServiceEvent(BaseEvent):
-    """Base service event"""
-
-    service: str
-
-
-class ServiceStarted(ServiceEvent):
-    type: Literal["service.started"]
+class ServiceStarted(BaseEvent):
+    event_type: Literal["service.started"]
+    service_name: str
 
 
-class ServiceStopped(ServiceEvent):
-    type: Literal["service.stopped"]
+class ServiceStopped(BaseEvent):
+    event_type: Literal["service.stopped"]
+    service_name: str
     reason: str
 
 
-class ServiceFailure(ServiceEvent):
-    type: Literal["service.failure"]
+class ServiceFailed(BaseEvent):
+    event_type: Literal["service.failed"]
+    service_name: str
     reason: str
     data: Optional[Dict] = None

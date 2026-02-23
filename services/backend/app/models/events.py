@@ -8,7 +8,7 @@ from sqlalchemy.orm import Mapped, mapped_column
 from sqlalchemy.dialects.postgresql import JSONB, UUID
 
 from app.db.base import Base
-from app.schemas.events import DeploymentStatus
+from app.schemas.deployment_events import DeploymentStatus
 
 
 class Event(Base):
