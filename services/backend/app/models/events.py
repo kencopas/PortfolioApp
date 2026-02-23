@@ -1,10 +1,11 @@
+import uuid
 from typing import Any
 from datetime import datetime
 
 from sqlalchemy import Enum as SAEnum
-from sqlalchemy import String, DateTime, func, ForeignKey
+from sqlalchemy import String, DateTime, func, ForeignKey, text
 from sqlalchemy.orm import Mapped, mapped_column
-from sqlalchemy.dialects.postgresql import JSONB
+from sqlalchemy.dialects.postgresql import JSONB, UUID
 
 from app.db.base import Base
 from app.schemas.events import DeploymentStatus
@@ -13,11 +14,15 @@ from app.schemas.events import DeploymentStatus
 class Event(Base):
     __tablename__ = "events"
 
-    id: Mapped[int] = mapped_column(primary_key=True)
+    id: Mapped[uuid.UUID] = mapped_column(
+        UUID(as_uuid=True), primary_key=True, server_default=text("gen_random_uuid()")
+    )
     event_type: Mapped[str] = mapped_column(String(128), nullable=False)
-    service_id: Mapped[int] = mapped_column(ForeignKey("services.id"), nullable=False)
-    deployment_id: Mapped[int] = mapped_column(
-        ForeignKey("deployments.id"), nullable=False
+    service_id: Mapped[uuid.UUID] = mapped_column(
+        UUID(as_uuid=True), ForeignKey("services.id"), nullable=True
+    )
+    deployment_id: Mapped[uuid.UUID] = mapped_column(
+        UUID(as_uuid=True), ForeignKey("deployments.id"), nullable=False
     )
     occurred_at: Mapped["datetime"] = mapped_column(
         DateTime(timezone=True), server_default=func.now(), nullable=False
@@ -28,8 +33,12 @@ class Event(Base):
 class Service(Base):
     __tablename__ = "services"
 
-    id: Mapped[int] = mapped_column(primary_key=True)
-    name: Mapped[str] = mapped_column(String(64), nullable=False)
+    id: Mapped[uuid.UUID] = mapped_column(
+        UUID(as_uuid=True),
+        primary_key=True,
+        server_default=text("gen_random_uuid()"),
+    )
+    name: Mapped[str] = mapped_column(String(64), nullable=False, unique=True)
     description: Mapped[str] = mapped_column(String(256), nullable=True)
     created_at: Mapped["datetime"] = mapped_column(
         DateTime(timezone=True), server_default=func.now(), nullable=False
@@ -42,7 +51,7 @@ class Service(Base):
 class Deployment(Base):
     __tablename__ = "deployments"
 
-    id: Mapped[int] = mapped_column(primary_key=True)
+    id: Mapped[uuid.UUID] = mapped_column(UUID(as_uuid=True), primary_key=True)
     image_tag: Mapped[str] = mapped_column(String(7), nullable=False)
     status: Mapped[DeploymentStatus] = mapped_column(
         SAEnum(DeploymentStatus, name="deployment_status_enum"), nullable=False
