@@ -7,7 +7,7 @@ from app.models.events import IngestedEvent
 
 
 class BaseEvent(BaseModel):
-    "Base platform event"
+    """Base platform event"""
 
     event_type: str
     occurred_at: Optional[datetime] = None

@@ -12,10 +12,13 @@ from app.models.events import IngestedEvent
 from app.schemas.base_event import BaseEvent
 from app.schemas.events import RetrievedEvent
 
+from .event_bus import EventBus
 
-class EventService:
-    def __init__(self, db: Session) -> None:
+
+class EventIngestionService:
+    def __init__(self, db: Session, bus: EventBus) -> None:
         self.db = db
+        self.bus = bus
 
     def handle_event(self, event: BaseEvent) -> None:
         try:
@@ -29,7 +32,10 @@ class EventService:
             # Refresh model with db info
             self.db.refresh(event_model)
 
-            print(f"Ingested Event ID: {event_model.id}")
+            print(f"Processing event: {event_model.id}")
+
+            self.bus.publish(event)
+
         except Exception as e:
             print(f"Exception occured: {e}")
             print("Persisting unpackaged event...")
