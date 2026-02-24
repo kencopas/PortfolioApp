@@ -5,7 +5,7 @@ from pydantic_core import ValidationError
 
 from app.services.event_service import EventService
 from app.schemas.base_event import BaseEvent
-from app.schemas.events import Event
+from app.schemas.events import Event, RetrievedEvent
 from app.api.deps import get_event_service
 
 
@@ -15,7 +15,7 @@ router = APIRouter(prefix="/events")
 @router.get("")
 def search_events_endpoint(
     event_service: EventService = Depends(get_event_service),
-) -> List[BaseEvent]:
+) -> List[RetrievedEvent]:
     """Searches all events, currently returns all events without filters"""
     return event_service.search_events()
 

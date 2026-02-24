@@ -9,7 +9,12 @@ from sqlalchemy.orm import Mapped, mapped_column
 from sqlalchemy.dialects.postgresql import JSONB, UUID
 
 from app.db.base import Base
-from app.schemas.deployment_events import DeploymentStatus
+
+
+class DeploymentStatus(str, Enum):
+    STARTED = "started"
+    SUCCESS = "success"
+    FAILED = "failed"
 
 
 class IngestedEvent(Base):

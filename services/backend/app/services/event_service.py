@@ -5,13 +5,12 @@ are applied to make inferences about operational lifecycle and system state.
 """
 
 from typing import List
-from datetime import datetime
 
 from sqlalchemy.orm import Session
 
-from app.schemas.base_event import BaseEvent
-from app.schemas.deployment_events import DeploymentStarted
 from app.models.events import IngestedEvent
+from app.schemas.base_event import BaseEvent
+from app.schemas.events import RetrievedEvent
 
 
 class EventService:
@@ -19,32 +18,45 @@ class EventService:
         self.db = db
 
     def handle_event(self, event: BaseEvent) -> None:
-        # Convert schema into ORM model
+        try:
+            # Convert schema into ORM model
+            event_model = event.to_ingested_event()
 
-        if not isinstance(event, DeploymentStarted):
-            print(
-                "For testing purposes, no-op is chosen for any events of types other than deployment.started. Exiting..."
-            )
-            return
+            # Add and commit to db
+            self.db.add(event_model)
+            self.db.commit()
 
-        event_model = IngestedEvent(
-            event_type=event.event_type,
-            received_at=datetime.now(),
-            payload=event.model_dump(),
-        )
+            # Refresh model with db info
+            self.db.refresh(event_model)
 
-        self.db.add(event_model)
-        self.db.commit()
-        self.db.refresh(event_model)
+            print(f"Ingested Event ID: {event_model.id}")
+        except Exception as e:
+            print(f"Exception occured: {e}")
+            print("Persisting unpackaged event...")
+            event_model = IngestedEvent(payload=event.model_dump())
 
-        print(f"Ingested Event ID: {event_model.id}")
-
-    def search_events(self) -> List[BaseEvent]:
+    def search_events(self) -> List[RetrievedEvent]:
         """Returns all events in the events table"""
         query_result = (
             self.db.query(IngestedEvent)
             .order_by(IngestedEvent.received_at.desc())
             .all()
         )
-        print(query_result[0].__dict__)
-        return query_result
+
+        if not all(isinstance(res, IngestedEvent) for res in query_result):
+            print("ERROR: Recieved a non-`IngestedEvent` object from query")
+            return []
+
+        retrieved_events = [
+            RetrievedEvent(
+                id=res.id,
+                event_type=res.event_type,
+                received_at=res.received_at,
+                payload=res.payload,
+            )
+            for res in query_result
+        ]
+
+        print(f"Retrieved events: {retrieved_events}")
+
+        return retrieved_events

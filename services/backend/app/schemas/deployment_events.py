@@ -1,13 +1,6 @@
-from enum import Enum
 from typing import Literal, Optional, Dict
 
 from .base_event import BaseEvent
-
-
-class DeploymentStatus(str, Enum):
-    STARTED = "started"
-    SUCCESS = "success"
-    FAILED = "failed"
 
 
 class DeploymentStarted(BaseEvent):
