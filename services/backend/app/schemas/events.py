@@ -2,7 +2,7 @@ from uuid import UUID
 from datetime import datetime
 from typing import Annotated, Union
 
-from pydantic import Field, TypeAdapter, BaseModel
+from pydantic import Field, BaseModel
 
 from .deployment_events import DeploymentFailed, DeploymentFinished, DeploymentStarted
 from .service_events import ServiceFailed, ServiceStarted, ServiceStopped
@@ -19,8 +19,6 @@ Event = Annotated[
     ],
     Field(discriminator="event_type"),
 ]
-
-event_adapter = TypeAdapter(Event)
 
 
 class RetrievedEvent(BaseModel):

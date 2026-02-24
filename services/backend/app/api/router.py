@@ -1,10 +1,12 @@
 from fastapi import APIRouter
 
 from .v1.events import router as events_router
+from .v1.admin import router as admin_router
 
 
 router = APIRouter()
 router.include_router(events_router)
+router.include_router(admin_router)
 
 
 @router.get("/")
