@@ -2,10 +2,12 @@ from functools import lru_cache
 from collections import defaultdict
 from typing import DefaultDict, Callable, List, Type
 
+from sqlalchemy.orm import Session
+
 from app.schemas.base_event import BaseEvent
 
 
-EventHandler = Callable[[BaseEvent], None]
+EventHandler = Callable[[BaseEvent, Session], None]
 
 
 class EventBus:
@@ -14,7 +16,7 @@ class EventBus:
     def __init__(self):
         self._handlers = defaultdict(list)
 
-    def publish(self, event: BaseEvent) -> None:
+    def publish(self, event: BaseEvent, db: Session) -> None:
         event_type = type(event)
 
         if event_type not in self._handlers:
@@ -24,7 +26,10 @@ class EventBus:
             return
 
         for handler in self._handlers[event_type]:
-            handler(event)
+            handler(
+                event=event,
+                db=db,
+            )
 
     def subscribe(self, event: Type[BaseEvent]) -> None:
         """Subscribe to a `BaseEvent`"""

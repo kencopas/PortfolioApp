@@ -21,7 +21,7 @@ Event = Annotated[
 ]
 
 
-class RetrievedEvent(BaseModel):
+class RegisteredEvent(BaseModel):
     id: UUID
     event_type: str
     received_at: datetime
