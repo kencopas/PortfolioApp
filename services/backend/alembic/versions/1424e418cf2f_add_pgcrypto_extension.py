@@ -15,7 +15,7 @@ import app.models
 
 # revision identifiers, used by Alembic.
 revision: str = "1424e418cf2f"
-down_revision: Union[str, Sequence[str], None] = "d0d69e463126"
+down_revision: Union[str, Sequence[str], None] = None
 branch_labels: Union[str, Sequence[str], None] = None
 depends_on: Union[str, Sequence[str], None] = None
 

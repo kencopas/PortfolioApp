@@ -16,7 +16,7 @@ import app.models
 
 # revision identifiers, used by Alembic.
 revision: str = "d0d69e463126"
-down_revision: Union[str, Sequence[str], None] = "e33a8930ab69"
+down_revision: Union[str, Sequence[str], None] = "1eb76f5d0962"
 branch_labels: Union[str, Sequence[str], None] = None
 depends_on: Union[str, Sequence[str], None] = None
 
@@ -48,10 +48,10 @@ def upgrade():
     # Allow schema usage
     op.execute(f"GRANT USAGE ON SCHEMA public TO {pts_user};")
 
-    # Grant SELECT and INSERT on events
+    # Grant SELECT and INSERT on ingested_events
     op.execute(f"""
         GRANT SELECT, INSERT
-        ON TABLE events
+        ON TABLE ingested_events
         TO {pts_user};
     """)
 

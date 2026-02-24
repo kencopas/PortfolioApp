@@ -10,7 +10,7 @@ from datetime import datetime
 from sqlalchemy.orm import Session
 
 from app.schemas.base_event import BaseEvent
-from app.models.events import Event
+from app.models.events import IngestedEvent
 
 
 class EventService:
@@ -19,7 +19,7 @@ class EventService:
 
     def handle_event(self, event: BaseEvent) -> None:
         # Convert schema into ORM model
-        event_model = Event(
+        event_model = IngestedEvent(
             event_type=event.event_type,
             service_id=getattr(event, "service_id", None),
             deployment_id=getattr(event, "deployment_id", None),
@@ -33,4 +33,8 @@ class EventService:
 
     def search_events(self) -> List[BaseEvent]:
         """Returns all events in the events table"""
-        return self.db.query(Event).order_by(Event.occurred_at.desc()).all()
+        return (
+            self.db.query(IngestedEvent)
+            .order_by(IngestedEvent.occurred_at.desc())
+            .all()
+        )
