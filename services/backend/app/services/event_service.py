@@ -4,23 +4,33 @@ Events received via the Events API are processed here, where rules and policies
 are applied to make inferences about operational lifecycle and system state.
 """
 
-from typing import List, Dict
+from typing import List
+from datetime import datetime
+
+from sqlalchemy.orm import Session
 
 from app.schemas.base_event import BaseEvent
-from app.db.data_client import load_events, persist_event
-
-from .event_adapter import event_adapter
+from app.models.events import Event
 
 
-def handle_event(event_data: Dict) -> None:
-    try:
-        event = event_adapter.validate_python(event_data)
-    except Exception as e:
-        print(f"Exception occurred while validating event data: {str(e)}")
-        raise e
+class EventService:
+    def __init__(self, db: Session) -> None:
+        self.db = db
 
-    persist_event(event)
+    def handle_event(self, event: BaseEvent) -> None:
+        # Convert schema into ORM model
+        event_model = Event(
+            event_type=event.event_type,
+            service_id=getattr(event, "service_id", None),
+            deployment_id=getattr(event, "deployment_id", None),
+            occurred_at=event.occurred_at,
+            event_data=event.model_dump(),
+        )
 
+        self.db.add(event_model)
+        self.db.commit()
+        self.db.refresh(event)
 
-def search_events() -> List[BaseEvent]:
-    return load_events()
+    def search_events(self) -> List[BaseEvent]:
+        """Returns all events in the events table"""
+        return self.db.query(Event).order_by(Event.occurred_at.desc()).all()

@@ -1,12 +1,12 @@
 from typing import Annotated, Union
 
-from pydantic import Field
+from pydantic import Field, TypeAdapter
 
 from .deployment_events import DeploymentFailed, DeploymentFinished, DeploymentStarted
 from .service_events import ServiceFailed, ServiceStarted, ServiceStopped
 
 
-EventUnion = Annotated[
+Event = Annotated[
     Union[
         DeploymentFailed,
         DeploymentFinished,
@@ -17,3 +17,5 @@ EventUnion = Annotated[
     ],
     Field(discriminator="event_type"),
 ]
+
+event_adapter = TypeAdapter(Event)

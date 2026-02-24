@@ -1,28 +1,34 @@
 from typing import List
 
-from fastapi import APIRouter, HTTPException, status
+from fastapi import APIRouter, HTTPException, status, Depends
 from pydantic_core import ValidationError
 
-from app.services.event_service import handle_event, search_events
+from app.services.event_service import EventService
 from app.schemas.base_event import BaseEvent
-from app.schemas.events import EventUnion
+from app.schemas.events import Event
+from app.api.deps import get_event_service
 
 
 router = APIRouter(prefix="/events")
 
 
 @router.get("")
-def search_events_endpoint() -> List[BaseEvent]:
+def search_events_endpoint(
+    event_service: EventService = Depends(get_event_service),
+) -> List[BaseEvent]:
     """Searches all events, currently returns all events without filters"""
-    return search_events()
+    return event_service.search_events()
 
 
 @router.post("", status_code=status.HTTP_201_CREATED)
-def publish_event(event_data: EventUnion) -> EventUnion:
+def publish_event(
+    event: Event,
+    event_service: EventService = Depends(get_event_service),
+) -> BaseEvent:
     """Validates and publishes an event"""
     try:
-        print(f"Incoming event type: {type(event_data)}")
-        handle_event(event_data)
-        return event_data
+        print(f"Incoming event type: {type(event)}")
+        event_service.handle_event(event)
+        return event
     except ValidationError as e:
         raise HTTPException(status_code=422, detail=e.errors())

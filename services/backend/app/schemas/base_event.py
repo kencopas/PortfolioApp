@@ -8,4 +8,4 @@ class BaseEvent(BaseModel):
     "Base platform event"
 
     event_type: str
-    occured_at: Optional[datetime] = None
+    occurred_at: Optional[datetime] = None
