@@ -11,8 +11,4 @@ bus = get_event_bus()
 
 @bus.subscribe(DeploymentStarted)
 def create_deployment(event: DeploymentStarted, db: Session):
-
-
-    deployment_model = Deployment(
-        event_id=
-    )
+    pass
