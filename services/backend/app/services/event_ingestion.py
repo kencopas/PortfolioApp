@@ -10,7 +10,7 @@ from sqlalchemy.orm import Session
 
 from app.models.events import IngestedEvent
 from app.schemas.base_event import BaseEvent
-from app.schemas.events import RetrievedEvent
+from app.schemas.events import RegisteredEvent
 
 from .event_bus import EventBus
 
@@ -33,15 +33,14 @@ class EventIngestionService:
             self.db.refresh(event_model)
 
             print(f"Processing event: {event_model.id}")
-
-            self.bus.publish(event)
+            self.bus.publish(event, self.db)
 
         except Exception as e:
             print(f"Exception occured: {e}")
             print("Persisting unpackaged event...")
             event_model = IngestedEvent(payload=event.model_dump())
 
-    def search_events(self) -> List[RetrievedEvent]:
+    def search_events(self) -> List[RegisteredEvent]:
         """Returns all events in the events table"""
         query_result = (
             self.db.query(IngestedEvent)
@@ -54,7 +53,7 @@ class EventIngestionService:
             return []
 
         retrieved_events = [
-            RetrievedEvent(
+            RegisteredEvent(
                 id=res.id,
                 event_type=res.event_type,
                 received_at=res.received_at,
