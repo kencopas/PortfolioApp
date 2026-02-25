@@ -1,20 +1,25 @@
+from uuid import UUID
 from typing import Literal, Optional, Dict
 
 from .base_event import BaseEvent
 
 
-class DeploymentStarted(BaseEvent):
+class DeploymentEvent(BaseEvent):
+    """Base event for deployment-related events"""
+
+    deployment_id: UUID
+    image_tag: str
+
+
+class DeploymentStarted(DeploymentEvent):
     event_type: Literal["deployment.started"]
-    image_tag: str
 
 
-class DeploymentFinished(BaseEvent):
+class DeploymentFinished(DeploymentEvent):
     event_type: Literal["deployment.finished"]
-    image_tag: str
 
 
-class DeploymentFailed(BaseEvent):
+class DeploymentFailed(DeploymentEvent):
     event_type: Literal["deployment.failed"]
-    image_tag: str
     reason: str
     data: Optional[Dict] = None

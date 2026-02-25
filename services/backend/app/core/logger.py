@@ -9,7 +9,7 @@ def setup_logging() -> None:
     Configure structured application logging.
     """
 
-    LOG_LEVEL = settings.LOG_LEVEL.upper()
+    LOG_LEVEL = settings.log_level.upper()
 
     LOGGING_CONFIG = {
         "version": 1,
@@ -26,7 +26,7 @@ def setup_logging() -> None:
         "handlers": {
             "console": {
                 "class": "logging.StreamHandler",
-                "formatter": "json" if settings.LOG_JSON else "default",
+                "formatter": "default",
                 "stream": sys.stdout,
             },
         },

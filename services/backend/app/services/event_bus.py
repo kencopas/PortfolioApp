@@ -4,10 +4,12 @@ from typing import DefaultDict, Callable, List, Type
 
 from sqlalchemy.orm import Session
 
+from app.core.logger import get_logger
 from app.schemas.base_event import BaseEvent
 
 
 EventHandler = Callable[[BaseEvent, Session], None]
+logger = get_logger(__file__)
 
 
 class EventBus:
@@ -20,12 +22,13 @@ class EventBus:
         event_type = type(event)
 
         if event_type not in self._handlers:
-            print(
-                f"WARNING: Event with no registered handlers was published ({event_type}). Ignoring."
+            logger.warning(
+                f"Event with no registered handlers was published ({event_type}). Ignoring."
             )
             return
 
         for handler in self._handlers[event_type]:
+            logger.info(f"Handling {event_type.__name__} event...")
             handler(
                 event=event,
                 db=db,

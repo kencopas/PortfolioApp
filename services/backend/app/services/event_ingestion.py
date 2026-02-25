@@ -12,7 +12,12 @@ from app.models.events import IngestedEvent
 from app.schemas.base_event import BaseEvent
 from app.schemas.events import RegisteredEvent
 
+from app.core.logger import get_logger
+
 from .event_bus import EventBus
+
+
+logger = get_logger(__file__)
 
 
 class EventIngestionService:
@@ -23,21 +28,19 @@ class EventIngestionService:
     def handle_event(self, event: BaseEvent) -> None:
         try:
             # Convert schema into ORM model
+            logger.info(f"Ingesting event: {event.event_type}")
             event_model = event.to_ingested_event()
 
             # Add and commit to db
             self.db.add(event_model)
             self.db.commit()
 
-            # Refresh model with db info
-            self.db.refresh(event_model)
-
-            print(f"Processing event: {event_model.id}")
+            # Publis event
+            logger.info(f"Publishing event: {event.event_type}")
             self.bus.publish(event, self.db)
-
         except Exception as e:
-            print(f"Exception occured: {e}")
-            print("Persisting unpackaged event...")
+            logger.error(f"Exception occured: {e}")
+            logger.warning("Persisting unpackaged event...")
             event_model = IngestedEvent(payload=event.model_dump())
 
     def search_events(self) -> List[RegisteredEvent]:
@@ -49,7 +52,7 @@ class EventIngestionService:
         )
 
         if not all(isinstance(res, IngestedEvent) for res in query_result):
-            print("ERROR: Recieved a non-`IngestedEvent` object from query")
+            logger.error("Recieved a non-`IngestedEvent` object from query")
             return []
 
         retrieved_events = [
@@ -62,6 +65,6 @@ class EventIngestionService:
             for res in query_result
         ]
 
-        print(f"Retrieved events: {retrieved_events}")
+        logger.info(f"Retrieved events: {retrieved_events}")
 
         return retrieved_events
