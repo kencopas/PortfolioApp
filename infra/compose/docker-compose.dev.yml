@@ -35,8 +35,6 @@ services:
     env_file:
       - ../env/.env.dev
 
-    volumes:
-      - ../../services/backend:/app 
     ports:
       - "8000:8000"
 
@@ -59,13 +57,12 @@ services:
       - app_net_dev
 
     command: npm run dev
-  
+
   migrate:
     image: backend:dev
     command: uv run alembic upgrade head
     container_name: migrate-dev
-    env_file:
-      ../env/.env.dev
+    env_file: ../env/.env.dev
     networks:
       - app_net_dev
     depends_on:
