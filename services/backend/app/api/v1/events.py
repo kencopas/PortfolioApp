@@ -7,10 +7,13 @@ from pydantic_core import ValidationError
 from sqlalchemy.orm import Session
 
 from app.core.logger import get_logger
-from app.services.event_ingestion import EventIngestionService
-from app.schemas.base_event import BaseEvent, IngestedEvent
-from app.schemas.events import Event, RegisteredEvent
 from app.api.deps import get_ingestion_service, get_db
+from app.services.event_ingestion import EventIngestionService
+
+from app.domain.events.union import Event
+from app.domain.events.published import PublishedEvent
+from app.domain.events.base import BaseEvent
+from app.domain.models.published import Published
 
 
 router = APIRouter(prefix="/events")
@@ -21,18 +24,18 @@ logger = get_logger("Events API")
 def search_events_endpoint(
     limit: int = 100,
     db: Session = Depends(get_db),
-) -> List[RegisteredEvent]:
+) -> List[PublishedEvent]:
     """Searches all events, currently returns all events without filters"""
     query_result = (
-        db.query(IngestedEvent).order_by(IngestedEvent.received_at.desc()).limit(limit)
+        db.query(Published).order_by(Published.received_at.desc()).limit(limit)
     )
 
-    if not all(isinstance(res, IngestedEvent) for res in query_result):
-        logger.error("Recieved a non-`IngestedEvent` object from query")
+    if not all(isinstance(res, Published) for res in query_result):
+        logger.error("Recieved a non-`Published` object from query")
         return []
 
     retrieved_events = [
-        RegisteredEvent(
+        PublishedEvent(
             id=res.id,
             event_type=res.event_type,
             received_at=res.received_at,
@@ -53,7 +56,7 @@ def publish_event(
 ) -> BaseEvent:
     """Validates and publishes an event"""
     try:
-        print(f"Incoming event type: {type(event)}")
+        logger.info(f"Incoming event type: {event}")
         ingestion_service.ingest_event(event)
         return event
     except ValidationError as e:

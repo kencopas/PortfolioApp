@@ -3,7 +3,7 @@
 from uuid import UUID
 from typing import Literal, Optional, Dict
 
-from .base_event import BaseEvent
+from .base import BaseEvent
 
 
 class DeploymentEvent(BaseEvent):

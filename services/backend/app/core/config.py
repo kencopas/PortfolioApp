@@ -18,6 +18,7 @@ class Settings(BaseSettings):
     postgres_pts_user: str
     postgres_pts_password: SecretStr
     pts_database_url: Annotated[PostgresDsn, Field(repr=False)]
+    alembic_database_url: Annotated[PostgresDsn, Field(repr=False)]
 
 
 settings = Settings()

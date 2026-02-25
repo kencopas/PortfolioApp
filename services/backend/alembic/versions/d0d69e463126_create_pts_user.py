@@ -10,8 +10,7 @@ from typing import Sequence, Union
 import os
 
 from alembic import op
-import sqlalchemy as sa
-import app.models
+import app.domain.models
 
 
 # revision identifiers, used by Alembic.
@@ -50,11 +49,11 @@ def upgrade():
     # Allow schema usage
     op.execute(f"GRANT USAGE ON SCHEMA public TO {pts_user};")
 
-    # Grant SELECT and INSERT on ingested_events
+    # Grant SELECT and INSERT on published_events
     op.execute(
         f"""
         GRANT SELECT, INSERT
-        ON TABLE ingested_events
+        ON TABLE published_events
         TO {pts_user};
     """
     )

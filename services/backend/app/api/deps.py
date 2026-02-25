@@ -6,8 +6,8 @@ from fastapi import Depends
 from sqlalchemy.orm import Session
 
 from app.db.session import SessionLocal
-from app.services.event_ingestion import EventIngestionService
 from app.services.event_bus import get_event_bus, EventBus
+from app.services.event_ingestion import EventIngestionService
 
 
 def get_db() -> Generator[Session, None, None]:

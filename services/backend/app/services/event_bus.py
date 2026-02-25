@@ -4,8 +4,8 @@ from typing import DefaultDict, Callable, List, Type
 
 from sqlalchemy.orm import Session
 
-from app.core.logger import get_logger
-from app.schemas.base_event import BaseEvent
+from app.core.logger import get_logger, GREEN, RESET
+from app.domain.events.base import BaseEvent
 
 
 EventHandler = Callable[[BaseEvent, Session], None]
@@ -29,15 +29,16 @@ class EventBus:
     def publish(self, event: BaseEvent, db: Session) -> None:
         """Publishes an instance of BaseEvent child class, executing all registered handlers"""
         event_type = type(event)
+        event_type_repr = f"{GREEN}{event_type.__name__}{RESET}"
 
         if event_type not in self._handlers:
             logger.warning(
-                f"Event with no registered handlers was published ({event_type}). Ignoring."
+                f"Event with no registered handlers was published ({event_type_repr}). Ignoring."
             )
             return
 
         for handler in self._handlers[event_type]:
-            logger.info(f"Handling {event_type.__name__} event...")
+            logger.info(f"Handling {event_type_repr} event...")
             handler(
                 event=event,
                 db=db,

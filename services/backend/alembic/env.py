@@ -1,23 +1,23 @@
-import os
 from logging.config import fileConfig
 
 from sqlalchemy import engine_from_config
 from sqlalchemy import pool
 from alembic import context
 
-from app.db.base import Base
-import app.models
+import app.domain.models
+from app.domain.models.base import Base
+from app.core.config import settings
 
 
 config = context.config
 
-database_url = os.getenv("ALEMBIC_DATABASE_URL")
-if not database_url:
+
+if not settings.alembic_database_url:
     raise RuntimeError(
         "ALEMBIC_DATABASE_URL is not set (required for Alembic migrations)."
     )
 
-config.set_main_option("sqlalchemy.url", database_url)
+config.set_main_option("sqlalchemy.url", settings.alembic_database_url.unicode_string())
 
 # this is the Alembic Config object, which provides
 # access to the values within the .ini file in use.

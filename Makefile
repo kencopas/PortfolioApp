@@ -42,6 +42,10 @@ test:
 delete-volumes:
 	docker compose -f $(COMPOSE_FILE) down -v
 
+test-backend:
+	docker compose -f $(COMPOSE_FILE) up postgres migrate backend --build
+	docker compose -f $(COMPOSE_FILE) down
+
 # ========================================
 # Database Administration
 # ========================================
