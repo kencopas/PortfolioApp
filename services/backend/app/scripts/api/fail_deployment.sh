@@ -2,7 +2,7 @@
 
 EVENT_ID="$(uuidgen)"
 DEPLOYMENT_ID="$1"
-OCCURRED_AT="$(date +"%F %T")"
+OCCURRED_AT="$(date -u +"%F %T")"
 
 curl -X POST 0.0.0.0:8000/events \
 -H "Content-Type: application/json" \

@@ -1,4 +1,6 @@
-from datetime import datetime
+"""Registered event handlers for all incoming events"""
+
+from datetime import datetime, timezone
 
 from sqlalchemy.orm import Session
 
@@ -58,7 +60,7 @@ def close_deployment(event: DeploymentFinished, db: Session):
 
     # Update deployment status
     deployment.status = "success"
-    deployment.finished_at = datetime.now()
+    deployment.finished_at = datetime.now(timezone.utc)
 
     # Commit updated deployment entry
     db.commit()

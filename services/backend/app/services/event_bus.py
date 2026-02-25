@@ -13,12 +13,21 @@ logger = get_logger("Event Bus")
 
 
 class EventBus:
+    """Singleton. Manages the publications and subscriptions to operational events.
+
+    Registers event handlers to their respective event by event class type.
+    Upon publication of an event, all registered handlers are executed and
+    passed the event instance for context.
+    """
+
     _handlers: DefaultDict[Type[BaseEvent], List[EventHandler]]
 
     def __init__(self):
+        """Initializes an EventBus with an empty mapping of handlers."""
         self._handlers = defaultdict(list)
 
     def publish(self, event: BaseEvent, db: Session) -> None:
+        """Publishes an instance of BaseEvent child class, executing all registered handlers"""
         event_type = type(event)
 
         if event_type not in self._handlers:
@@ -35,7 +44,22 @@ class EventBus:
             )
 
     def subscribe(self, event: Type[BaseEvent]) -> None:
-        """Subscribe to a `BaseEvent`"""
+        """Subscribes a handler function to it's respective BaseEvent child class type.
+
+        The handler function should conform to `Callable[[BaseEvent, Session], None]`.
+
+        Example useage:
+        ```
+        class ExampleEvent(BaseEvent):
+            ...
+
+        bus = EventBus()
+
+        @bus.subscribe(ExampleEvent)
+        def example_handler(event: ExampleEvent, db: Session) -> None:
+            ...
+        ```
+        """
 
         def wrapper(handler: EventHandler):
             """Register handler function, return original function without change"""

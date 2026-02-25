@@ -1,3 +1,5 @@
+"""API schemas for service-related events"""
+
 from uuid import UUID
 from typing import Literal, Optional, Dict
 

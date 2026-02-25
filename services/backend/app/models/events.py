@@ -1,10 +1,12 @@
+"""SQLAlchemy ORM models for all incoming events (deployments, service events, etc.)"""
+
 import uuid
 from enum import Enum
 from typing import Any
 from datetime import datetime
 
 from sqlalchemy import Enum as SAEnum
-from sqlalchemy import String, DateTime, func, ForeignKey
+from sqlalchemy import String, DateTime, func
 from sqlalchemy.orm import Mapped, mapped_column
 from sqlalchemy.dialects.postgresql import JSONB, UUID
 

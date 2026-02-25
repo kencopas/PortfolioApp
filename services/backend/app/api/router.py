@@ -1,3 +1,5 @@
+"""Root-level endpoints and router consolidation"""
+
 from fastapi import APIRouter
 
 from .v1.events import router as events_router

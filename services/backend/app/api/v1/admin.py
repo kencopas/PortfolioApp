@@ -1,3 +1,5 @@
+"""Admin API - Serves a static admin console showing ingested events"""
+
 from fastapi import APIRouter
 from fastapi.responses import FileResponse
 

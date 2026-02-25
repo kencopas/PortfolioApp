@@ -1,3 +1,5 @@
+"""API dependencies injected at runtime (event service, database connection, etc.)"""
+
 from typing import Generator
 
 from fastapi import Depends
@@ -16,7 +18,7 @@ def get_db() -> Generator[Session, None, None]:
         db.close()
 
 
-def get_event_service(
+def get_ingestion_service(
     db: Session = Depends(get_db),
     bus: EventBus = Depends(get_event_bus),
 ) -> None:
