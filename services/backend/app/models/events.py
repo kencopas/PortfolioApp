@@ -4,7 +4,7 @@ from typing import Any
 from datetime import datetime
 
 from sqlalchemy import Enum as SAEnum
-from sqlalchemy import String, DateTime, func, ForeignKey, text
+from sqlalchemy import String, DateTime, func, ForeignKey
 from sqlalchemy.orm import Mapped, mapped_column
 from sqlalchemy.dialects.postgresql import JSONB, UUID
 
@@ -20,9 +20,9 @@ class DeploymentStatus(str, Enum):
 class IngestedEvent(Base):
     __tablename__ = "ingested_events"
 
-    id: Mapped[uuid.UUID] = mapped_column(
-        UUID(as_uuid=True), primary_key=True, server_default=text("gen_random_uuid()")
-    )
+    id: Mapped[uuid.UUID] = mapped_column(UUID(as_uuid=True), primary_key=True)
+    service_id: Mapped[uuid.UUID] = mapped_column(UUID(as_uuid=True), nullable=True)
+    deployment_id: Mapped[uuid.UUID] = mapped_column(UUID(as_uuid=True), nullable=True)
     event_type: Mapped[str] = mapped_column(String(128), nullable=True)
     received_at: Mapped["datetime"] = mapped_column(
         DateTime(timezone=True), server_default=func.now()
@@ -33,12 +33,9 @@ class IngestedEvent(Base):
 class Service(Base):
     __tablename__ = "services"
 
-    id: Mapped[uuid.UUID] = mapped_column(
-        UUID(as_uuid=True),
-        primary_key=True,
-        server_default=text("gen_random_uuid()"),
-    )
+    id: Mapped[uuid.UUID] = mapped_column(UUID(as_uuid=True), primary_key=True)
     name: Mapped[str] = mapped_column(String(64), nullable=False, unique=True)
+    status: Mapped[str] = mapped_column(String(32), nullable=False)
     description: Mapped[str] = mapped_column(String(256), nullable=True)
     created_at: Mapped["datetime"] = mapped_column(
         DateTime(timezone=True), server_default=func.now()
@@ -52,9 +49,6 @@ class Deployment(Base):
     __tablename__ = "deployments"
 
     id: Mapped[uuid.UUID] = mapped_column(UUID(as_uuid=True), primary_key=True)
-    event_id: Mapped[uuid.UUID] = mapped_column(
-        UUID(as_uuid=True), ForeignKey("ingested_events.id"), nullable=False
-    )
     image_tag: Mapped[str] = mapped_column(String(7), nullable=False)
     status: Mapped[DeploymentStatus] = mapped_column(
         SAEnum(DeploymentStatus, name="deployment_status_enum"), nullable=False
