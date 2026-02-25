@@ -3,9 +3,9 @@ from typing import List
 from fastapi import APIRouter, HTTPException, status, Depends
 from pydantic_core import ValidationError
 
-from app.services.event_service import EventService
+from app.services.event_ingestion import EventIngestionService
 from app.schemas.base_event import BaseEvent
-from app.schemas.events import Event
+from app.schemas.events import Event, RegisteredEvent
 from app.api.deps import get_event_service
 
 
@@ -14,16 +14,17 @@ router = APIRouter(prefix="/events")
 
 @router.get("")
 def search_events_endpoint(
-    event_service: EventService = Depends(get_event_service),
-) -> List[BaseEvent]:
+    limit: int = 100,
+    event_service: EventIngestionService = Depends(get_event_service),
+) -> List[RegisteredEvent]:
     """Searches all events, currently returns all events without filters"""
-    return event_service.search_events()
+    return event_service.search_events()[:limit]
 
 
 @router.post("", status_code=status.HTTP_201_CREATED)
 def publish_event(
     event: Event,
-    event_service: EventService = Depends(get_event_service),
+    event_service: EventIngestionService = Depends(get_event_service),
 ) -> BaseEvent:
     """Validates and publishes an event"""
     try:

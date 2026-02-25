@@ -16,7 +16,7 @@ import app.models
 
 # revision identifiers, used by Alembic.
 revision: str = "d0d69e463126"
-down_revision: Union[str, Sequence[str], None] = "1eb76f5d0962"
+down_revision: Union[str, Sequence[str], None] = "8248031a8484"
 branch_labels: Union[str, Sequence[str], None] = None
 depends_on: Union[str, Sequence[str], None] = None
 
@@ -30,7 +30,8 @@ def upgrade():
         raise RuntimeError("Required PTS role environment variables not set")
 
     # Create role if it does not exist
-    op.execute(f"""
+    op.execute(
+        f"""
     DO $$
     BEGIN
         IF NOT EXISTS (
@@ -40,7 +41,8 @@ def upgrade():
         END IF;
     END
     $$;
-    """)
+    """
+    )
 
     # Allow connection to database
     op.execute(f"GRANT CONNECT ON DATABASE {db_name} TO {pts_user};")
@@ -49,43 +51,55 @@ def upgrade():
     op.execute(f"GRANT USAGE ON SCHEMA public TO {pts_user};")
 
     # Grant SELECT and INSERT on ingested_events
-    op.execute(f"""
+    op.execute(
+        f"""
         GRANT SELECT, INSERT
         ON TABLE ingested_events
         TO {pts_user};
-    """)
+    """
+    )
 
     # Grant SELECT, INSERT, UPDATE on services
-    op.execute(f"""
+    op.execute(
+        f"""
         GRANT SELECT, INSERT, UPDATE
         ON TABLE services
         TO {pts_user};
-    """)
+    """
+    )
 
     # Grant SELECT, INSERT, UPDATE on deployments
-    op.execute(f"""
+    op.execute(
+        f"""
         GRANT SELECT, INSERT, UPDATE
         ON TABLE deployments
         TO {pts_user};
-    """)
+    """
+    )
 
     # Grant permissions on existing sequences
-    op.execute(f"""
+    op.execute(
+        f"""
         GRANT USAGE
         ON ALL SEQUENCES IN SCHEMA public
         TO {pts_user};
-    """)
+    """
+    )
 
     # Set default privileges for future tables
-    op.execute(f"""
+    op.execute(
+        f"""
         ALTER DEFAULT PRIVILEGES IN SCHEMA public
         GRANT SELECT, INSERT ON TABLES TO {pts_user};
-    """)
+    """
+    )
 
-    op.execute(f"""
+    op.execute(
+        f"""
         ALTER DEFAULT PRIVILEGES IN SCHEMA public
         GRANT USAGE ON SEQUENCES TO {pts_user};
-    """)
+    """
+    )
 
     # Revoke unsafe public access
     op.execute("REVOKE ALL ON SCHEMA public FROM PUBLIC;")

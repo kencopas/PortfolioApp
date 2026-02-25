@@ -26,7 +26,6 @@ flowchart TD
     inferred_events[(Inferred Events)]
 
     %% Persistence Processes
-    persist_raw(Persist Raw Event)
     persist_valid(Persist Validated Event)
     persist_packaged(Persist Packaged Event)
     persist_inferred(Persist Inferred Events)
@@ -35,18 +34,16 @@ flowchart TD
     source --raw_event--> api --valid_event--> ingestion --packaged_event--> processor
 
     %% Persistence
-    api --validation failure--> persist_raw
     ingestion --packaging failure--> persist_valid
     ingestion --success--> persist_packaged
     processor --inferred events--> persist_inferred
 
-    persist_raw --> events
     persist_valid --> events
     persist_packaged --> events
 
     persist_inferred --> inferred_events
 
-    linkStyle 3,4 stroke:red
+    linkStyle 3 stroke:red
 ```
 
 Because of the fail-cases, there is never an opportunity for an emitted event to not be persisted to the `ingested_events` table. After an event is validated and packaged, it is then processed for inferred events to be produced.
