@@ -17,7 +17,7 @@ from app.core.logger import get_logger
 from .event_bus import EventBus
 
 
-logger = get_logger(__file__)
+logger = get_logger("Event Ingestion")
 
 
 class EventIngestionService:
@@ -65,6 +65,6 @@ class EventIngestionService:
             for res in query_result
         ]
 
-        logger.info(f"Retrieved events: {retrieved_events}")
+        logger.debug(f"Retrieved events: {retrieved_events}")
 
         return retrieved_events

@@ -9,7 +9,7 @@ from app.schemas.base_event import BaseEvent
 
 
 EventHandler = Callable[[BaseEvent, Session], None]
-logger = get_logger(__file__)
+logger = get_logger("Event Bus")
 
 
 class EventBus:

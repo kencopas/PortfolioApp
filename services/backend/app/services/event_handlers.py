@@ -15,11 +15,22 @@ from .event_bus import get_event_bus
 
 
 bus = get_event_bus()
-logger = get_logger(__file__)
+logger = get_logger("Event Handlers")
 
 
 @bus.subscribe(DeploymentStarted)
 def create_deployment(event: DeploymentStarted, db: Session):
+
+    logger.info("Checking for existing deployment...")
+    existing_deployment = db.get(Deployment, event.deployment_id)
+
+    # Check for deployment existence
+    if existing_deployment:
+        logger.error("DeploymentStarted event occurred for an existing deployment.")
+        logger.warning("Ignoring DeploymentStarted event...")
+        return
+
+    # Create new deployment
     deployment = Deployment(
         id=event.deployment_id,
         image_tag=event.image_tag,
@@ -27,13 +38,17 @@ def create_deployment(event: DeploymentStarted, db: Session):
         started_at=event.occurred_at,
     )
 
+    # Add and commit
     db.add(deployment)
+    db.commit()
 
 
 @bus.subscribe(DeploymentFinished)
 def close_deployment(event: DeploymentFinished, db: Session):
+
     deployment = db.get(Deployment, event.deployment_id)
 
+    # Check for deployment existence
     if not deployment:
         logger.error(
             "DeploymentFinished event occurred with no matching deployment on record."
@@ -42,7 +57,7 @@ def close_deployment(event: DeploymentFinished, db: Session):
         return
 
     # Update deployment status
-    deployment.status = "finished"
+    deployment.status = "success"
     deployment.finished_at = datetime.now()
 
     # Commit updated deployment entry
@@ -56,6 +71,7 @@ def diagnose_deployment(event: DeploymentFailed, db: Session):
 
     deployment = db.get(Deployment, event.deployment_id)
 
+    # Check for deployment existence
     if not deployment:
         logger.error(
             "DeploymentFailed event occurred with no matching deployment on record."
