@@ -72,7 +72,7 @@ class EventRepository:
 
         try:
             # Construct ORM model
-            platform_event = PlatformEventRecord(
+            platform_event = PlatformEvent(
                 id=event_id,
                 service_id=service_id,
                 deployment_id=deployment_id,
@@ -83,7 +83,7 @@ class EventRepository:
         except Exception:
             logger.exception("Exception occurred during platform event persistence.")
             logger.warning("Persisting unpackaged event...")
-            platform_event = PlatformEventRecord(payload=payload)
+            platform_event = PlatformEvent(payload=payload)
 
         # Add and commit to db
         self._db.add(platform_event)
