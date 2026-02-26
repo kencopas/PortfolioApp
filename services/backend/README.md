@@ -2,27 +2,46 @@
 
 ## File Structure
 
+The following file structure separates components into the following layers:
+
+- **API:** Inbound request validation and service orchestration
+- **Service:** Application logic; Specific to frameworks/libraries
+- **Domain:** Business logic; Agnostic to frameworks/libraries
+- **Database:** Database connection and modeling
+- **Core:** Components frequently used by most other services (config, logging, etc.)
+
 ```
 .
 ├── Dockerfile
-├── alembic/                # Database Migrations
+├── alembic/                    # Database Migrations
 │   ├── README.md
-│   ├── env.py              # Alembic Configurations
-│   └── versions/           # Alembic Revisions
+│   ├── env.py                  # Alembic Configurations
+│   └── versions/               # Alembic Revisions
 ├── app/
 │   ├── main.py
+│   │
 │   ├── api/
-│   │   ├── router.py       # Consolidates API Routers
+│   │   ├── router.py           # Consolidates API Routers
+│   │   ├── deps.py             # API Dependencies
 │   │   └── v1/
-│   │       └── events.py   # `/events` routes
-│   ├── core/               # Frequently Used Application Components
+│   │       └── events.py       # `/events` routes
+│   │
+│   ├── core/                   # Frequently Used Application Components
 │   │   ├── config.py
 │   │   └── logger.py
-│   ├── db/                 # Database Interaction Components
-│   │   └── data_client.py
-│   ├── models/             # SQLAlchemy ORM Models
-│   ├── schemas/            # FastAPI Pydantic models
-│   └── services/           # Application Logic
+│   │
+│   ├── db/                     # Database Interaction Components
+│   │   ├── models/             # SQLAlchemy ORM Models
+│   │   └── session.py
+│   │
+│   ├── domain/                 # Business Logic
+│   │   ├── event_bus.py
+│   │   ├── enums.py
+│   │   ├── handlers/           # Event Handlers
+│   │   └── events/             # Event API Schemas
+│   │
+│   └── services/               # Application Logic
+│       └── event_ingestion.py
 └── docs/
 ```
 
