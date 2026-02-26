@@ -3,8 +3,8 @@
 from datetime import datetime, timezone
 
 from app.domain.events.base import BaseEvent
-from app.core.logger import get_logger
 from app.domain.event_bus import EventBus
+from app.core.logger import get_logger
 
 from .event_repository import EventRepository
 

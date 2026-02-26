@@ -8,7 +8,7 @@ from app.core.logger import get_logger
 from app.db.models.deployment import Deployment
 from app.db.models.published import Published
 from app.domain.enums import DeploymentStatus
-from app.domain.search.published import PublishedEvent
+from app.domain.schemas.published import PublishedEvent
 
 
 logger = get_logger("Event Repository")

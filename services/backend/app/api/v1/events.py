@@ -8,13 +8,12 @@ from pydantic_core import ValidationError
 from app.core.logger import get_logger
 from app.api.deps import get_ingestion_service, get_event_repository
 from app.services.event_ingestion import EventIngestionService
+from app.services.event_repository import EventRepository
 
 from app.domain.events.union import Event
-from app.domain.search.published import PublishedEvent
-from app.domain.search.filtered_query import FilteredQueryRequest
 from app.domain.events.base import BaseEvent
-from app.db.models.published import Published
-from app.services.event_repository import EventRepository
+from app.domain.schemas.published import PublishedEvent
+from app.domain.schemas.filtered_query import FilteredQueryRequest
 
 
 router = APIRouter(prefix="/events")

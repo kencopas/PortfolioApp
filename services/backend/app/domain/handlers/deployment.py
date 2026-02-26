@@ -1,13 +1,13 @@
 """Registered event handlers for all incoming events"""
 
-from app.domain.events.deployment import (
+from app.domain.event_bus import get_event_bus
+from app.domain.events import (
     DeploymentStarted,
     DeploymentFinished,
     DeploymentFailed,
 )
 
 from app.core.logger import get_logger
-from app.domain.event_bus import get_event_bus
 from app.services.event_repository import EventRepository
 
 
