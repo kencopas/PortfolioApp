@@ -2,13 +2,12 @@ from functools import lru_cache
 from collections import defaultdict
 from typing import DefaultDict, Callable, List, Type
 
-from sqlalchemy.orm import Session
-
 from app.core.logger import get_logger, GREEN, RESET
 from app.domain.events.base import BaseEvent
+from app.services.event_repository import EventRepository
 
 
-EventHandler = Callable[[BaseEvent, Session], None]
+EventHandler = Callable[[BaseEvent, EventRepository], None]
 logger = get_logger("Event Bus")
 
 
@@ -26,7 +25,7 @@ class EventBus:
         """Initializes an EventBus with an empty mapping of handlers."""
         self._handlers = defaultdict(list)
 
-    def publish(self, event: BaseEvent, db: Session) -> None:
+    def publish(self, event: BaseEvent, repo: EventRepository) -> None:
         """Publishes an instance of BaseEvent child class, executing all registered handlers"""
         event_type = type(event)
         event_type_repr = f"{GREEN}{event_type.__name__}{RESET}"
@@ -41,13 +40,13 @@ class EventBus:
             logger.info(f"Handling {event_type_repr} event...")
             handler(
                 event=event,
-                db=db,
+                repo=repo,
             )
 
     def subscribe(self, event: Type[BaseEvent]) -> None:
         """Subscribes a handler function to it's respective BaseEvent child class type.
 
-        The handler function should conform to `Callable[[BaseEvent, Session], None]`.
+        The handler function should conform to `Callable[[BaseEvent, EventRepository], None]`.
 
         Example useage:
         ```
@@ -57,7 +56,7 @@ class EventBus:
         bus = EventBus()
 
         @bus.subscribe(ExampleEvent)
-        def example_handler(event: ExampleEvent, db: Session) -> None:
+        def example_handler(event: ExampleEvent, repo: EventRepository) -> None:
             ...
         ```
         """

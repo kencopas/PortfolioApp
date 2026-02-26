@@ -8,6 +8,7 @@ from sqlalchemy.orm import Session
 from app.db.session import SessionLocal
 from app.domain.event_bus import get_event_bus, EventBus
 from app.services.event_ingestion import EventIngestionService
+from app.services.event_repository import EventRepository
 
 
 def get_db() -> Generator[Session, None, None]:
@@ -18,8 +19,12 @@ def get_db() -> Generator[Session, None, None]:
         db.close()
 
 
+def get_event_repository(db: Session = Depends(get_db)):
+    return EventRepository(db=db)
+
+
 def get_ingestion_service(
-    db: Session = Depends(get_db),
+    repo: EventRepository = Depends(get_event_repository),
     bus: EventBus = Depends(get_event_bus),
 ) -> None:
-    return EventIngestionService(db=db, bus=bus)
+    return EventIngestionService(repo=repo, bus=bus)
