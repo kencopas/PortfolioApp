@@ -4,16 +4,17 @@ from typing import List
 
 from fastapi import APIRouter, HTTPException, status, Depends
 from pydantic_core import ValidationError
-from sqlalchemy.orm import Session
 
 from app.core.logger import get_logger
-from app.api.deps import get_ingestion_service, get_db
+from app.api.deps import get_ingestion_service, get_event_repository
 from app.services.event_ingestion import EventIngestionService
 
 from app.domain.events.union import Event
-from app.domain.events.published import PublishedEvent
+from app.domain.search.published import PublishedEvent
+from app.domain.search.filtered_query import FilteredQueryRequest
 from app.domain.events.base import BaseEvent
 from app.db.models.published import Published
+from app.services.event_repository import EventRepository
 
 
 router = APIRouter(prefix="/events")
@@ -22,31 +23,21 @@ logger = get_logger("Events API")
 
 @router.get("")
 def search_events_endpoint(
-    limit: int = 100,
-    db: Session = Depends(get_db),
+    query: FilteredQueryRequest = Depends(),
+    repo: EventRepository = Depends(get_event_repository),
 ) -> List[PublishedEvent]:
     """Searches all events, currently returns all events without filters"""
-    query_result = (
-        db.query(Published).order_by(Published.received_at.desc()).limit(limit)
+
+    events = repo.search_published_events(
+        limit=query.limit,
+        after=query.after,
+        before=query.before,
+        event_type=query.event_type,
     )
 
-    if not all(isinstance(res, Published) for res in query_result):
-        logger.error("Recieved a non-`Published` object from query")
-        return []
+    logger.debug(f"Retrieved events: {events}")
 
-    retrieved_events = [
-        PublishedEvent(
-            id=res.id,
-            event_type=res.event_type,
-            received_at=res.received_at,
-            payload=res.payload,
-        )
-        for res in query_result
-    ]
-
-    logger.debug(f"Retrieved events: {retrieved_events}")
-
-    return retrieved_events
+    return events
 
 
 @router.post("", status_code=status.HTTP_201_CREATED)

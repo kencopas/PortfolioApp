@@ -17,7 +17,23 @@
           Limit
           <input id="limit" type="number" value="20" min="1" max="200" />
         </label>
-        <button onclick="loadEvents()">Refresh</button>
+
+        <label>
+          Event Type
+          <input id="event_type" type="text" placeholder="deployment.started" />
+        </label>
+
+        <label>
+          After
+          <input id="after" type="datetime-local" />
+        </label>
+
+        <label>
+          Before
+          <input id="before" type="datetime-local" />
+        </label>
+
+        <button onclick="loadEvents()">Search</button>
       </div>
     </header>
 
@@ -28,11 +44,35 @@
     <script>
       async function loadEvents() {
         const limit = document.getElementById("limit").value;
-        const response = await fetch(`/events?limit=${limit}`);
+        const eventType = document.getElementById("event_type").value;
+        const after = document.getElementById("after").value;
+        const before = document.getElementById("before").value;
+
+        const params = new URLSearchParams();
+
+        if (limit) params.append("limit", limit);
+        if (eventType) params.append("event_type", eventType);
+
+        if (after) {
+          const afterISO = new Date(after).toISOString();
+          params.append("after", afterISO);
+        }
+
+        if (before) {
+          const beforeISO = new Date(before).toISOString();
+          params.append("before", beforeISO);
+        }
+
+        const response = await fetch(`/events?${params.toString()}`);
         const data = await response.json();
 
         const container = document.getElementById("events");
         container.innerHTML = "";
+
+        if (data.length === 0) {
+          container.innerHTML = `<div class="empty-state">No events found.</div>`;
+          return;
+        }
 
         data.forEach((event) => {
           const card = document.createElement("div");
@@ -55,7 +95,7 @@
                 <summary>View Payload</summary>
                 <pre>${JSON.stringify(event.payload, null, 2)}</pre>
             </details>
-        `;
+          `;
 
           container.appendChild(card);
         });

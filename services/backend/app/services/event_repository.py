@@ -1,6 +1,6 @@
 from uuid import UUID
 from datetime import datetime, timezone
-from typing import Optional, Dict, Any
+from typing import Optional, Dict, Any, List
 
 from sqlalchemy.orm import Session
 
@@ -8,6 +8,7 @@ from app.core.logger import get_logger
 from app.db.models.deployment import Deployment
 from app.db.models.published import Published
 from app.domain.enums import DeploymentStatus
+from app.domain.search.published import PublishedEvent
 
 
 logger = get_logger("Event Repository")
@@ -20,6 +21,44 @@ class EventRepository:
         """Creates an event repository with a database connection"""
         self._db = db
 
+    def search_published_events(
+        self,
+        limit: Optional[int] = None,
+        after: Optional[datetime] = None,
+        before: Optional[datetime] = None,
+        event_type: Optional[str] = None,
+    ) -> List[PublishedEvent]:
+        """Search published events and apply filter criteria"""
+
+        # Construct filter criteria
+        criteria = []
+        if after:
+            criteria.append(Published.received_at >= after)
+        if before:
+            criteria.append(Published.received_at <= before)
+        if event_type:
+            criteria.append(Published.event_type == event_type)
+
+        # Perform filtered query
+        query = self._db.query(Published).filter(*criteria)
+
+        # Apply query limit
+        if limit:
+            query = query.limit(limit)
+
+        # Construct published events from ORM models
+        published_events = [
+            PublishedEvent(
+                id=res.id,
+                event_type=res.event_type,
+                received_at=res.received_at,
+                payload=res.payload,
+            )
+            for res in query
+        ]
+
+        return published_events
+
     def persist_published_event(
         self,
         event_id: UUID,
@@ -28,7 +67,7 @@ class EventRepository:
         event_type: str,
         received_at: datetime,
         payload: Dict[str, Any],
-    ):
+    ) -> None:
         """Persist a published event"""
 
         try:
@@ -52,7 +91,7 @@ class EventRepository:
 
     def create_deployment(
         self, deployment_id: UUID, image_tag: str, started_at: datetime
-    ):
+    ) -> None:
         """Create a deployment
 
         Raises:
@@ -78,7 +117,7 @@ class EventRepository:
         self._db.add(deployment)
         self._db.commit()
 
-    def close_deployment(self, deployment_id: UUID):
+    def close_deployment(self, deployment_id: UUID) -> None:
         """Close a deployment
 
         Raises:
@@ -99,7 +138,7 @@ class EventRepository:
         # Commit updated deployment entry
         self._db.commit()
 
-    def fail_deployment(self, deployment_id: UUID):
+    def fail_deployment(self, deployment_id: UUID) -> None:
         """Update a deployment status to failed
 
         Raises:

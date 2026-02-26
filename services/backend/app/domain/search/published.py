@@ -3,7 +3,7 @@ from datetime import datetime
 
 from pydantic import BaseModel
 
-from .union import Event
+from ..events.union import Event
 
 
 class PublishedEvent(BaseModel):
