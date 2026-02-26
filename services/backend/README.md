@@ -41,6 +41,7 @@ The following file structure separates components into the following layers:
 │   │   └── events/             # Event API Schemas
 │   │
 │   └── services/               # Application Logic
+│       ├── event_repository.py
 │       └── event_ingestion.py
 └── docs/
 ```
