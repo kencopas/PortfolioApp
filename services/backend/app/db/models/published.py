@@ -8,7 +8,7 @@ from sqlalchemy import String, DateTime, func
 from sqlalchemy.orm import Mapped, mapped_column
 from sqlalchemy.dialects.postgresql import JSONB, UUID
 
-from app.domain.models.base import Base
+from app.db.models.base import Base
 
 
 class Published(Base):

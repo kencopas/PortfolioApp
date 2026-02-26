@@ -3,8 +3,8 @@ from fastapi.staticfiles import StaticFiles
 
 from app.core.logger import setup_logging
 from app.api.router import router
-import app.domain.models  # Register SQLAlchemy ORM Models
-import app.services.event_handlers  # Initialize Event Bus and Register Event Handlers
+import app.db.models  # Register SQLAlchemy ORM Models
+import app.domain.handlers.deployment  # Initialize Event Bus and Register Event Handlers
 
 
 setup_logging()

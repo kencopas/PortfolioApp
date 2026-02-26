@@ -8,7 +8,7 @@ from sqlalchemy import String, DateTime
 from sqlalchemy.orm import Mapped, mapped_column
 from sqlalchemy.dialects.postgresql import UUID
 
-from app.domain.models.base import Base
+from app.db.models.base import Base
 from app.domain.enums import DeploymentStatus
 
 

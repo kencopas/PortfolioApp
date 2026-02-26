@@ -2,11 +2,11 @@
 
 from sqlalchemy.orm import Session
 
-from app.domain.models.published import Published
+from app.db.models.published import Published
 from app.domain.events.base import BaseEvent
 from app.core.logger import get_logger
 
-from .event_bus import EventBus
+from ..domain.event_bus import EventBus
 
 
 logger = get_logger("Event Ingestion")

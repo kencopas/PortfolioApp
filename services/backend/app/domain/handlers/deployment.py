@@ -5,7 +5,7 @@ from datetime import datetime, timezone
 from sqlalchemy.orm import Session
 
 from app.domain.enums import DeploymentStatus
-from app.domain.models.deployment import Deployment
+from app.db.models.deployment import Deployment
 from app.domain.events.deployment import (
     DeploymentStarted,
     DeploymentFinished,
@@ -14,7 +14,7 @@ from app.domain.events.deployment import (
 
 from app.core.logger import get_logger
 
-from .event_bus import get_event_bus
+from ..event_bus import get_event_bus
 
 
 bus = get_event_bus()

@@ -5,7 +5,7 @@ from datetime import datetime
 from pydantic import BaseModel
 
 from app.core.logger import GREEN, RESET
-from app.domain.models.published import Published
+from app.db.models.published import Published
 
 
 class BaseEvent(BaseModel):

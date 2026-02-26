@@ -13,7 +13,7 @@ from app.services.event_ingestion import EventIngestionService
 from app.domain.events.union import Event
 from app.domain.events.published import PublishedEvent
 from app.domain.events.base import BaseEvent
-from app.domain.models.published import Published
+from app.db.models.published import Published
 
 
 router = APIRouter(prefix="/events")

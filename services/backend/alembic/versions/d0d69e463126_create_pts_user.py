@@ -10,7 +10,7 @@ from typing import Sequence, Union
 import os
 
 from alembic import op
-import app.domain.models
+import app.db.models
 
 
 # revision identifiers, used by Alembic.
