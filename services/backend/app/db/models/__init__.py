@@ -1,3 +1,3 @@
 """SQLAlchemy ORM models"""
 
-from .published import Published  # noqa: F401
+from .platform_event import PlatformEvent  # noqa: F401

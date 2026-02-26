@@ -12,8 +12,7 @@ from app.services.event_repository import EventRepository
 
 from app.domain.events.union import Event
 from app.domain.events.base import BaseEvent
-from app.domain.schemas.published import PublishedEvent
-from app.domain.schemas.filtered_query import FilteredQueryRequest
+from app.domain.schemas.platform import PlatformEventRecord, FilteredQueryRequest
 
 
 router = APIRouter(prefix="/events")
@@ -24,10 +23,10 @@ logger = get_logger("Events API")
 def search_events_endpoint(
     query: FilteredQueryRequest = Depends(),
     repo: EventRepository = Depends(get_event_repository),
-) -> List[PublishedEvent]:
+) -> List[PlatformEventRecord]:
     """Searches all events, currently returns all events without filters"""
 
-    events = repo.search_published_events(
+    events = repo.search_events(
         limit=query.limit,
         after=query.after,
         before=query.before,
@@ -40,11 +39,11 @@ def search_events_endpoint(
 
 
 @router.post("", status_code=status.HTTP_201_CREATED)
-def publish_event(
+def emit_event(
     event: Event,
     ingestion_service: EventIngestionService = Depends(get_ingestion_service),
 ) -> BaseEvent:
-    """Validates and publishes an event"""
+    """Validates and ingests an event"""
     try:
         logger.info(f"Incoming event type: {event}")
         ingestion_service.ingest_event(event)

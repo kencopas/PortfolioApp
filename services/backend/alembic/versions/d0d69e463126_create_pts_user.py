@@ -49,11 +49,11 @@ def upgrade():
     # Allow schema usage
     op.execute(f"GRANT USAGE ON SCHEMA public TO {pts_user};")
 
-    # Grant SELECT and INSERT on published_events
+    # Grant SELECT and INSERT on platform_events
     op.execute(
         f"""
         GRANT SELECT, INSERT
-        ON TABLE published_events
+        ON TABLE platform_events
         TO {pts_user};
     """
     )

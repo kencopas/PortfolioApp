@@ -11,8 +11,8 @@ from sqlalchemy.dialects.postgresql import JSONB, UUID
 from app.db.models.base import Base
 
 
-class Published(Base):
-    __tablename__ = "published_events"
+class PlatformEvent(Base):
+    __tablename__ = "platform_events"
 
     id: Mapped[uuid.UUID] = mapped_column(UUID(as_uuid=True), primary_key=True)
     service_id: Mapped[uuid.UUID] = mapped_column(UUID(as_uuid=True), nullable=True)

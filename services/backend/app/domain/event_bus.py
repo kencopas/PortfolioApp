@@ -2,8 +2,8 @@ from functools import lru_cache
 from collections import defaultdict
 from typing import DefaultDict, Callable, List, Type
 
-from app.core.logger import get_logger, GREEN, RESET
 from app.domain.events.base import BaseEvent
+from app.core.logger import get_logger, GREEN, RESET
 from app.services.event_repository import EventRepository
 
 

@@ -29,7 +29,7 @@ class EventIngestionService:
 
         # Persist ingested and packaged event
         logger.info("Persisting event...")
-        self.repo.persist_published_event(
+        self.repo.persist_platform_event(
             event_id=event.id,
             service_id=event.service_id,
             deployment_id=event.deployment_id,

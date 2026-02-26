@@ -6,9 +6,9 @@ from sqlalchemy.orm import Session
 
 from app.core.logger import get_logger
 from app.db.models.deployment import Deployment
-from app.db.models.published import Published
+from app.db.models.platform_event import PlatformEvent
 from app.domain.enums import DeploymentStatus
-from app.domain.schemas.published import PublishedEvent
+from app.domain.schemas.platform import PlatformEventRecord
 
 
 logger = get_logger("Event Repository")
@@ -21,34 +21,34 @@ class EventRepository:
         """Creates an event repository with a database connection"""
         self._db = db
 
-    def search_published_events(
+    def search_events(
         self,
         limit: Optional[int] = None,
         after: Optional[datetime] = None,
         before: Optional[datetime] = None,
         event_type: Optional[str] = None,
-    ) -> List[PublishedEvent]:
-        """Search published events and apply filter criteria"""
+    ) -> List[PlatformEventRecord]:
+        """Search platform events and apply filter criteria"""
 
         # Construct filter criteria
         criteria = []
         if after:
-            criteria.append(Published.received_at >= after)
+            criteria.append(PlatformEventRecord.received_at >= after)
         if before:
-            criteria.append(Published.received_at <= before)
+            criteria.append(PlatformEventRecord.received_at <= before)
         if event_type:
-            criteria.append(Published.event_type == event_type)
+            criteria.append(PlatformEventRecord.event_type == event_type)
 
         # Perform filtered query
-        query = self._db.query(Published).filter(*criteria)
+        query = self._db.query(PlatformEventRecord).filter(*criteria)
 
         # Apply query limit
         if limit:
             query = query.limit(limit)
 
-        # Construct published events from ORM models
-        published_events = [
-            PublishedEvent(
+        # Construct platform event records from ORM models
+        events = [
+            PlatformEventRecord(
                 id=res.id,
                 event_type=res.event_type,
                 received_at=res.received_at,
@@ -57,9 +57,9 @@ class EventRepository:
             for res in query
         ]
 
-        return published_events
+        return events
 
-    def persist_published_event(
+    def persist_platform_event(
         self,
         event_id: UUID,
         service_id: Optional[UUID],
@@ -68,11 +68,11 @@ class EventRepository:
         received_at: datetime,
         payload: Dict[str, Any],
     ) -> None:
-        """Persist a published event"""
+        """Persist a platform event"""
 
         try:
             # Construct ORM model
-            published = Published(
+            platform_event = PlatformEventRecord(
                 id=event_id,
                 service_id=service_id,
                 deployment_id=deployment_id,
@@ -81,12 +81,12 @@ class EventRepository:
                 payload=payload,
             )
         except Exception:
-            logger.exception("Exception occurred during published event persistence.")
+            logger.exception("Exception occurred during platform event persistence.")
             logger.warning("Persisting unpackaged event...")
-            published = Published(payload=payload)
+            platform_event = PlatformEventRecord(payload=payload)
 
         # Add and commit to db
-        self._db.add(published)
+        self._db.add(platform_event)
         self._db.commit()
 
     def create_deployment(
