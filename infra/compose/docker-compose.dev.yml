@@ -50,13 +50,19 @@ services:
 
     volumes:
       - ../../services/frontend:/app
+      - /app/node_modules
     ports:
       - "3000:3000"
 
     networks:
       - app_net_dev
 
-    command: npm run dev
+    env_file:
+      - ../env/.env.dev
+    environment:
+      NODE_ENV: development
+
+    command: sh -c "npm ci && npm run dev"
 
   migrate:
     image: backend:dev

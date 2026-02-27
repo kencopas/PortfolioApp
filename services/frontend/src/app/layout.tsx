@@ -20,8 +20,28 @@ const geistMono = Geist_Mono({
 });
 
 export const metadata: Metadata = {
-  title: "Ken Copas",
-  description: "Welcome to my Portfolio Application.",
+  metadataBase: new URL("https://kencopas.com"),
+  title: {
+    default: "Ken Copas — Data Engineer | Platform & Telemetry",
+    template: "%s | Ken Copas",
+  },
+  description:
+    "Data engineer building secure, containerized platforms: telemetry, event-driven services, and reproducible infrastructure.",
+  alternates: {
+    canonical: "https://kencopas.com/",
+  },
+  openGraph: {
+    title: "Ken Copas — Data Engineer | Platform & Telemetry",
+    description:
+      "Secure, containerized platforms: telemetry, event-driven services, and reproducible infrastructure.",
+    url: "https://kencopas.com/",
+    siteName: "Ken Copas",
+    type: "website",
+  },
+  robots: {
+    index: true,
+    follow: true,
+  },
 };
 
 export const viewport: Viewport = {

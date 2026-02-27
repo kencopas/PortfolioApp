@@ -107,3 +107,8 @@ down:
 
 stage-down:
 	ssh $(REMOTE_HOST) "cd $(SERVER_REPO_PATH) && ENV=stage make down"
+
+down-all-local:
+	ENV=dev make down
+	ENV=stage make down
+	ENV=prod make down
