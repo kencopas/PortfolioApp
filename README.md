@@ -70,4 +70,4 @@ Once the changes are in main, you just run make deploy-prod and the rest happens
 
 ### Testing
 
-For containerized testing, simply use the `build` and `test` targets in the Makefile. `make build` will locally build and tag your services' images, `make test` will `docker compose up` using the default environment (usually prod) docker-compose file. For quick testing after making changes, the command you need is `make build test`.
+For containerized testing, simply use the `test` target in the Makefile. `make test` will `docker compose up` using the default environment (usually dev) docker-compose file.

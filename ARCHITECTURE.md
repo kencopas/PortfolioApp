@@ -11,11 +11,14 @@ This repository defines a containerized web application deployed to a privately 
 - CI-driven image builds
 - Secure remote administration via private network overlay
 
+Refer to the [Architecture Decision Records](docs/adr) for more details.
+
 ---
 
 # 2. System Context
 
 ## 2.1 High-Level Architecture
+
 <img src="./docs/diagrams/architecture.drawio.svg" />
 
 ---
@@ -192,11 +195,11 @@ Firewall rules:
 
 1. Developer pushes to `main`
 2. Developer runs `make deploy-prod` which does the following:
-    - Builds images
-    - Tags and pushes to GHCR
-    - SSH into server
-    - Pulls repo and images with deployment tag
-    - Rebuilds and composes containers from images
+   - Builds images
+   - Tags and pushes to GHCR
+   - SSH into server
+   - Pulls repo and images with deployment tag
+   - Rebuilds and composes containers from images
 
 ---
 
@@ -281,14 +284,14 @@ If upstream containers restart:
 
 # 8. Design Decisions Summary
 
-| Decision | Reason |
-|----------|--------|
-| Docker Compose | Simple multi-service orchestration |
-| nginx Reverse Proxy | Explicit routing and boundary control |
-| GHCR | Integrated registry with GitHub CI |
-| Immutable Images | Deterministic deployment |
-| Tailscale | Zero-exposed SSH |
-| No Public Backend Port | Reduced attack surface |
+| Decision               | Reason                                |
+| ---------------------- | ------------------------------------- |
+| Docker Compose         | Simple multi-service orchestration    |
+| nginx Reverse Proxy    | Explicit routing and boundary control |
+| GHCR                   | Integrated registry with GitHub CI    |
+| Immutable Images       | Deterministic deployment              |
+| Tailscale              | Zero-exposed SSH                      |
+| No Public Backend Port | Reduced attack surface                |
 
 ---
 
