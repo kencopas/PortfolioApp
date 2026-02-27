@@ -5,7 +5,7 @@ services:
     image: ${NGINX_IMAGE}:${TAG}
     container_name: nginx-stage
     ports:
-      - "8081:80"   # Accessible via Tailscale only
+      - "8081:80" # Accessible via Tailscale only
     depends_on:
       - backend
       - frontend
@@ -16,6 +16,8 @@ services:
   backend:
     image: ${BACKEND_IMAGE}:${TAG}
     container_name: backend-stage
+    env_file:
+      - ../env/.env.stage
     expose:
       - "8000"
     networks:
@@ -25,6 +27,8 @@ services:
   frontend:
     image: ${FRONTEND_IMAGE}:${TAG}
     container_name: frontend-stage
+    env_file:
+      - ../env/.env.stage
     expose:
       - "3000"
     networks:
@@ -50,13 +54,12 @@ services:
       interval: 5s
       timeout: 5s
       retries: 5
-  
+
   migrate:
     image: ${BACKEND_IMAGE}:${TAG}
     command: uv run alembic upgrade head
     container_name: migrate-stage
-    env_file:
-      ../env/.env.stage
+    env_file: ../env/.env.stage
     networks:
       - app_net_stage
     depends_on:

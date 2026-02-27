@@ -15,20 +15,24 @@ services:
   backend:
     image: ${BACKEND_IMAGE}:${TAG}
     container_name: backend-prod
+    env_file:
+      - ../env/.env.prod
     expose:
       - "8000"
     networks:
       - app_net_prod
-  
+
   frontend:
     image: ${FRONTEND_IMAGE}:${TAG}
     container_name: frontend-prod
+    env_file:
+      - ../env/.env.prod
     restart: unless-stopped
     expose:
       - "3000"
     networks:
       - app_net_prod
-  
+
   postgres:
     image: postgres:16-alpine
     container_name: postgres-prod
@@ -48,13 +52,12 @@ services:
       interval: 5s
       timeout: 5s
       retries: 5
-  
+
   migrate:
     image: ${BACKEND_IMAGE}:${TAG}
     command: uv run alembic upgrade head
     container_name: migrate-prod
-    env_file:
-      ../env/.env.prod
+    env_file: ../env/.env.prod
     networks:
       - app_net_prod
     depends_on:
