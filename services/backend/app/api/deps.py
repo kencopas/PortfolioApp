@@ -6,12 +6,14 @@ from fastapi import Depends
 from sqlalchemy.orm import Session
 
 from app.db.session import SessionLocal
-from app.domain.event_bus import get_event_bus, EventBus
-from app.services.event_ingestion import EventIngestionService
-from app.services.event_repository import EventRepository
+from app.services.event_bus import get_event_bus, EventBus
+from app.services.event_ingestion import IngestionService
+from app.repositories.deployment_repository import DeploymentRepository
+from app.repositories.event_log_repository import EventLogRepository
 
 
 def get_db() -> Generator[Session, None, None]:
+    """Request-scoped, self-closing sqlalchemy database session"""
     db = SessionLocal()
     try:
         yield db
@@ -19,12 +21,24 @@ def get_db() -> Generator[Session, None, None]:
         db.close()
 
 
-def get_event_repository(db: Session = Depends(get_db)):
-    return EventRepository(db=db)
+def get_deployment_repository(db: Session = Depends(get_db)):
+    """Request-scoped deployment repository"""
+    return DeploymentRepository(db)
+
+
+def get_event_log_repository(db: Session = Depends(get_db)):
+    """Request-scoped event log repository"""
+    return EventLogRepository(db)
 
 
 def get_ingestion_service(
-    repo: EventRepository = Depends(get_event_repository),
+    deployments: DeploymentRepository = Depends(get_deployment_repository),
+    event_log: EventLogRepository = Depends(get_event_log_repository),
     bus: EventBus = Depends(get_event_bus),
 ) -> None:
-    return EventIngestionService(repo=repo, bus=bus)
+    """Request-scoped ingestion service with repository and event bus access"""
+    return IngestionService(
+        deployments=deployments,
+        event_log=event_log,
+        bus=bus,
+    )

@@ -1,6 +1,7 @@
 """Registered event handlers for all incoming events"""
 
-from app.domain.event_bus import get_event_bus
+from app.services.event_bus import get_event_bus
+from app.services.handler_context import HandlerContext
 from app.domain.events import (
     DeploymentStarted,
     DeploymentFinished,
@@ -8,7 +9,6 @@ from app.domain.events import (
 )
 
 from app.core.logger import get_logger
-from app.services.event_repository import EventRepository
 
 
 bus = get_event_bus()
@@ -16,13 +16,13 @@ logger = get_logger("Event Handlers")
 
 
 @bus.subscribe(DeploymentStarted)
-def deployment_started(event: DeploymentStarted, repo: EventRepository):
+def deployment_started(event: DeploymentStarted, ctx: HandlerContext):
     """Attempt to create a deployment for a DeploymentStarted event"""
 
     logger.info("Deployment creation initiated. Checking for existing deployment...")
 
     try:
-        repo.create_deployment(
+        ctx.deployments.create_deployment(
             deployment_id=event.deployment_id,
             image_tag=event.image_tag,
             started_at=event.occurred_at,
@@ -38,12 +38,12 @@ def deployment_started(event: DeploymentStarted, repo: EventRepository):
 
 
 @bus.subscribe(DeploymentFinished)
-def deployment_finished(event: DeploymentFinished, repo: EventRepository):
+def deployment_finished(event: DeploymentFinished, ctx: HandlerContext):
 
     logger.info("Deployment closure initiated. Checking for existing deployment...")
 
     try:
-        repo.close_deployment(event.deployment_id)
+        ctx.deployments.close_deployment(event.deployment_id)
     except ValueError:
         logger.exception("Deployment closure attempted for non-existent deployment.")
         return
@@ -55,7 +55,7 @@ def deployment_finished(event: DeploymentFinished, repo: EventRepository):
 
 
 @bus.subscribe(DeploymentFailed)
-def deployment_failed(event: DeploymentFailed, repo: EventRepository):
+def deployment_failed(event: DeploymentFailed, ctx: HandlerContext):
 
     logger.info(
         "Investigating deployment failure. See reason below.\n\n"
@@ -63,7 +63,7 @@ def deployment_failed(event: DeploymentFailed, repo: EventRepository):
     )
 
     try:
-        repo.fail_deployment(event.deployment_id)
+        ctx.deployments.fail_deployment(event.deployment_id)
     except ValueError:
         logger.exception("Deployment failure attempted for non-existent deployment.")
         return

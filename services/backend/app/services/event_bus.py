@@ -1,14 +1,19 @@
 from functools import lru_cache
 from collections import defaultdict
-from typing import DefaultDict, Callable, List, Type
+from typing import DefaultDict, Protocol, List, Type
 
 from app.domain.events.base import BaseEvent
 from app.core.logger import get_logger, GREEN, RESET
-from app.services.event_repository import EventRepository
+from app.services.handler_context import HandlerContext
 
 
-EventHandler = Callable[[BaseEvent, EventRepository], None]
 logger = get_logger("Event Bus")
+
+
+class EventHandler(Protocol):
+    def __call__(self, event: BaseEvent, ctx: HandlerContext) -> None:
+        """Handler function that recieves an event and handler context"""
+        ...
 
 
 class EventBus:
@@ -25,7 +30,7 @@ class EventBus:
         """Initializes an EventBus with an empty mapping of handlers."""
         self._handlers = defaultdict(list)
 
-    def publish(self, event: BaseEvent, repo: EventRepository) -> None:
+    def publish(self, event: BaseEvent, ctx: HandlerContext) -> None:
         """Publishes an instance of BaseEvent child class, executing all registered handlers"""
         event_type = type(event)
         event_type_repr = f"{GREEN}{event_type.__name__}{RESET}"
@@ -40,7 +45,7 @@ class EventBus:
             logger.info(f"Handling {event_type_repr} event...")
             handler(
                 event=event,
-                repo=repo,
+                ctx=ctx,
             )
 
     def subscribe(self, event: Type[BaseEvent]) -> None:

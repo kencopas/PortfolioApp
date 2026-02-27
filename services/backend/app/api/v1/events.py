@@ -6,9 +6,9 @@ from fastapi import APIRouter, HTTPException, status, Depends
 from pydantic_core import ValidationError
 
 from app.core.logger import get_logger
-from app.api.deps import get_ingestion_service, get_event_repository
-from app.services.event_ingestion import EventIngestionService
-from app.services.event_repository import EventRepository
+from app.api.deps import get_ingestion_service, get_event_log_repository
+from app.services.event_ingestion import IngestionService
+from app.repositories.event_log_repository import EventLogRepository
 
 from app.domain.events.union import Event
 from app.domain.events.base import BaseEvent
@@ -22,11 +22,11 @@ logger = get_logger("Events API")
 @router.get("")
 def search_events_endpoint(
     query: FilteredQueryRequest = Depends(),
-    repo: EventRepository = Depends(get_event_repository),
+    event_log: EventLogRepository = Depends(get_event_log_repository),
 ) -> List[PlatformEventRecord]:
     """Searches all events, currently returns all events without filters"""
 
-    events = repo.search_events(
+    events = event_log.search_events(
         limit=query.limit,
         after=query.after,
         before=query.before,
@@ -41,7 +41,7 @@ def search_events_endpoint(
 @router.post("", status_code=status.HTTP_201_CREATED)
 def emit_event(
     event: Event,
-    ingestion_service: EventIngestionService = Depends(get_ingestion_service),
+    ingestion_service: IngestionService = Depends(get_ingestion_service),
 ) -> BaseEvent:
     """Validates and ingests an event"""
     try:
