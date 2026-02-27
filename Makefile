@@ -2,15 +2,16 @@
 # Config
 # ========================================
 
-# Environment (default: prod)
-ENV ?= prod
+# Environment (default: dev)
+ENV ?= dev
 
 # SSH / Server
-SSH_COMMAND=ssh home-server
+REMOTE_HOST=home-server
 SERVER_REPO_PATH=~/PortfolioApp
 SERVER_OS=linux/amd64
 
 # Directories
+ENV_DIR=./infra/env
 COMPOSE_DIR=./infra/compose
 SERVICES_DIR=./services
 
@@ -34,25 +35,26 @@ export
 # Local Testing
 # ========================================
 
-build:
-	docker build \
-		-t ${BACKEND_IMAGE}:$(TAG) \
-		$(BACKEND_PATH)
-
-	docker build \
-		-t ${FRONTEND_IMAGE}:$(TAG) \
-		$(FRONTEND_PATH)
-
-	docker build \
-		-t ${NGINX_IMAGE}:$(TAG) \
-		$(NGINX_PATH)
-
 test:
-	@echo "Running local test with tag $(TAG)..."
-	TAG=$(TAG) docker compose -f $(COMPOSE_FILE) up --remove-orphans
+	docker compose -f $(COMPOSE_FILE) up --build
+	docker compose -f $(COMPOSE_FILE) down
 
-	@echo "Stopping local testing containers..."
-	TAG=$(TAG) docker compose -f $(COMPOSE_FILE) down
+delete-volumes:
+	docker compose -f $(COMPOSE_FILE) down -v
+
+test-backend:
+	docker compose -f $(COMPOSE_FILE) up postgres migrate backend --build
+	docker compose -f $(COMPOSE_FILE) down
+
+# ========================================
+# Database Administration
+# ========================================
+
+psql:
+	docker exec -it postgres-$(ENV) psql -U ${POSTGRES_USER} -d ${POSTGRES_DB}
+
+backend-exec:
+	docker compose -f $(COMPOSE_FILE) exec backend /bin/bash
 
 # ========================================
 # Build + Push
@@ -75,7 +77,7 @@ build-push:
 		--push $(NGINX_PATH)
 
 # ========================================
-# Deploy (server side)
+# Deploy
 # ========================================
 
 deploy:
@@ -84,15 +86,24 @@ deploy:
 	TAG=$(DEPLOY_TAG) docker compose --progress=plain -f $(COMPOSE_FILE) up -d --remove-orphans
 
 deploy-stage:
-	make build-push
-	$(SSH_COMMAND) "cd $(SERVER_REPO_PATH) && git pull origin main && ENV=stage DEPLOY_TAG=$(TAG) make deploy"
+	ssh $(REMOTE_HOST) "cd $(SERVER_REPO_PATH) && git pull origin main && ENV=stage DEPLOY_TAG=$(TAG) make deploy"
 
 deploy-prod:
-	$(SSH_COMMAND) "cd $(SERVER_REPO_PATH) && git pull origin main && ENV=prod DEPLOY_TAG=$(TAG) make deploy"
+	ssh $(REMOTE_HOST) "cd $(SERVER_REPO_PATH) && git pull origin main && ENV=prod DEPLOY_TAG=$(TAG) make deploy"
+
+deploy-env-vars:
+	@echo "Removing previous backup and creating new infra/env-backup on server..."
+	ssh $(REMOTE_HOST) "cd $(SERVER_REPO_PATH) && rm -rf infra/env-backup && mv infra/env infra/env-backup"
+
+	@echo "Copying local environment files to infra/env on server..."
+	scp -r $(ENV_DIR) $(REMOTE_HOST):$(SERVER_REPO_PATH)/infra/
 
 # ========================================
 # Maintenance
 # ========================================
 
+down:
+	docker compose -f $(COMPOSE_FILE) down
+
 stage-down:
-	$(SSH_COMMAND) "cd $(SERVER_REPO_PATH) && docker compose -f $(COMPOSE_DIR)/docker-compose.stage.yml down"
+	ssh $(REMOTE_HOST) "cd $(SERVER_REPO_PATH) && ENV=stage make down"

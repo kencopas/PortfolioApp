@@ -28,6 +28,40 @@ services:
       - "3000"
     networks:
       - app_net_prod
+  
+  postgres:
+    image: postgres:16-alpine
+    container_name: postgres-prod
+    restart: unless-stopped
+
+    env_file:
+      - ../env/.env.prod
+
+    volumes:
+      - postgres_data_prod:/var/lib/postgresql/data
+
+    networks:
+      - app_net_prod
+
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U $${POSTGRES_USER} -d $${POSTGRES_DB}"]
+      interval: 5s
+      timeout: 5s
+      retries: 5
+  
+  migrate:
+    image: ${BACKEND_IMAGE}:${TAG}
+    command: uv run alembic upgrade head
+    container_name: migrate-prod
+    env_file:
+      ../env/.env.prod
+    networks:
+      - app_net_prod
+    depends_on:
+      - postgres
+
+volumes:
+  postgres_data_prod:
 
 networks:
   app_net_prod:

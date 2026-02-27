@@ -1,25 +1,50 @@
 # Backend Service
 
-## API
+## File Structure
 
-As of right now, this backend is pretty basic. Here's the file structure:
+The following file structure separates components into the following layers:
+
+- **API:** Inbound request validation and service orchestration
+- **Service:** Application logic; Specific to frameworks/libraries
+- **Domain:** Business logic; Agnostic to frameworks/libraries
+- **Database:** Database connection and modeling
+- **Core:** Components frequently used by most other services (config, logging, etc.)
 
 ```
 .
-├── main.py
 ├── Dockerfile
-└── api
-    ├── routes.py  # Root endpoints
-    ├── schemas.py
-    ├── prefix1
-    │   ├── routes.py
-    │   └── schemas.py
-    └── prefix2
-        ├── routes.py
-        └── schemas.py
+├── alembic/                    # Database Migrations
+│   ├── README.md
+│   ├── env.py                  # Alembic Configurations
+│   └── versions/               # Alembic Revisions
+├── app/
+│   ├── main.py
+│   │
+│   ├── api/
+│   │   ├── router.py           # Consolidates API Routers
+│   │   ├── deps.py             # API Dependencies
+│   │   └── v1/
+│   │       └── events.py       # `/events` routes
+│   │
+│   ├── core/                   # Frequently Used Application Components
+│   │   ├── config.py
+│   │   └── logger.py
+│   │
+│   ├── db/                     # Database Interaction Components
+│   │   ├── models/             # SQLAlchemy ORM Models
+│   │   └── session.py
+│   │
+│   ├── domain/                 # Business Logic
+│   │   ├── event_bus.py
+│   │   ├── enums.py
+│   │   ├── handlers/           # Event Handlers
+│   │   └── events/             # Event API Schemas
+│   │
+│   └── services/               # Application Logic
+│       ├── event_repository.py
+│       └── event_ingestion.py
+└── docs/
 ```
-
-Any root endpoints reside in `api/routes.py` and any prefixes with multiple endpoints reside in their respective `api/prefix/routes.py` file, along with their local `schemas.py`.
 
 ## Docker
 

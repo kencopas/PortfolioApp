@@ -1,0 +1,112 @@
+<!doctype html>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <title>PTS Admin Console</title>
+    <link rel="stylesheet" href="/static/styles.css" />
+  </head>
+  <body>
+    <header class="topbar">
+      <div class="topbar-left">
+        <h1>Telemetry Console</h1>
+        <span class="subtitle">Platform Event Stream</span>
+      </div>
+
+      <div class="controls">
+        <label>
+          Limit
+          <input id="limit" type="number" value="20" min="1" max="200" />
+        </label>
+
+        <label>
+          Event Type
+          <input id="event_type" type="text" placeholder="deployment.started" />
+        </label>
+
+        <label>
+          After
+          <input id="after" type="datetime-local" />
+        </label>
+
+        <label>
+          Before
+          <input id="before" type="datetime-local" />
+        </label>
+
+        <button onclick="loadEvents()">Search</button>
+      </div>
+    </header>
+
+    <main class="container">
+      <div id="events" class="event-grid"></div>
+    </main>
+
+    <script>
+      async function loadEvents() {
+        const limit = document.getElementById("limit").value;
+        const eventType = document.getElementById("event_type").value;
+        const after = document.getElementById("after").value;
+        const before = document.getElementById("before").value;
+
+        const params = new URLSearchParams();
+
+        if (limit) params.append("limit", limit);
+        if (eventType) params.append("event_type", eventType);
+
+        if (after) {
+          const afterISO = new Date(after).toISOString();
+          params.append("after", afterISO);
+        }
+
+        if (before) {
+          const beforeISO = new Date(before).toISOString();
+          params.append("before", beforeISO);
+        }
+
+        const response = await fetch(`/events?${params.toString()}`);
+        const data = await response.json();
+
+        const container = document.getElementById("events");
+        container.innerHTML = "";
+
+        if (data.length === 0) {
+          container.innerHTML = `<div class="empty-state">No events found.</div>`;
+          return;
+        }
+
+        data.forEach((event) => {
+          const card = document.createElement("div");
+          card.className = "event-card";
+
+          card.innerHTML = `
+            <div class="card-header">
+                <span class="event-type">${event.event_type}</span>
+                <span class="event-time">${formatDate(event.received_at)}</span>
+            </div>
+
+            <div class="card-meta">
+                <div>
+                    <span class="meta-label">Event ID</span>
+                    <span class="meta-value">${event.id}</span>
+                </div>
+            </div>
+
+            <details class="payload">
+                <summary>View Payload</summary>
+                <pre>${JSON.stringify(event.payload, null, 2)}</pre>
+            </details>
+          `;
+
+          container.appendChild(card);
+        });
+      }
+
+      function formatDate(dateStr) {
+        const date = new Date(dateStr);
+        return date.toLocaleString();
+      }
+
+      loadEvents();
+    </script>
+  </body>
+</html>
