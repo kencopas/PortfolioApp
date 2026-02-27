@@ -1,5 +1,4 @@
 from uuid import UUID
-from typing import Optional
 from datetime import datetime
 
 from pydantic import BaseModel
@@ -17,10 +16,3 @@ class PlatformEventRecord(BaseModel):
         return (
             f"<{type(self).__name__} id={str(self.id)[:5]} payload={str(self.payload)}>"
         )
-
-
-class FilteredQueryRequest(BaseModel):
-    limit: Optional[int] = 100
-    after: Optional[datetime] = None
-    before: Optional[datetime] = None
-    event_type: Optional[str] = None

@@ -12,7 +12,9 @@ from app.repositories.event_log_repository import EventLogRepository
 
 from app.domain.events.union import Event
 from app.domain.events.base import BaseEvent
-from app.domain.schemas.platform import PlatformEventRecord, FilteredQueryRequest
+from app.domain.schemas.platform import PlatformEventRecord
+
+from .schemas import FilteredQueryRequest
 
 
 router = APIRouter(prefix="/events")
