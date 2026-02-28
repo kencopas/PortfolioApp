@@ -96,7 +96,7 @@ export default function RootLayout({
               <a target="_blank" href="https://www.github.com/kencopas">
                 <FaGithub size={25} />
               </a>
-              <a target="_blank" href="https://www.youtube.com">
+              <a target="_blank" href="https://www.youtube.com/@CopasCodes">
                 <FaYoutube size={25} />
               </a>
               <a target="_blank" href="https://www.linkedin.com/in/kennycopas">
