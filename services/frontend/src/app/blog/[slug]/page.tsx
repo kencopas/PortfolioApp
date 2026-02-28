@@ -39,9 +39,9 @@ export default async function BlogPostPage(props: {
   }
 
   return (
-    <main className="max-w-4/5 m-auto py-8 px-4 text-text-primary">
+    <main className="md:max-w-9/10 lg:max-w-4/5 m-auto py-8 px-4 text-text-primary">
       <header className="mb-8">
-        <h1 className="text-left text-[42px] font-semibold py-5">
+        <h1 className="text-left text-[42px] font-semibold py-5 leading-tight">
           {post.frontmatter.title}
         </h1>
         {post.frontmatter.date && (
