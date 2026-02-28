@@ -1,18 +1,10 @@
 import Surface from "@/components/ui/Surface";
 import ArrowLink from "@/components/ui/ArrowLink";
 import { SurfaceHeading, SurfaceSubtext } from "@/components/ui/Typography";
-
-export interface BlogEntryData {
-  id: string;
-  title: string;
-  category?: string;
-  description?: string;
-  read_time_minutes?: number;
-  year?: number;
-}
+import { BlogMeta } from "@/lib/blog";
 
 interface BlogEntryProps {
-  blogEntryData: BlogEntryData;
+  blogEntryData: BlogMeta;
   className?: string;
 }
 
@@ -20,11 +12,10 @@ export default function BlogEntry({
   blogEntryData,
   className = "",
 }: BlogEntryProps) {
-  const { title, category, description, read_time_minutes, year } =
-    blogEntryData;
+  const { title, slug, summary, date, tags, readTimeMinutes } = blogEntryData;
 
-  const ftime = read_time_minutes && `${read_time_minutes} min read`;
-  const infoBar = [ftime, category, year].filter(Boolean);
+  const ftime = `${readTimeMinutes} min read`;
+  const infoBar = [ftime, tags?.[0], date].filter(Boolean);
 
   return (
     <Surface className={className}>
@@ -34,7 +25,7 @@ export default function BlogEntry({
             <SurfaceHeading className="text-lg leading-tight">
               {title}
             </SurfaceHeading>
-            {description && <SurfaceSubtext>{description}</SurfaceSubtext>}
+            {summary && <SurfaceSubtext>{summary}</SurfaceSubtext>}
           </div>
           {infoBar.length > 0 && (
             <span className="text-text-muted text-xs font-medium">
@@ -42,7 +33,7 @@ export default function BlogEntry({
             </span>
           )}
         </div>
-        <ArrowLink href="/read-blog" className="flex-1 text-right">
+        <ArrowLink href={`/blog/${slug}`} className="flex-1 text-right">
           Read
         </ArrowLink>
       </div>

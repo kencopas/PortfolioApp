@@ -1,10 +1,11 @@
 import SlideFade from "@/components/motion/SlideFade";
-import BlogEntry, { BlogEntryData } from "@/components/blog/BlogEntry";
+import BlogEntry from "@/components/blog/BlogEntry";
+import { BlogMeta } from "@/lib/blog";
 
 import Section from "./Section";
 
 interface WritingSectionProps {
-  blogEntries: BlogEntryData[];
+  blogEntries: BlogMeta[];
   title: string;
   className?: string;
 }
@@ -18,9 +19,9 @@ export default function WritingSection({
     <Section title={title} className={className}>
       <div className="flex flex-col gap-6">
         {blogEntries.map((blogEntryData, i) => (
-          <SlideFade key={`${i}-${blogEntryData.id}`} y={20}>
+          <SlideFade key={`${i}-${blogEntryData.slug}`} y={20}>
             <BlogEntry
-              key={`${i}-${blogEntryData.id}`}
+              key={`${i}-${blogEntryData.slug}`}
               blogEntryData={blogEntryData}
               className="flex-1"
             />
