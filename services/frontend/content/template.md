@@ -5,47 +5,118 @@ summary: "Summary."
 tags: ["Category", "Other Tag"]
 ---
 
-## Introduction
+# Title
 
-Start off with a hook; Capture the reader's attention and introduce what the post will be about.
-
-## Subheading
-
-It's **awesome** to be _really_ nice. Here's why:
-
-- First reason
-- Second reason
-- Last reason
-
-Here's a [quote](https://johnspence.com/90-quotes-change/ "Super cool quotes website") too.
-
-> Life is 10% of what happens to you and 90% of how you react to it.
->
-> And another line as well.
-
-Divider!
+Short subtitle or one-sentence summary.
 
 ---
 
-Also, have some `Java` code. Go to my website at <https://www.kencopas.com>
+## Introduction
 
-```java
-public static void main(String[] args) {
-    System.out.println("Hello World!");
-}
-```
+Opening hook.
 
-Oh ya, here's a globe.
+Introduce:
 
-![Grey Globe Icon](/public/blog/template/globe.svg)
+- the problem
+- misconception
+- question
+- insight
 
-And last but not least, a TABLE!
+Explain why the topic matters.
 
-| Header 1 | Header 2 |
-| -------- | -------- |
-| Cell 1A  | Cell 2A  |
-| Cell 1B  | Cell 2B  |
+---
+
+## The Problem
+
+Describe:
+
+- what people commonly believe
+- where confusion comes from
+- what is missing from the discussion
+
+---
+
+## Core Concept
+
+Explain the main idea.
+
+Break it into:
+
+- components
+- layers
+- examples
+- systems
+- workflows
+
+Use headings when needed.
+
+### Example Subsection
+
+Explain one important part clearly.
+
+### Another Subsection
+
+Expand on another important concept.
+
+---
+
+## Challenges / Tradeoffs
+
+Discuss:
+
+- limitations
+- engineering challenges
+- common mistakes
+- tradeoffs
+- scaling concerns
+
+This section usually adds depth and credibility.
+
+---
+
+## Key Lessons
+
+Summarize:
+
+- what readers should understand
+- what matters most
+- practical takeaways
+
+Example:
+
+- Lesson 1
+- Lesson 2
+- Lesson 3
+
+---
+
+## Future Outlook
+
+Discuss:
+
+- where things are going
+- emerging trends
+- what you expect to change
+
+---
 
 ## Conclusion
 
-Summarize what was discussed and wrap it up with final thoughts and the conclusion.
+Reinforce:
+
+- the core message
+- final insight
+- takeaway
+
+End with a strong closing thought.
+
+---
+
+## Optional Call to Action
+
+Examples:
+
+- Ask a question
+- Invite discussion
+- Link GitHub/project
+- Suggest following/subscribing
