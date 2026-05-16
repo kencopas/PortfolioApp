@@ -1,8 +1,10 @@
 import { notFound } from "next/navigation";
 import type { Metadata } from "next";
 import { getAllPostSlugs, getPostBySlug } from "@/lib/blog";
-import ReactMarkdown from "react-markdown";
 import remarkGfm from "remark-gfm";
+import { SurfaceSubtext } from "@/components/ui/Typography";
+import rehypePrettyCode from "rehype-pretty-code";
+import { MarkdownAsync } from "react-markdown";
 
 export const dynamic = "force-static";
 
@@ -44,6 +46,9 @@ export default async function BlogPostPage(props: {
         <h1 className="text-left text-[42px] font-semibold py-5 leading-tight">
           {post.frontmatter.title}
         </h1>
+        <SurfaceSubtext className="text-left text-text-secondary pb-8 font-medium lg:text-lg">
+          {post.frontmatter.summary}
+        </SurfaceSubtext>
         {post.frontmatter.date && (
           <span className="text-text-muted font-medium">
             {`${post.frontmatter.readTimeMinutes} min read • ${post.frontmatter.tags?.[0] ?? "Technology"} • ${post.frontmatter.date}`}
@@ -60,9 +65,12 @@ export default async function BlogPostPage(props: {
       </header>
 
       <div className="prose prose-invert max-w-none prose-p:text-lg">
-        <ReactMarkdown remarkPlugins={[remarkGfm]}>
+        <MarkdownAsync
+          remarkPlugins={[remarkGfm]}
+          rehypePlugins={[[rehypePrettyCode, { theme: "github-dark" }]]}
+        >
           {post.content}
-        </ReactMarkdown>
+        </MarkdownAsync>
       </div>
     </main>
   );
