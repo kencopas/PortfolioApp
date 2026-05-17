@@ -26,11 +26,7 @@ export function SurfaceHeading({ children, className = "" }: TypographyProps) {
 }
 
 export function SurfaceSubtext({ children, className = "" }: TypographyProps) {
-  return (
-    <p className={`text-text-muted text-sm md:text-base ${className}`}>
-      {children}
-    </p>
-  );
+  return <p className={`text-text-muted ${className}`}>{children}</p>;
 }
 
 export function SuperBigText({ children, className = "" }: TypographyProps) {
