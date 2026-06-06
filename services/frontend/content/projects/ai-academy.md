@@ -1,5 +1,5 @@
 ---
-id: ai_academy
+id: ai-academy
 title: AI Academy
 description: Enterprise AI enablement initiative delivering MCP, Copilot, and AI-assisted SDLC training for engineering and QA teams
 stack: [Python, Java, GitHub Copilot, Model Context Protocol]

@@ -1,5 +1,5 @@
 ---
-id: application_expert_agent
+id: application-expert-agent
 title: Application Expert Agent
 description: AI-powered incident triage platform using knowledge graphs, vector search, and MCP orchestration for real-time operational expertise
 stack: [React, Neo4j, ChromaDB, FastMCP]

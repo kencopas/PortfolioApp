@@ -1,5 +1,5 @@
 ---
-id: gitlab_mcp_server
+id: gitlab-mcp-server
 title: GitLab MCP Server
 description: Secure IDE-native GitLab integration server enabling authenticated issue management workflows directly within developer environments
 stack: [Python, FastMCP, GitLab, OAuth]

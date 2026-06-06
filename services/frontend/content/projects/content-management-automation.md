@@ -1,5 +1,5 @@
 ---
-id: content_management_automation
+id: content-management-automation
 title: Content Management Intelligent Automation
 description: Agentic content automation workflow integrating Jira, proprietary CMS tooling, and MCP-driven orchestration for large-scale content operations
 stack: [Python, FastMCP, Jira, Tridion Sites]

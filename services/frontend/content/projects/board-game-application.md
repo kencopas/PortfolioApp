@@ -1,5 +1,5 @@
 ---
-id: board_game_application
+id: board-game-application
 title: Board Game Application
 description: Cross-platform multiplayer board game platform with event-driven backend architecture and synchronized real-time gameplay state management
 stack: [Python, Flutter, Dart, FastAPI]

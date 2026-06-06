@@ -1,12 +1,12 @@
 ---
-id: quality_engineering_ai_assistant
-title: Quality Engineering AI Assistant
-description: AI-assisted browser automation framework integrating Jira workflows and MCP tooling for scalable UI validation and test execution
-stack: [Python, Cursor, Jira, Model Context Protocol]
-signal: 8
-role: Solutions Architect & Lead Engineer
+id: robert-robotics-platform
+title: Multimodal Robotics Platform (RoBert)
+description: Distributed robotics platform combining edge devices, WebSocket streaming, and cloud-based AI inference for real-time perception and control
+stack: [Python, C, Machine Learning, ESP32]
+signal: 7
+role: Systems Engineer
 status: Active Development
-duration: 2 months
+duration: 4 months to-date
 ---
 
 I'll be documenting this project in more detail in the near future, stay tuned!

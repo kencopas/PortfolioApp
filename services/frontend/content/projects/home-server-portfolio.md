@@ -1,5 +1,5 @@
 ---
-id: home_server_portfolio
+id: home-server-portfolio
 title: Home Server / Portfolio Application
 description: Self-hosted application platform with containerized deployments, telemetry services, and modern full-stack portfolio infrastructure
 stack: [Python, PostgreSQL, Next.js, TypeScript]

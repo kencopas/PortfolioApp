@@ -1,5 +1,5 @@
 ---
-id: incident_response_sra
+id: incident-response-sra
 title: Incident Response Source Reference App
 description: Modular incident response platform with multi-model LLM integration, enterprise retrieval pipelines, and Azure-ready deployment architecture
 stack: [Flask, React, ChromaDB, Docker]
