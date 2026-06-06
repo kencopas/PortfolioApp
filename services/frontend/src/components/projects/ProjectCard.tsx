@@ -49,7 +49,9 @@ export default function ProjectCard({
         <SurfaceHeading>{project.title}</SurfaceHeading>
 
         {/* Project Description */}
-        <SurfaceSubtext>{project.description}</SurfaceSubtext>
+        <SurfaceSubtext className="leading-normal">
+          {project.description}
+        </SurfaceSubtext>
 
         {/* Project Stack */}
         {project.stack && (
