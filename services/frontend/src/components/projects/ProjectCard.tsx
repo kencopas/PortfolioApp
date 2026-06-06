@@ -2,6 +2,7 @@ import { ReactNode } from "react";
 
 import Surface from "@/components/ui/Surface";
 import { SurfaceHeading, SurfaceSubtext } from "@/components/ui/Typography";
+import Button from "@/components/ui/Button";
 
 import TechStack from "./TechStack";
 
@@ -10,6 +11,7 @@ export interface Project {
   title: string;
   description: ReactNode;
   stack?: string[];
+  signal?: number;
 }
 
 interface ProjectCardProps {
@@ -26,7 +28,22 @@ export default function ProjectCard({
   stackMode = "vertical",
 }: ProjectCardProps) {
   return (
-    <Surface className={`mx-auto text-text-primary ${className}`}>
+    <Button
+      href={`/projects/${project.id}`}
+      style="base"
+      className={`
+        rounded-4xl
+        shadow-lg
+        bg-background-secondary
+        p-6
+        md:p-8
+        border-[1]
+        border-border
+        mx-auto
+        text-text-primary
+        ${className}
+      `}
+    >
       <div className="flex flex-col gap-2">
         {/* Project Title */}
         <SurfaceHeading>{project.title}</SurfaceHeading>
@@ -46,6 +63,6 @@ export default function ProjectCard({
         {/* Optional: Buttons / Other */}
         {children}
       </div>
-    </Surface>
+    </Button>
   );
 }
