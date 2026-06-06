@@ -4,6 +4,9 @@ title: AI Academy
 description: Enterprise AI enablement initiative delivering MCP, Copilot, and AI-assisted SDLC training for engineering and QA teams
 stack: [Python, Java, GitHub Copilot, Model Context Protocol]
 signal: 7
+role: Technical Instructor
+status: Completed
+duration: 2 months
 ---
 
 I'll be documenting this project in more detail in the near future, stay tuned!

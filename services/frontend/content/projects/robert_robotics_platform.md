@@ -4,6 +4,9 @@ title: Multimodal Robotics Platform (RoBert)
 description: Distributed robotics platform combining edge devices, WebSocket streaming, and cloud-based AI inference for real-time perception and control
 stack: [Python, C, Machine Learning, ESP32]
 signal: 7
+role: Systems Engineer
+status: Active Development
+duration: 4 months to-date
 ---
 
 I'll be documenting this project in more detail in the near future, stay tuned!

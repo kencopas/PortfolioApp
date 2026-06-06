@@ -100,20 +100,29 @@ export default async function ProjectPage(props: {
               </div>
             </div>
 
-            {(project.frontmatter.github || project.frontmatter.demo) && (
+            {(project.frontmatter.github.length > 0 ||
+              project.frontmatter.demo) && (
               <div className="my-6 border-t border-border" />
             )}
 
             <div className="flex flex-col gap-3">
-              {project.frontmatter.github && (
-                <a
-                  href={project.frontmatter.github}
-                  target="_blank"
-                  className="flex items-center gap-2 text-text-primary"
-                >
-                  <FaGithub />
-                  Source Code
-                </a>
+              {project.frontmatter.github.length > 0 && (
+                <div className="flex flex-col gap-3">
+                  {project.frontmatter.github.map((url, index) => (
+                    <a
+                      key={url}
+                      href={url}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="flex items-center gap-2 text-text-primary"
+                    >
+                      <FaGithub />
+                      {project.frontmatter.github.length === 1
+                        ? "Source Code"
+                        : `Source Code (${index + 1})`}
+                    </a>
+                  ))}
+                </div>
               )}
 
               {project.frontmatter.demo && (

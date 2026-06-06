@@ -4,6 +4,9 @@ title: Incident Response Source Reference App
 description: Modular incident response platform with multi-model LLM integration, enterprise retrieval pipelines, and Azure-ready deployment architecture
 stack: [Flask, React, ChromaDB, Docker]
 signal: 10
+role: AI Engineer
+status: Completed
+duration: 4 months
 ---
 
 I'll be documenting this project in more detail in the near future, stay tuned!

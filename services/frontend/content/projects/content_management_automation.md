@@ -4,6 +4,9 @@ title: Content Management Intelligent Automation
 description: Agentic content automation workflow integrating Jira, proprietary CMS tooling, and MCP-driven orchestration for large-scale content operations
 stack: [Python, FastMCP, Jira, Tridion Sites]
 signal: 8
+role: Solutions Architect & Lead Engineer
+status: Active Development
+duration: 2 months
 ---
 
 I'll be documenting this project in more detail in the near future, stay tuned!

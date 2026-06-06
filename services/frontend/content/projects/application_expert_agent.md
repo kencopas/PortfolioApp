@@ -4,6 +4,9 @@ title: Application Expert Agent
 description: AI-powered incident triage platform using knowledge graphs, vector search, and MCP orchestration for real-time operational expertise
 stack: [React, Neo4j, ChromaDB, FastMCP]
 signal: 9
+role: AI Engineer
+status: Active Development
+duration: 3 months
 ---
 
 I'll be documenting this project in more detail in the near future, stay tuned!

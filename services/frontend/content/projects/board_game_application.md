@@ -4,6 +4,12 @@ title: Board Game Application
 description: Cross-platform multiplayer board game platform with event-driven backend architecture and synchronized real-time gameplay state management
 stack: [Python, Flutter, Dart, FastAPI]
 signal: 4
+role: Sole Developer
+status: Suspended
+duration: 3 months
+github:
+  - https://github.com/kencopas/Monopoly-Server
+  - https://github.com/kencopas/FlutterApplication
 ---
 
 I'll be documenting this project in more detail in the near future, stay tuned!

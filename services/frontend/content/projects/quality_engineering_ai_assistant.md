@@ -4,6 +4,9 @@ title: Quality Engineering AI Assistant
 description: AI-assisted browser automation framework integrating Jira workflows and MCP tooling for scalable UI validation and test execution
 stack: [Python, Cursor, Jira, Model Context Protocol]
 signal: 8
+role: Solutions Architect & Lead Engineer
+status: Active Development
+duration: 2 months
 ---
 
 I'll be documenting this project in more detail in the near future, stay tuned!

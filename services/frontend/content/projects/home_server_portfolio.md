@@ -5,8 +5,8 @@ description: Self-hosted application platform with containerized deployments, te
 stack: [Python, PostgreSQL, Next.js, TypeScript]
 signal: 5
 github: https://www.github.com/kencopas/PortfolioApp
-role: Architect & Engineer
-status: Deployed, Ongoing Development
+role: Solutions Architect & Engineer
+status: Deployed, Active Development
 duration: 5 months to-date
 ---
 

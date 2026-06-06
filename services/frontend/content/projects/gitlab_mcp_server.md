@@ -4,6 +4,10 @@ title: GitLab MCP Server
 description: Secure IDE-native GitLab integration server enabling authenticated issue management workflows directly within developer environments
 stack: [Python, FastMCP, GitLab, OAuth]
 signal: 6
+role: Sole Developer
+status: Internal Tool
+duration: 2 months
+github: https://github.com/kencopas/GitLab-MCP
 ---
 
 I'll be documenting this project in more detail in the near future, stay tuned!

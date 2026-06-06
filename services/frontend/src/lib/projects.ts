@@ -7,11 +7,11 @@ export interface ProjectFrontmatter {
   title: string;
   description: string;
   stack: string[];
+  github: Array<string>;
 
   role?: string;
   status?: string;
   duration?: string;
-  github?: string;
   demo?: string;
 }
 
@@ -48,7 +48,11 @@ export async function getProjectBySlug(slug: string): Promise<Project> {
       title: data.title,
       description: data.description,
       stack: data.stack ?? [],
-      github: data.github,
+      github: Array.isArray(data.github)
+        ? data.github
+        : data.github
+          ? [data.github]
+          : [],
       role: data.role,
       duration: data.duration,
       status: data.status,
