@@ -1,0 +1,15 @@
+[project]
+name = "robert"
+version = "0.1.0"
+description = "Add your description here"
+readme = "README.md"
+requires-python = ">=3.12"
+dependencies = [
+    "numpy>=2.4.6",
+    "openai>=2.43.0",
+    "openai-whisper>=20250625",
+    "scipy>=1.17.1",
+    "sounddevice>=0.5.5",
+    "soundfile>=0.14.0",
+    "websockets>=16.0",
+]
