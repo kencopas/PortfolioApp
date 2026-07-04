@@ -8,6 +8,14 @@ import { FaLinkedin, FaGithub, FaYoutube } from "react-icons/fa";
 import Navbar from "@/components/layout/Navbar";
 import NavLink from "@/components/layout/NavLink";
 
+const websiteJsonLd = {
+  "@context": "https://schema.org",
+  "@type": "WebSite",
+  name: "Ken Copas",
+  alternateName: "Ken Copas",
+  url: "https://kencopas.com",
+};
+
 const geistSans = Geist({
   variable: "--font-geist-sans",
   subsets: ["latin"],
@@ -29,6 +37,11 @@ export const metadata: Metadata = {
   alternates: {
     canonical: "https://kencopas.com/",
   },
+  icons: {
+    icon: "/kencopaslogo.png",
+    shortcut: "/kencopaslogo.png",
+    apple: "/kencopaslogo.png",
+  },
   openGraph: {
     title: "Ken Copas - Software Engineer | Platform & Telemetry",
     description:
@@ -36,6 +49,21 @@ export const metadata: Metadata = {
     url: "https://kencopas.com/",
     siteName: "Ken Copas",
     type: "website",
+    images: [
+      {
+        url: "/kencopaslogo.png",
+        width: 512,
+        height: 512,
+        alt: "Ken Copas logo",
+      },
+    ],
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: "Ken Copas - Software Engineer | Platform & Telemetry",
+    description:
+      "Secure, containerized platforms: telemetry, event-driven services, and reproducible infrastructure.",
+    images: ["/kencopaslogo.png"],
   },
   robots: {
     index: true,
@@ -54,10 +82,18 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en" className="bg-background-primary">
+    <html lang="en" className="bg-background-primary" suppressHydrationWarning>
       <body
         className={`${geistSans.variable} ${geistMono.variable} antialiased bg-linear-to-tl from-background-primary to-background-secondary`}
+        suppressHydrationWarning
       >
+        {/* WebSite Schema */}
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{
+            __html: JSON.stringify(websiteJsonLd),
+          }}
+        />
         <div className="flex flex-col gap-4 mx-auto w-full max-w-6xl px-6">
           {/* Navbar */}
           <Navbar title="Ken Copas">
