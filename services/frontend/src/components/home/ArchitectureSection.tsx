@@ -26,9 +26,9 @@ export default function ArchitectureSection() {
               className="w-full h-auto"
             />
           </SlideFade>
-          <ArrowLink href="/architecture" className="pt-4">
+          {/* <ArrowLink href="/architecture" className="pt-4">
             View Full Architecture
-          </ArrowLink>
+          </ArrowLink> */}
         </Surface>
       </SlideFade>
     </Section>
