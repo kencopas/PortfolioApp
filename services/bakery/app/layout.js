@@ -1,7 +1,7 @@
 import "./globals.css";
 
 const siteUrl = "https://velvetpawbakery.com";
-const description = "Velvet Paw Bakery — coming soon.";
+const description = "Homemade baked goods by Taylor Driver in Westchase, Florida. Local delivery and market pop-ups, with Tea the cat as our mascot.";
 const logo = {
   "@type": "ImageObject",
   url: `${siteUrl}/logo-circle.png`,
@@ -24,6 +24,18 @@ const websiteJsonLd = {
       name: "Velvet Paw Bakery",
       url: siteUrl,
       logo,
+      description,
+      email: "kenny@copas.net",
+      telephone: "+17402722433",
+      areaServed: "Westchase, Florida",
+      sameAs: ["https://www.instagram.com/velvetpawbakery/", "https://www.tiktok.com/@velvetpawbakery"],
+      contactPoint: {
+        "@type": "ContactPoint",
+        name: "Ken Copas",
+        contactType: "Customer inquiries",
+        email: "kenny@copas.net",
+        telephone: "+17402722433",
+      },
     },
   ],
 };
