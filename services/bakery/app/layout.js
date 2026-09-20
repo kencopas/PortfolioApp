@@ -28,6 +28,14 @@ const websiteJsonLd = {
       email: "kenny@copas.net",
       telephone: "+17402722433",
       areaServed: "Westchase, Florida",
+      address: {
+        "@type": "PostalAddress",
+        streetAddress: "12120 Sugarloaf Key St",
+        addressLocality: "Tampa",
+        addressRegion: "FL",
+        postalCode: "33626",
+        addressCountry: "US",
+      },
       sameAs: ["https://www.instagram.com/velvetpawbakery/", "https://www.tiktok.com/@velvetpawbakery"],
       contactPoint: {
         "@type": "ContactPoint",

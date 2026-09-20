@@ -49,6 +49,7 @@ export default function Home() {
               <div><dt>Email</dt><dd><a href="mailto:kenny@copas.net">kenny@copas.net</a></dd></div>
               <div><dt>Phone</dt><dd><a href="tel:+17402722433">(740) 272-2433</a></dd></div>
               <div><dt>Our community</dt><dd>Westchase, Florida</dd></div>
+              <div><dt>Business address</dt><dd><address>12120 Sugarloaf Key St<br />Tampa, FL 33626</address></dd></div>
             </dl>
             <div className="social-links" aria-label="Social media">
               <a href="https://www.instagram.com/velvetpawbakery/">Instagram ↗</a>
