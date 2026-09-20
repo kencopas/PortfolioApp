@@ -25,7 +25,7 @@ const websiteJsonLd = {
       url: siteUrl,
       logo,
       description,
-      email: "kenny@copas.net",
+      email: "ken@velvetpawbakery.com",
       telephone: "+17402722433",
       areaServed: "Westchase, Florida",
       address: {
@@ -36,12 +36,15 @@ const websiteJsonLd = {
         postalCode: "33626",
         addressCountry: "US",
       },
-      sameAs: ["https://www.instagram.com/velvetpawbakery/", "https://www.tiktok.com/@velvetpawbakery"],
+      sameAs: [
+        "https://www.instagram.com/velvetpawbakery/",
+        "https://www.tiktok.com/@velvetpawbakery",
+      ],
       contactPoint: {
         "@type": "ContactPoint",
         name: "Ken Copas",
         contactType: "Customer inquiries",
-        email: "kenny@copas.net",
+        email: "ken@velvetpawbakery.com",
         telephone: "+17402722433",
       },
     },

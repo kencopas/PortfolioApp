@@ -15,11 +15,11 @@ export default function Contact() {
         <div className="flex flex-col gap-4 items-center">
           <SurfaceHeading>Email</SurfaceHeading>
           <a
-            href="mailto:kenny@copas.net"
+            href="mailto:ken@velvetpawbakery.com"
             target="_blank"
             className="text-text-primary hover:underline"
           >
-            kenny@copas.net
+            ken@velvetpawbakery.com
           </a>
         </div>
 
