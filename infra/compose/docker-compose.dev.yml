@@ -64,6 +64,14 @@ services:
 
     command: sh -c "npm ci && npm run dev"
 
+  bakery:
+    build:
+      context: ../../services/bakery
+    ports:
+      - "3001:3000"
+    networks:
+      - app_net_dev
+
   migrate:
     image: backend:dev
     command: uv run alembic upgrade head

@@ -21,6 +21,8 @@ COMPOSE_FILE=$(COMPOSE_DIR)/docker-compose.$(ENV).yml
 # Service Paths
 BACKEND_PATH=$(SERVICES_DIR)/backend
 FRONTEND_PATH=$(SERVICES_DIR)/frontend
+BAKERY_PATH=$(SERVICES_DIR)/bakery
+BAKERY_IMAGE ?= ghcr.io/kencopas/portfolio-bakery
 NGINX_PATH=./infra/nginx
 
 # Tagging
@@ -61,6 +63,11 @@ backend-exec:
 # ========================================
 
 build-push:
+	docker buildx build \
+		--platform $(SERVER_OS) \
+		-t ${BAKERY_IMAGE}:$(TAG) \
+		--push $(BAKERY_PATH)
+
 	docker buildx build \
 		--platform $(SERVER_OS) \
 		-t ${BACKEND_IMAGE}:$(TAG) \

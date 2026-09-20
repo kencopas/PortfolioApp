@@ -9,6 +9,7 @@ services:
     depends_on:
       - backend
       - frontend
+      - bakery
     networks:
       - app_net_prod
 
@@ -27,6 +28,17 @@ services:
     container_name: frontend-prod
     env_file:
       - ../env/.env.prod
+    environment:
+      NODE_ENV: production
+    restart: unless-stopped
+    expose:
+      - "3000"
+    networks:
+      - app_net_prod
+
+  bakery:
+    image: ${BAKERY_IMAGE:-ghcr.io/kencopas/portfolio-bakery}:${TAG}
+    container_name: bakery-prod
     environment:
       NODE_ENV: production
     restart: unless-stopped
