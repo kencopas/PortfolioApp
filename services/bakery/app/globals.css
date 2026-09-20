@@ -2,8 +2,14 @@
 body { margin: 0; background: #f8efdf; color: #49322f; font-family: Georgia, serif; }
 main { min-height: 100svh; display: flex; flex-direction: column; align-items: center; justify-content: center; text-align: center; padding: 40px 24px; border: 14px solid #eadac9; }
 .eyebrow { text-transform: uppercase; letter-spacing: .2em; font: 12px/1.8 system-ui, sans-serif; margin: 20px 0; }
-h1 { margin: 0; width: min(100%, 480px); }
-.logo { display: block; width: 100%; height: auto; }
+.brand { display: flex; align-items: center; justify-content: center; gap: clamp(24px, 5vw, 64px); width: 100%; margin: 16px 0; }
+h1 { margin: 0; text-align: left; font-size: clamp(44px, 7vw, 84px); line-height: 1.05; font-weight: 400; letter-spacing: -.035em; }
+h1 span { display: block; color: #995951; font-style: italic; }
+.logo { display: block; width: clamp(180px, 28vw, 320px); max-width: 100%; height: auto; }
+@media (max-width: 600px) {
+  .brand { flex-direction: column; gap: 24px; }
+  h1 { text-align: center; }
+}
 .description { font-size: 20px; margin: 28px 0; }
 .rule { height: 1px; width: 70px; background: #ba9681; }
 .footer { font-size: 13px; letter-spacing: .06em; margin-top: 26px; }

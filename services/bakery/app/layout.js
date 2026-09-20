@@ -4,7 +4,7 @@ const siteUrl = "https://velvetpawbakery.com";
 const description = "Velvet Paw Bakery — coming soon.";
 const logo = {
   "@type": "ImageObject",
-  url: `${siteUrl}/logo.png`,
+  url: `${siteUrl}/logo-circle.png`,
   width: 1024,
   height: 1024,
 };
@@ -44,13 +44,13 @@ export const metadata = {
     url: `${siteUrl}/`,
     siteName: "Velvet Paw Bakery",
     type: "website",
-    images: [{ url: "/logo.png", width: 1024, height: 1024, alt: "Velvet Paw Bakery logo" }],
+    images: [{ url: "/logo-circle.png", width: 1024, height: 1024, alt: "Velvet Paw Bakery logo" }],
   },
   twitter: {
     card: "summary",
     title: "Velvet Paw Bakery",
     description,
-    images: ["/logo.png"],
+    images: ["/logo-circle.png"],
   },
   robots: { index: true, follow: true },
 };
